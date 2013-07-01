@@ -1,0 +1,817 @@
+\section{com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot \-Class \-Reference}
+\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot}\index{com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot@{com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot}}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries communication\-Task}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \-Wheelphone\-Robot} (\-Activity a, \-Context c)
+\begin{DoxyCompactList}\small\item\em \-Class constructor. \end{DoxyCompactList}\item 
+void {\bf start\-U\-S\-B\-Communication} ()
+\begin{DoxyCompactList}\small\item\em \-To be inserted into the \char`\"{}on\-Start\char`\"{} function of the main activity class. \end{DoxyCompactList}\item 
+void {\bf resume\-U\-S\-B\-Communication} ()
+\begin{DoxyCompactList}\small\item\em \-To be inserted into the \char`\"{}on\-Resume\char`\"{} function of the main activity class. \end{DoxyCompactList}\item 
+void {\bf pause\-U\-S\-B\-Communication} ()
+\begin{DoxyCompactList}\small\item\em \-To be inserted into the \char`\"{}on\-Pause\char`\"{} function of the main activity class. \end{DoxyCompactList}\item 
+void {\bf set\-Speed} (int l, int r)
+\begin{DoxyCompactList}\small\item\em \-Set the new left and right speeds for the robot. \-The new data will be actually sent to the robot when \char`\"{}send\-Commands\-To\-Robot\char`\"{} is called the next time within the timer communication task (50 ms cadence). \-This means that the robot speed will be updated after at most 50 ms (if the task isn't delayed by the system). \end{DoxyCompactList}\item 
+void {\bf set\-Left\-Speed} (int l)
+\begin{DoxyCompactList}\small\item\em \-Set the new left speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. \end{DoxyCompactList}\item 
+void {\bf set\-Right\-Speed} (int r)
+\begin{DoxyCompactList}\small\item\em \-Set the new right speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. \end{DoxyCompactList}\item 
+void {\bf set\-Raw\-Speed} (int l, int r)
+\begin{DoxyCompactList}\small\item\em \-Set the new left and right speeds for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. \end{DoxyCompactList}\item 
+void {\bf set\-Raw\-Left\-Speed} (int l)
+\begin{DoxyCompactList}\small\item\em \-Set the new left speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. \end{DoxyCompactList}\item 
+void {\bf set\-Raw\-Right\-Speed} (int r)
+\begin{DoxyCompactList}\small\item\em \-Set the new right speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. \end{DoxyCompactList}\item 
+void {\bf enable\-Speed\-Control} ()
+\begin{DoxyCompactList}\small\item\em \-Enable speed control on the robot (controller based on speed measure with back-\/emf). \end{DoxyCompactList}\item 
+void {\bf disable\-Speed\-Control} ()
+\begin{DoxyCompactList}\small\item\em \-Disable speed control on the robot. \end{DoxyCompactList}\item 
+void {\bf enable\-Soft\-Acceleration} ()
+\begin{DoxyCompactList}\small\item\em \-Enable soft acceleration on the robot; this is useful when the robot is started fast (from standstill) because it avoid the robot to wheelie. \end{DoxyCompactList}\item 
+void {\bf disable\-Soft\-Acceleration} ()
+\begin{DoxyCompactList}\small\item\em \-Disable soft acceleration on the robot. \end{DoxyCompactList}\item 
+void {\bf enable\-Obstacle\-Avoidance} ()
+\begin{DoxyCompactList}\small\item\em \-Enable obstacle avoidance onboard. \end{DoxyCompactList}\item 
+void {\bf disable\-Obstacle\-Avoidance} ()
+\begin{DoxyCompactList}\small\item\em \-Disable obstacle avoidance onboard. \end{DoxyCompactList}\item 
+void {\bf enable\-Cliff\-Avoidance} ()
+\begin{DoxyCompactList}\small\item\em \-Enable cliff avoidance onboard; when a cliff is detected the robot is stopped until this flag is reset. \end{DoxyCompactList}\item 
+void {\bf disable\-Cliff\-Avoidance} ()
+\begin{DoxyCompactList}\small\item\em \-Disable cliff avoidance onboard. \end{DoxyCompactList}\item 
+void {\bf calibrate\-Sensors} ()
+\begin{DoxyCompactList}\small\item\em \-Start the calibration of all the sensors. \-Use \char`\"{}is\-Calibrating\char`\"{} to know when the calibration is done. \end{DoxyCompactList}\item 
+int {\bf get\-Battery\-Raw} ()
+\begin{DoxyCompactList}\small\item\em \-Returns the sampled value of the battery. \end{DoxyCompactList}\item 
+float {\bf get\-Battery\-Voltage} ()
+\begin{DoxyCompactList}\small\item\em \-Returns the current battery voltage. \end{DoxyCompactList}\item 
+byte {\bf get\-Flag\-Status} ()
+\begin{DoxyCompactList}\small\item\em \-Returns the flag byte that the robot set/clear itself. \end{DoxyCompactList}\item 
+boolean {\bf is\-Charging} ()
+\begin{DoxyCompactList}\small\item\em \-Returns the charging status. \end{DoxyCompactList}\item 
+boolean {\bf is\-Charged} ()
+\begin{DoxyCompactList}\small\item\em \-Returns the battery charged status. \end{DoxyCompactList}\item 
+int {\bf get\-Left\-Encoder} ()
+\begin{DoxyCompactList}\small\item\em \-The value of the left encoder returned from the robot. \-The encoders values are based on the measured speed not on a real encoder device. \-The values given by the robot are the current encoders values, not the absolute value. \end{DoxyCompactList}\item 
+int {\bf get\-Right\-Encoder} ()
+\begin{DoxyCompactList}\small\item\em \-The value of the right encoder returned from the robot. \-For more details refer to \char`\"{}get\-Left\-Encoder\char`\"{}. \end{DoxyCompactList}\item 
+int[$\,$] {\bf get\-Front\-Proxs} ()
+\begin{DoxyCompactList}\small\item\em \-The robot has 4 front proximity sensors positioned as follows\-: \end{DoxyCompactList}\item 
+int {\bf get\-Front\-Prox} (int ind)
+\begin{DoxyCompactList}\small\item\em \-Return the corresponding front proximity sensor value. \-For more details refer to \char`\"{}get\-Front\-Proxs\char`\"{}. \end{DoxyCompactList}\item 
+int[$\,$] {\bf get\-Front\-Ambients} ()
+\begin{DoxyCompactList}\small\item\em \-The robot has 4 front ambient sensors, actually they are the front proximity sensors that can measure also the ambient light. \-The higher the value the lighter the environment. \end{DoxyCompactList}\item 
+int {\bf get\-Front\-Ambient} (int ind)
+\begin{DoxyCompactList}\small\item\em \-Return the corresponding front ambient sensor value. \-For more details refer to \char`\"{}get\-Front\-Ambients\char`\"{}. \end{DoxyCompactList}\item 
+int[$\,$] {\bf get\-Ground\-Proxs} ()
+\begin{DoxyCompactList}\small\item\em \-The robot has 4 ground proximity sensors positioned as follows\-: \end{DoxyCompactList}\item 
+int {\bf get\-Ground\-Prox} (int ind)
+\begin{DoxyCompactList}\small\item\em \-Return the corresponding ground proximity sensor value. \-For more details refer to \char`\"{}get\-Ground\-Proxs\char`\"{}. \end{DoxyCompactList}\item 
+int[$\,$] {\bf get\-Ground\-Ambients} ()
+\begin{DoxyCompactList}\small\item\em \-The robot has 4 ground ambient sensors, actually they are the ground proximity sensors that can measure also the ambient light. \-The higher the value the lighter the environment. \end{DoxyCompactList}\item 
+int {\bf get\-Ground\-Ambient} (int ind)
+\begin{DoxyCompactList}\small\item\em \-Return the corresponding ground ambient sensor value. \-For more details refer to \char`\"{}get\-Ground\-Ambients\char`\"{}. \end{DoxyCompactList}\item 
+boolean {\bf is\-U\-S\-B\-Connected} ()
+\begin{DoxyCompactList}\small\item\em \-Indicate whether the robot is connected (and exchanging packets) with the phone or not. \end{DoxyCompactList}\item 
+void {\bf set\-U\-S\-B\-Communication\-Timeout} (int ms)
+\begin{DoxyCompactList}\small\item\em \-This timeout sets how much to wait for a response from the robot before changing to a disconnected state. \end{DoxyCompactList}\item 
+boolean {\bf is\-Calibrating} ()
+\begin{DoxyCompactList}\small\item\em \-Tell whether the calibration is still in progress or not. \end{DoxyCompactList}\item 
+double[$\,$] {\bf get\-Odometry} ()
+\begin{DoxyCompactList}\small\item\em \-Return the odometry information resulting from the encoders values received by the robot. \-The positive \-X axis is pointing forward and the positive \-X axis is pointing to the left side of the robot. \end{DoxyCompactList}\item 
+double {\bf get\-Odometry\-X} ()
+\begin{DoxyCompactList}\small\item\em \-Return the x absolute position in mm. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. \end{DoxyCompactList}\item 
+double {\bf get\-Odometry\-Y} ()
+\begin{DoxyCompactList}\small\item\em \-Return the y absolute position in mm. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. \end{DoxyCompactList}\item 
+double {\bf get\-Odometry\-Theta} ()
+\begin{DoxyCompactList}\small\item\em \-Return the theta absolute angle in radians. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. \end{DoxyCompactList}\item 
+void {\bf set\-Odometry} (double x, double y, double t)
+\begin{DoxyCompactList}\small\item\em \-Set/reset odometry components. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. \end{DoxyCompactList}\item 
+void {\bf set\-Odometry\-Parameters} (double dl, double dr, double wb)
+\begin{DoxyCompactList}\small\item\em \-Set/reset odometry parameters. \end{DoxyCompactList}\item 
+void {\bfseries append\-Log} (\-String text)\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a6edb0cb47eac95882c69c1ae23153924}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Package \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries right\-Encoder} = 0\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_aeab363e08214b1d9136fa0a6e359dff6}
+
+\item 
+int {\bfseries r\-Speed} = 0\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a6810a08ab7a371ea47308d9b356dff11}
+
+\item 
+double {\bfseries right\-Enc\-Sum} = 0.\-0\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a2747653edd50335f345aa17da14c4901}
+
+\item 
+double {\bfseries right\-Enc\-Sum\-Prev} = 0.\-0\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_afb17875c0c01e6d5aa47953dd369df68}
+
+\item 
+double {\bfseries final\-Time} = 0.\-0\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a3962d8899fb4c2ccd92456dd1d77d2a4}
+
+\item 
+double {\bfseries total\-Time} = 0.\-0\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_adf5efcf22a5bc70bd0dd10781f346b4f}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!\-Wheelphone\-Robot@{\-Wheelphone\-Robot}}
+\index{\-Wheelphone\-Robot@{\-Wheelphone\-Robot}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{\-Wheelphone\-Robot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-Wheelphone\-Robot} (
+\begin{DoxyParamCaption}
+\item[{\-Activity}]{a, }
+\item[{\-Context}]{c}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a882447c2b395e80cde420ba5310872dd}
+
+
+\-Class constructor. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em a} & pass the main activity instance (this) \\
+\hline
+{\em c} & pass the main activity instance (this) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\doxyref{\-Wheelphone\-Robot}{p.}{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot} instance 
+\end{DoxyReturn}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!calibrate\-Sensors@{calibrate\-Sensors}}
+\index{calibrate\-Sensors@{calibrate\-Sensors}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{calibrate\-Sensors}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-calibrate\-Sensors} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ae51b9688ee2bdce7c52e7cba69441e73}
+
+
+\-Start the calibration of all the sensors. \-Use \char`\"{}is\-Calibrating\char`\"{} to know when the calibration is done. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!disable\-Cliff\-Avoidance@{disable\-Cliff\-Avoidance}}
+\index{disable\-Cliff\-Avoidance@{disable\-Cliff\-Avoidance}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{disable\-Cliff\-Avoidance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-disable\-Cliff\-Avoidance} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_aa0d8c26b3d5bf5e9f2d7617706ab1ebe}
+
+
+\-Disable cliff avoidance onboard. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!disable\-Obstacle\-Avoidance@{disable\-Obstacle\-Avoidance}}
+\index{disable\-Obstacle\-Avoidance@{disable\-Obstacle\-Avoidance}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{disable\-Obstacle\-Avoidance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-disable\-Obstacle\-Avoidance} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_afbace3137ae2906ef0f216e80bc29ce2}
+
+
+\-Disable obstacle avoidance onboard. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!disable\-Soft\-Acceleration@{disable\-Soft\-Acceleration}}
+\index{disable\-Soft\-Acceleration@{disable\-Soft\-Acceleration}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{disable\-Soft\-Acceleration}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-disable\-Soft\-Acceleration} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a39032d183454bbaa1c34405e492247e0}
+
+
+\-Disable soft acceleration on the robot. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!disable\-Speed\-Control@{disable\-Speed\-Control}}
+\index{disable\-Speed\-Control@{disable\-Speed\-Control}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{disable\-Speed\-Control}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-disable\-Speed\-Control} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a837826866008c5ff1ed453bfc41d1864}
+
+
+\-Disable speed control on the robot. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!enable\-Cliff\-Avoidance@{enable\-Cliff\-Avoidance}}
+\index{enable\-Cliff\-Avoidance@{enable\-Cliff\-Avoidance}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{enable\-Cliff\-Avoidance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-enable\-Cliff\-Avoidance} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ab6a414ae86c2478c1abef7b9ee4c014a}
+
+
+\-Enable cliff avoidance onboard; when a cliff is detected the robot is stopped until this flag is reset. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!enable\-Obstacle\-Avoidance@{enable\-Obstacle\-Avoidance}}
+\index{enable\-Obstacle\-Avoidance@{enable\-Obstacle\-Avoidance}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{enable\-Obstacle\-Avoidance}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-enable\-Obstacle\-Avoidance} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ac5171b72b1ff96ba8fe9142f1a25f3b3}
+
+
+\-Enable obstacle avoidance onboard. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!enable\-Soft\-Acceleration@{enable\-Soft\-Acceleration}}
+\index{enable\-Soft\-Acceleration@{enable\-Soft\-Acceleration}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{enable\-Soft\-Acceleration}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-enable\-Soft\-Acceleration} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_aa521363b0a8829dba5187dcdfb21fb5f}
+
+
+\-Enable soft acceleration on the robot; this is useful when the robot is started fast (from standstill) because it avoid the robot to wheelie. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!enable\-Speed\-Control@{enable\-Speed\-Control}}
+\index{enable\-Speed\-Control@{enable\-Speed\-Control}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{enable\-Speed\-Control}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-enable\-Speed\-Control} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a07a72966ce373e9fe7cbdc8abcacf6bc}
+
+
+\-Enable speed control on the robot (controller based on speed measure with back-\/emf). 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Battery\-Raw@{get\-Battery\-Raw}}
+\index{get\-Battery\-Raw@{get\-Battery\-Raw}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Battery\-Raw}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Battery\-Raw} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a0304eeb5d0082ef8326bd41ebdcaadcb}
+
+
+\-Returns the sampled value of the battery. 
+
+\begin{DoxyReturn}{\-Returns}
+battery level (from 0 to 100) 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Battery\-Voltage@{get\-Battery\-Voltage}}
+\index{get\-Battery\-Voltage@{get\-Battery\-Voltage}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Battery\-Voltage}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Battery\-Voltage} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a3b36dc5dd576aa8581bc2936dd7b3074}
+
+
+\-Returns the current battery voltage. 
+
+\begin{DoxyReturn}{\-Returns}
+battery voltage (from 3.\-7 to 4.\-2 volts) 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Flag\-Status@{get\-Flag\-Status}}
+\index{get\-Flag\-Status@{get\-Flag\-Status}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Flag\-Status}]{\setlength{\rightskip}{0pt plus 5cm}byte {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Flag\-Status} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a89d2f9f315e3b9795f5efb055b9c71dc}
+
+
+\-Returns the flag byte that the robot set/clear itself. 
+
+\begin{DoxyReturn}{\-Returns}
+flag byte\-:
+\begin{DoxyItemize}
+\item bit 5\-: 1 =$>$ robot is charging, 0 =$>$ robot not charging
+\item bit 6\-: 1 =$>$ robot completely charged, 0 =$>$ robot not completely charged
+\item others bits not used 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Front\-Ambient@{get\-Front\-Ambient}}
+\index{get\-Front\-Ambient@{get\-Front\-Ambient}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Front\-Ambient}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Front\-Ambient} (
+\begin{DoxyParamCaption}
+\item[{int}]{ind}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a73772cca20797333e599aa081e1c8adf}
+
+
+\-Return the corresponding front ambient sensor value. \-For more details refer to \char`\"{}get\-Front\-Ambients\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+sensor value 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Front\-Ambients@{get\-Front\-Ambients}}
+\index{get\-Front\-Ambients@{get\-Front\-Ambients}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Front\-Ambients}]{\setlength{\rightskip}{0pt plus 5cm}int [$\,$] {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Front\-Ambients} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_abe6e1eb6c3530b17bfe9cffc0778c49d}
+
+
+\-The robot has 4 front ambient sensors, actually they are the front proximity sensors that can measure also the ambient light. \-The higher the value the lighter the environment. 
+
+\begin{DoxyReturn}{\-Returns}
+array of size 4 containing the sensors values 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Front\-Prox@{get\-Front\-Prox}}
+\index{get\-Front\-Prox@{get\-Front\-Prox}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Front\-Prox}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Front\-Prox} (
+\begin{DoxyParamCaption}
+\item[{int}]{ind}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a85386b91e2fa7aaf13ec181016df9aca}
+
+
+\-Return the corresponding front proximity sensor value. \-For more details refer to \char`\"{}get\-Front\-Proxs\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+sensor value 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Front\-Proxs@{get\-Front\-Proxs}}
+\index{get\-Front\-Proxs@{get\-Front\-Proxs}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Front\-Proxs}]{\setlength{\rightskip}{0pt plus 5cm}int [$\,$] {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Front\-Proxs} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a0a7d63c410014e60eda60d1370e15a7e}
+
+
+\-The robot has 4 front proximity sensors positioned as follows\-: 
+
+\begin{DoxyVerb}
+     			1	2
+     		0			3
+       \end{DoxyVerb}
+ \-The higher the value the nearer the object in front of the sensor. \begin{DoxyReturn}{\-Returns}
+array of size 4 containing the sensors values 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Ground\-Ambient@{get\-Ground\-Ambient}}
+\index{get\-Ground\-Ambient@{get\-Ground\-Ambient}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Ground\-Ambient}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Ground\-Ambient} (
+\begin{DoxyParamCaption}
+\item[{int}]{ind}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a16b969724ec02fc7bb69c5201e0218d4}
+
+
+\-Return the corresponding ground ambient sensor value. \-For more details refer to \char`\"{}get\-Ground\-Ambients\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+sensor value 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Ground\-Ambients@{get\-Ground\-Ambients}}
+\index{get\-Ground\-Ambients@{get\-Ground\-Ambients}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Ground\-Ambients}]{\setlength{\rightskip}{0pt plus 5cm}int [$\,$] {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Ground\-Ambients} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a604e783e8bb4267777a1a52b527f5b84}
+
+
+\-The robot has 4 ground ambient sensors, actually they are the ground proximity sensors that can measure also the ambient light. \-The higher the value the lighter the environment. 
+
+\begin{DoxyReturn}{\-Returns}
+array of size 4 containing the sensors values 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Ground\-Prox@{get\-Ground\-Prox}}
+\index{get\-Ground\-Prox@{get\-Ground\-Prox}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Ground\-Prox}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Ground\-Prox} (
+\begin{DoxyParamCaption}
+\item[{int}]{ind}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a76b4c4ea196d49d87b6bd53bc7f243d9}
+
+
+\-Return the corresponding ground proximity sensor value. \-For more details refer to \char`\"{}get\-Ground\-Proxs\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+sensor value 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Ground\-Proxs@{get\-Ground\-Proxs}}
+\index{get\-Ground\-Proxs@{get\-Ground\-Proxs}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Ground\-Proxs}]{\setlength{\rightskip}{0pt plus 5cm}int [$\,$] {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Ground\-Proxs} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ad50b68c3daf9d3941078bef2425166de}
+
+
+\-The robot has 4 ground proximity sensors positioned as follows\-: 
+
+\begin{DoxyVerb}
+     			1	2
+     		0			3
+       \end{DoxyVerb}
+ \-The higher the value the darker the object in front of the sensor. \begin{DoxyReturn}{\-Returns}
+array of size 4 containing the sensors values 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Left\-Encoder@{get\-Left\-Encoder}}
+\index{get\-Left\-Encoder@{get\-Left\-Encoder}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Left\-Encoder}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Left\-Encoder} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a58ffceabd33287ff785c749af53acfb0}
+
+
+\-The value of the left encoder returned from the robot. \-The encoders values are based on the measured speed not on a real encoder device. \-The values given by the robot are the current encoders values, not the absolute value. 
+
+\begin{DoxyReturn}{\-Returns}
+left encoder (positive or negative) 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Odometry@{get\-Odometry}}
+\index{get\-Odometry@{get\-Odometry}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Odometry}]{\setlength{\rightskip}{0pt plus 5cm}double [$\,$] {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Odometry} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a71af99e88c63af09b521670b9eaea930}
+
+
+\-Return the odometry information resulting from the encoders values received by the robot. \-The positive \-X axis is pointing forward and the positive \-X axis is pointing to the left side of the robot. 
+
+\begin{DoxyReturn}{\-Returns}
+array of length 3 containing sequentially x position (mm), y position (mm), theta (radians). 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Odometry\-Theta@{get\-Odometry\-Theta}}
+\index{get\-Odometry\-Theta@{get\-Odometry\-Theta}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Odometry\-Theta}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Odometry\-Theta} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ab26f55b473f4d8c12e78546eeca82532}
+
+
+\-Return the theta absolute angle in radians. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+theta (radians) 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Odometry\-X@{get\-Odometry\-X}}
+\index{get\-Odometry\-X@{get\-Odometry\-X}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Odometry\-X}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Odometry\-X} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a80c74e3263b71c288527ef9c48e1970b}
+
+
+\-Return the x absolute position in mm. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+x position (mm) 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Odometry\-Y@{get\-Odometry\-Y}}
+\index{get\-Odometry\-Y@{get\-Odometry\-Y}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Odometry\-Y}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Odometry\-Y} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a5ce85be0d19c1957dd24827ed5dce89b}
+
+
+\-Return the y absolute position in mm. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+y position (mm) 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!get\-Right\-Encoder@{get\-Right\-Encoder}}
+\index{get\-Right\-Encoder@{get\-Right\-Encoder}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{get\-Right\-Encoder}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-get\-Right\-Encoder} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a38ce3ff2a6c68e20400ba612b15b5d0d}
+
+
+\-The value of the right encoder returned from the robot. \-For more details refer to \char`\"{}get\-Left\-Encoder\char`\"{}. 
+
+\begin{DoxyReturn}{\-Returns}
+right encoder (positive or negative) 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!is\-Calibrating@{is\-Calibrating}}
+\index{is\-Calibrating@{is\-Calibrating}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{is\-Calibrating}]{\setlength{\rightskip}{0pt plus 5cm}boolean com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-is\-Calibrating (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a6496f36375deb43754b4960e7d4577a5}
+
+
+\-Tell whether the calibration is still in progress or not. 
+
+\begin{DoxyReturn}{\-Returns}
+true (calibration in progress), false otherwise 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!is\-Charged@{is\-Charged}}
+\index{is\-Charged@{is\-Charged}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{is\-Charged}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-is\-Charged} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_afc2516554061c3379f08ba698b2ad556}
+
+
+\-Returns the battery charged status. 
+
+\begin{DoxyReturn}{\-Returns}
+true if battery charged, false otherwise 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!is\-Charging@{is\-Charging}}
+\index{is\-Charging@{is\-Charging}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{is\-Charging}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-is\-Charging} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a8feaf716645a83c700e9d51c5af7028e}
+
+
+\-Returns the charging status. 
+
+\begin{DoxyReturn}{\-Returns}
+true if charging, false otherwise 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!is\-U\-S\-B\-Connected@{is\-U\-S\-B\-Connected}}
+\index{is\-U\-S\-B\-Connected@{is\-U\-S\-B\-Connected}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{is\-U\-S\-B\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-is\-U\-S\-B\-Connected} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a78bb1787f7d9512dec0a1b325e052027}
+
+
+\-Indicate whether the robot is connected (and exchanging packets) with the phone or not. 
+
+\begin{DoxyReturn}{\-Returns}
+true (if robot connected), false otherwise 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!pause\-U\-S\-B\-Communication@{pause\-U\-S\-B\-Communication}}
+\index{pause\-U\-S\-B\-Communication@{pause\-U\-S\-B\-Communication}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{pause\-U\-S\-B\-Communication}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-pause\-U\-S\-B\-Communication} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a001f0b5e413eec78e8055a56b9e5da5f}
+
+
+\-To be inserted into the \char`\"{}on\-Pause\char`\"{} function of the main activity class. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!resume\-U\-S\-B\-Communication@{resume\-U\-S\-B\-Communication}}
+\index{resume\-U\-S\-B\-Communication@{resume\-U\-S\-B\-Communication}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{resume\-U\-S\-B\-Communication}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-resume\-U\-S\-B\-Communication} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a2977fe381051570c91f7690cb931f458}
+
+
+\-To be inserted into the \char`\"{}on\-Resume\char`\"{} function of the main activity class. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Left\-Speed@{set\-Left\-Speed}}
+\index{set\-Left\-Speed@{set\-Left\-Speed}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Left\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Left\-Speed} (
+\begin{DoxyParamCaption}
+\item[{int}]{l}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_aa6ab49ebdeb4cdf2611842a445795e13}
+
+
+\-Set the new left speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em l} & left speed given in mm/s \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Odometry@{set\-Odometry}}
+\index{set\-Odometry@{set\-Odometry}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Odometry}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Odometry} (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{t}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_afb7c444bc422419db2abf1d9f01d7618}
+
+
+\-Set/reset odometry components. \-For more information refer to \char`\"{}get\-Odometry\char`\"{}. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em x} & x position (mm) \\
+\hline
+{\em y} & y position (mm) \\
+\hline
+{\em t} & theta angle (radians) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Odometry\-Parameters@{set\-Odometry\-Parameters}}
+\index{set\-Odometry\-Parameters@{set\-Odometry\-Parameters}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Odometry\-Parameters}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Odometry\-Parameters} (
+\begin{DoxyParamCaption}
+\item[{double}]{dl, }
+\item[{double}]{dr, }
+\item[{double}]{wb}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a4cd180cb3d2232dff3240fc59a07b248}
+
+
+\-Set/reset odometry parameters. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em dl} & left wheel diamater (m) \\
+\hline
+{\em dr} & right wheel diamater (m) \\
+\hline
+{\em wb} & wheels distance (m) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Raw\-Left\-Speed@{set\-Raw\-Left\-Speed}}
+\index{set\-Raw\-Left\-Speed@{set\-Raw\-Left\-Speed}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Raw\-Left\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Raw\-Left\-Speed} (
+\begin{DoxyParamCaption}
+\item[{int}]{l}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ab7d6910c8edb860707a439bbe50bd97b}
+
+
+\-Set the new left speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em l} & left speed (range is from -\/127 to 127) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Raw\-Right\-Speed@{set\-Raw\-Right\-Speed}}
+\index{set\-Raw\-Right\-Speed@{set\-Raw\-Right\-Speed}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Raw\-Right\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Raw\-Right\-Speed} (
+\begin{DoxyParamCaption}
+\item[{int}]{r}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a651a987dee225a51fe26973d505003f2}
+
+
+\-Set the new right speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em r} & right speed (range is from -\/127 to 127) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Raw\-Speed@{set\-Raw\-Speed}}
+\index{set\-Raw\-Speed@{set\-Raw\-Speed}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Raw\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Raw\-Speed} (
+\begin{DoxyParamCaption}
+\item[{int}]{l, }
+\item[{int}]{r}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a4190d14a71e34131fd416b83703dbf9b}
+
+
+\-Set the new left and right speeds for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em l} & left speed (range is from -\/127 to 127) \\
+\hline
+{\em r} & right speed (range is from -\/127 to 127) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Right\-Speed@{set\-Right\-Speed}}
+\index{set\-Right\-Speed@{set\-Right\-Speed}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Right\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Right\-Speed} (
+\begin{DoxyParamCaption}
+\item[{int}]{r}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ab94242d34778b2900834f27ad44e868c}
+
+
+\-Set the new right speed for the robot. \-For more details refer to \char`\"{}set\-Speed\char`\"{}. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em r} & right speed given in mm/s \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-Speed@{set\-Speed}}
+\index{set\-Speed@{set\-Speed}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-Speed}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-Speed} (
+\begin{DoxyParamCaption}
+\item[{int}]{l, }
+\item[{int}]{r}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_a0b29ab666dc49836b6cd568a02e272f8}
+
+
+\-Set the new left and right speeds for the robot. \-The new data will be actually sent to the robot when \char`\"{}send\-Commands\-To\-Robot\char`\"{} is called the next time within the timer communication task (50 ms cadence). \-This means that the robot speed will be updated after at most 50 ms (if the task isn't delayed by the system). 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em l} & left speed given in mm/s \\
+\hline
+{\em r} & right speed given in mm/s \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!set\-U\-S\-B\-Communication\-Timeout@{set\-U\-S\-B\-Communication\-Timeout}}
+\index{set\-U\-S\-B\-Communication\-Timeout@{set\-U\-S\-B\-Communication\-Timeout}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{set\-U\-S\-B\-Communication\-Timeout}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-set\-U\-S\-B\-Communication\-Timeout} (
+\begin{DoxyParamCaption}
+\item[{int}]{ms}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_ae069049517e4adc47f69fc43e595d05a}
+
+
+\-This timeout sets how much to wait for a response from the robot before changing to a disconnected state. 
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em timeout} & in milliseconds \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}!start\-U\-S\-B\-Communication@{start\-U\-S\-B\-Communication}}
+\index{start\-U\-S\-B\-Communication@{start\-U\-S\-B\-Communication}!com::wheelphone::wheelphonelibrary::WheelphoneRobot@{com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}}
+\subsubsection[{start\-U\-S\-B\-Communication}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot.\-start\-U\-S\-B\-Communication} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot_acfffaccfff74fdeb71505f19199a8020}
+
+
+\-To be inserted into the \char`\"{}on\-Start\char`\"{} function of the main activity class. 
+
+\begin{DoxyReturn}{\-Returns}
+none 
+\end{DoxyReturn}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\-H\-:/lavoro/local-\/repo/phonebot-\/working/\-\_\-android-\/side/\-Wheelphone\-Library/src/com/wheelphone/wheelphonelibrary/{\bf \-Wheelphone\-Robot.\-java}\end{DoxyCompactItemize}

@@ -1,0 +1,262 @@
+\begin{theindex}
+
+  \item {\-H\-:/lavoro/local-\/repo/phonebot-\/working/\-\_\-android-\/side/\-Wheelphone\-Library/src/com/wheelphone/wheelphonelibrary/\-Wheelphone\-Robot.\-java}, 
+		27
+  \item {\-U\-S\-B\-Accessory\-Manager}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		7
+  \item {\-U\-S\-B\-Accessory\-Manager\-Message}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}, 
+		10, 11
+  \item {\-Wheelphone\-Robot}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		14
+
+  \indexspace
+
+  \item {available}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		7
+
+  \indexspace
+
+  \item {calibrate\-Sensors}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		15
+  \item {com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager}, 
+		6
+  \item {com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-R\-E\-T\-U\-R\-N\-\_\-\-C\-O\-D\-E\-S}, 
+		5
+  \item {com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-U\-S\-B\-Accessory\-Manager\-Exception}, 
+		9
+  \item {com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message}, 
+		10
+  \item {com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message.\-Message\-Type}, 
+		5
+  \item {com.\-wheelphone.\-wheelphonelibrary.\-Wheelphone\-Robot}, 11
+  \item {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}
+    \subitem {\-U\-S\-B\-Accessory\-Manager}, 7
+    \subitem {available}, 7
+    \subitem {disable}, 7
+    \subitem {enable}, 7
+    \subitem {ignore}, 8
+    \subitem {is\-Connected}, 8
+    \subitem {peek}, 8
+    \subitem {read}, 8
+    \subitem {write}, 9
+  \item {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}
+    \subitem {\-U\-S\-B\-Accessory\-Manager\-Message}, 10, 11
+  \item {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}
+    \subitem {\-Wheelphone\-Robot}, 14
+    \subitem {calibrate\-Sensors}, 15
+    \subitem {disable\-Cliff\-Avoidance}, 15
+    \subitem {disable\-Obstacle\-Avoidance}, 15
+    \subitem {disable\-Soft\-Acceleration}, 15
+    \subitem {disable\-Speed\-Control}, 15
+    \subitem {enable\-Cliff\-Avoidance}, 16
+    \subitem {enable\-Obstacle\-Avoidance}, 16
+    \subitem {enable\-Soft\-Acceleration}, 16
+    \subitem {enable\-Speed\-Control}, 16
+    \subitem {get\-Battery\-Raw}, 16
+    \subitem {get\-Battery\-Voltage}, 17
+    \subitem {get\-Flag\-Status}, 17
+    \subitem {get\-Front\-Ambient}, 17
+    \subitem {get\-Front\-Ambients}, 17
+    \subitem {get\-Front\-Prox}, 18
+    \subitem {get\-Front\-Proxs}, 18
+    \subitem {get\-Ground\-Ambient}, 18
+    \subitem {get\-Ground\-Ambients}, 18
+    \subitem {get\-Ground\-Prox}, 18
+    \subitem {get\-Ground\-Proxs}, 19
+    \subitem {get\-Left\-Encoder}, 19
+    \subitem {get\-Odometry}, 19
+    \subitem {get\-Odometry\-Theta}, 19
+    \subitem {get\-Odometry\-X}, 20
+    \subitem {get\-Odometry\-Y}, 20
+    \subitem {get\-Right\-Encoder}, 20
+    \subitem {is\-Calibrating}, 20
+    \subitem {is\-Charged}, 20
+    \subitem {is\-Charging}, 21
+    \subitem {is\-U\-S\-B\-Connected}, 21
+    \subitem {pause\-U\-S\-B\-Communication}, 21
+    \subitem {resume\-U\-S\-B\-Communication}, 21
+    \subitem {set\-Left\-Speed}, 21
+    \subitem {set\-Odometry}, 22
+    \subitem {set\-Odometry\-Parameters}, 22
+    \subitem {set\-Raw\-Left\-Speed}, 22
+    \subitem {set\-Raw\-Right\-Speed}, 23
+    \subitem {set\-Raw\-Speed}, 23
+    \subitem {set\-Right\-Speed}, 23
+    \subitem {set\-Speed}, 24
+    \subitem {set\-U\-S\-B\-Communication\-Timeout}, 24
+    \subitem {start\-U\-S\-B\-Communication}, 24
+
+  \indexspace
+
+  \item {disable}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		7
+  \item {disable\-Cliff\-Avoidance}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		15
+  \item {disable\-Obstacle\-Avoidance}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		15
+  \item {disable\-Soft\-Acceleration}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		15
+  \item {disable\-Speed\-Control}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		15
+
+  \indexspace
+
+  \item {enable}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		7
+  \item {enable\-Cliff\-Avoidance}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		16
+  \item {enable\-Obstacle\-Avoidance}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		16
+  \item {enable\-Soft\-Acceleration}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		16
+  \item {enable\-Speed\-Control}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		16
+
+  \indexspace
+
+  \item {get\-Battery\-Raw}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		16
+  \item {get\-Battery\-Voltage}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		17
+  \item {get\-Flag\-Status}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		17
+  \item {get\-Front\-Ambient}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		17
+  \item {get\-Front\-Ambients}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		17
+  \item {get\-Front\-Prox}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		18
+  \item {get\-Front\-Proxs}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		18
+  \item {get\-Ground\-Ambient}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		18
+  \item {get\-Ground\-Ambients}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		18
+  \item {get\-Ground\-Prox}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		18
+  \item {get\-Ground\-Proxs}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		19
+  \item {get\-Left\-Encoder}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		19
+  \item {get\-Odometry}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		19
+  \item {get\-Odometry\-Theta}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		19
+  \item {get\-Odometry\-X}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		20
+  \item {get\-Odometry\-Y}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		20
+  \item {get\-Right\-Encoder}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		20
+
+  \indexspace
+
+  \item {ignore}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		8
+  \item {is\-Calibrating}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		20
+  \item {is\-Charged}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		20
+  \item {is\-Charging}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		21
+  \item {is\-Connected}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		8
+  \item {is\-U\-S\-B\-Connected}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		21
+
+  \indexspace
+
+  \item {pause\-U\-S\-B\-Communication}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		21
+  \item {peek}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		8
+
+  \indexspace
+
+  \item {read}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		8
+  \item {resume\-U\-S\-B\-Communication}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		21
+
+  \indexspace
+
+  \item {set\-Left\-Speed}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		21
+  \item {set\-Odometry}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		22
+  \item {set\-Odometry\-Parameters}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		22
+  \item {set\-Raw\-Left\-Speed}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		22
+  \item {set\-Raw\-Right\-Speed}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		23
+  \item {set\-Raw\-Speed}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		23
+  \item {set\-Right\-Speed}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		23
+  \item {set\-Speed}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		24
+  \item {set\-U\-S\-B\-Communication\-Timeout}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		24
+  \item {start\-U\-S\-B\-Communication}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-Wheelphone\-Robot}, 
+		24
+
+  \indexspace
+
+  \item {write}
+    \subitem {com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}, 
+		9
+
+\end{theindex}

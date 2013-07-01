@@ -1,0 +1,4 @@
+After running doxygen simply open a command line in the latex output directory and type:
+pdflatex refman.tex
+makeindex refman.idx
+pdflatex refman.tex 

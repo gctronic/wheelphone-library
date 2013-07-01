@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager.html#a363d59886576bf4d5295a28d947980ba" title="com.wheelphone.wheelphonelibrary.USBAccessoryManager.ignore" alt="" coords="507,5,915,32"/>
+<area shape="rect" id="node5" href="$classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager.html#ab2cf63c2c3e29232a3e836046f07477b" title="com.wheelphone.wheelphonelibrary.USBAccessoryManager.peek" alt="" coords="510,56,911,83"/>
+<area shape="rect" id="node7" href="$classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager.html#a2a5fbbb72d6f4a94545e7b5bb06aeab5" title="com.wheelphone.wheelphonelibrary.USBAccessoryManager.available" alt="" coords="499,107,922,133"/>
+<area shape="rect" id="node9" href="$classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager.html#af9d378ad037343a219e322c10d874848" title="com.wheelphone.wheelphonelibrary.USBAccessoryManager.read" alt="" coords="511,157,910,184"/>
+<area shape="rect" id="node11" href="$classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager.html#aeeb56f236f200606f32481f523a4fd52" title="com.wheelphone.wheelphonelibrary.USBAccessoryManager.write" alt="" coords="511,208,911,235"/>
+<area shape="rect" id="node13" href="$classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot.html#a001f0b5e413eec78e8055a56b9e5da5f" title="To be inserted into the &quot;onPause&quot; function of the main activity class." alt="" coords="971,208,1463,235"/>
+</map>

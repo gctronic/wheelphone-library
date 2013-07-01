@@ -1,0 +1,117 @@
+\section{com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message \-Class \-Reference}
+\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message}\index{com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message@{com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message}}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf \-Message\-Type}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \-U\-S\-B\-Accessory\-Manager\-Message} ({\bf \-Message\-Type} type)
+\item 
+{\bf \-U\-S\-B\-Accessory\-Manager\-Message} ({\bf \-Message\-Type} type, byte[$\,$] data)
+\item 
+{\bf \-U\-S\-B\-Accessory\-Manager\-Message} ({\bf \-Message\-Type} type, byte[$\,$] data, \-Usb\-Accessory accessory)
+\item 
+{\bf \-U\-S\-B\-Accessory\-Manager\-Message} ({\bf \-Message\-Type} type, \-Usb\-Accessory accessory)
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \-Message\-Type} {\bfseries type}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_ac30ff56ee6384b6a2c5ff6274bafff13}
+
+\item 
+\-String {\bfseries text} = null\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_a877d03920e58e0dcbaef97007526cd72}
+
+\item 
+byte[$\,$] {\bfseries data} = null\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_a490cf11f4d1e1431dc6bdd36c1be0924}
+
+\item 
+\-Usb\-Accessory {\bfseries accessory} = null\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_aa8e68fa403ecd9a6131a6cd4cf83c1a6}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-Basic \-Message class for the \doxyref{\-U\-S\-B\-Accessory\-Manager}{p.}{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager}. \-This is used to send messages from the \-U\-S\-B \-Accessory's read thread to the \-G\-U\-I thread to notify the \-G\-U\-I thread of various \-U\-S\-B \-Accessory events (like data available or device attachment).
+
+\begin{DoxyAuthor}{\-Author}
+\-Microchip \-Technologies \-Inc. 
+\end{DoxyAuthor}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}!\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}}
+\index{\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}!com::wheelphone::wheelphonelibrary::USBAccessoryManagerMessage@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}}
+\subsubsection[{\-U\-S\-B\-Accessory\-Manager\-Message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message.\-U\-S\-B\-Accessory\-Manager\-Message} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Message\-Type}}]{type}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_af0c82e12fd94ba0dbf21be603fb3a2e6}
+\-Creates new message of specified type
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em type} & \-The type of this message \\
+\hline
+\end{DoxyParams}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}!\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}}
+\index{\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}!com::wheelphone::wheelphonelibrary::USBAccessoryManagerMessage@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}}
+\subsubsection[{\-U\-S\-B\-Accessory\-Manager\-Message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message.\-U\-S\-B\-Accessory\-Manager\-Message} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Message\-Type}}]{type, }
+\item[{byte[$\,$]}]{data}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_a409e4ec6ee01c5be27cb31fc92699632}
+\-Creates a new message of specified type with specified data
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em type} & \-The type of this message \\
+\hline
+{\em data} & \-The data associated with this message \\
+\hline
+\end{DoxyParams}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}!\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}}
+\index{\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}!com::wheelphone::wheelphonelibrary::USBAccessoryManagerMessage@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}}
+\subsubsection[{\-U\-S\-B\-Accessory\-Manager\-Message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message.\-U\-S\-B\-Accessory\-Manager\-Message} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Message\-Type}}]{type, }
+\item[{byte[$\,$]}]{data, }
+\item[{\-Usb\-Accessory}]{accessory}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_a9a72c0e5a50e35f3226fc1933f6cf7b6}
+\-Creates a new message of specified type with specified data
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em type} & \-The type of this message \\
+\hline
+{\em data} & \-The data associated with this message \\
+\hline
+{\em accessory} & \-The accessory associated with this message \\
+\hline
+\end{DoxyParams}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}!\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}}
+\index{\-U\-S\-B\-Accessory\-Manager\-Message@{\-U\-S\-B\-Accessory\-Manager\-Message}!com::wheelphone::wheelphonelibrary::USBAccessoryManagerMessage@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager\-Message}}
+\subsubsection[{\-U\-S\-B\-Accessory\-Manager\-Message}]{\setlength{\rightskip}{0pt plus 5cm}{\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager\-Message.\-U\-S\-B\-Accessory\-Manager\-Message} (
+\begin{DoxyParamCaption}
+\item[{{\bf \-Message\-Type}}]{type, }
+\item[{\-Usb\-Accessory}]{accessory}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_abd547c8cb3cad924fb2d45876aa1fcd4}
+\-Creates a new message of specified type with specified data
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em type} & \-The type of this message \\
+\hline
+{\em accessory} & \-The accessory associated with this message \\
+\hline
+\end{DoxyParams}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\-H\-:/lavoro/local-\/repo/phonebot-\/working/\-\_\-android-\/side/\-Wheelphone\-Library/src/com/wheelphone/wheelphonelibrary/\-U\-S\-B\-Accessory\-Manager\-Message.\-java\end{DoxyCompactItemize}
