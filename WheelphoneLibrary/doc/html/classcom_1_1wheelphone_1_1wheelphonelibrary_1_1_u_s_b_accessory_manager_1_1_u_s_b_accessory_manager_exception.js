@@ -1,0 +1,6 @@
+var classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_u_s_b_accessory_manager_exception =
+[
+    [ "USBAccessoryManagerException", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_u_s_b_accessory_manager_exception.html#a2377a8c2e790d508c86f6aa66b83b733", null ],
+    [ "toString", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_u_s_b_accessory_manager_exception.html#a98bd4315975a57c27210d946e6510dc1", null ],
+    [ "errorMessage", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_u_s_b_accessory_manager_exception.html#af1260502c4fea5a8ab75f211acfe412a", null ]
+];

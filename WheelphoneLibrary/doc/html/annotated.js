@@ -1,0 +1,9 @@
+var annotated =
+[
+    [ "com.wheelphone.wheelphonelibrary.USBAccessoryManagerMessage.MessageType", "enumcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_1_1_message_type.html", "enumcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message_1_1_message_type" ],
+    [ "com.wheelphone.wheelphonelibrary.USBAccessoryManager.RETURN_CODES", "enumcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_r_e_t_u_r_n___c_o_d_e_s.html", "enumcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_r_e_t_u_r_n___c_o_d_e_s" ],
+    [ "com.wheelphone.wheelphonelibrary.USBAccessoryManager", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager.html", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager" ],
+    [ "com.wheelphone.wheelphonelibrary.USBAccessoryManager.USBAccessoryManagerException", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_u_s_b_accessory_manager_exception.html", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_u_s_b_accessory_manager_exception" ],
+    [ "com.wheelphone.wheelphonelibrary.USBAccessoryManagerMessage", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message.html", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_message" ],
+    [ "com.wheelphone.wheelphonelibrary.WheelphoneRobot", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot.html", "classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_wheelphone_robot" ]
+];

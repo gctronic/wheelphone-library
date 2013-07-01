@@ -1,0 +1,197 @@
+\section{com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager \-Class \-Reference}
+\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager}\index{com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager@{com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager}}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries \-Read\-Thread}
+\item 
+enum {\bf \-R\-E\-T\-U\-R\-N\-\_\-\-C\-O\-D\-E\-S}
+\item 
+class {\bf \-U\-S\-B\-Accessory\-Manager\-Exception}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \-U\-S\-B\-Accessory\-Manager} (\-Handler handler, int what)
+\item 
+{\bf \-R\-E\-T\-U\-R\-N\-\_\-\-C\-O\-D\-E\-S} {\bf enable} (\-Context context, \-Intent intent)
+\item 
+void {\bf disable} (\-Context context)
+\item 
+boolean {\bf is\-Connected} ()
+\item 
+void {\bf write} (byte[$\,$] data)
+\item 
+boolean {\bfseries is\-Closed} ()\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_a66031bc604438504f63971d289401312}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Package \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf ignore} (int num)
+\item 
+int {\bf peek} (byte[$\,$] array)
+\item 
+int {\bf available} ()
+\item 
+int {\bf read} (byte[$\,$] array)
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+\-A class created to assist in making accessing a \-U\-S\-B accessory easier for those that are less familiar with programming in \-Java, working with threads/handlers/synchronization, and those that are not familiar with the \-Open \-Accessory framework interface
+
+\begin{DoxyAuthor}{\-Author}
+\-Microchip \-Technology \-Inc. 
+\end{DoxyAuthor}
+
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!\-U\-S\-B\-Accessory\-Manager@{\-U\-S\-B\-Accessory\-Manager}}
+\index{\-U\-S\-B\-Accessory\-Manager@{\-U\-S\-B\-Accessory\-Manager}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{\-U\-S\-B\-Accessory\-Manager}]{\setlength{\rightskip}{0pt plus 5cm}{\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-U\-S\-B\-Accessory\-Manager} (
+\begin{DoxyParamCaption}
+\item[{\-Handler}]{handler, }
+\item[{int}]{what}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_aaced9abf10f661456e060c6068b6208d}
+\-Public \-A\-P\-I \-Creates new \-U\-S\-B \-Accessory \-Manager
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em handler} & \-The handler where to send \-U\-S\-B accessory event messages \\
+\hline
+{\em what} & \-The \char`\"{}what\char`\"{} value to use for \-U\-S\-B accessory event messages \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{\-Member \-Function \-Documentation}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!available@{available}}
+\index{available@{available}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{available}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-available} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [package]}}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_a2a5fbbb72d6f4a94545e7b5bb06aeab5}
+\-Indicates the number of bytes that are currently in the read buffer. \-There will be at least this many bytes to read from the buffer (as long as the accessory has not detach or been closed since the call to this function.
+
+\begin{DoxyReturn}{\-Returns}
+the number of bytes available in the read queue 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!disable@{disable}}
+\index{disable@{disable}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{disable}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-disable} (
+\begin{DoxyParamCaption}
+\item[{\-Context}]{context}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_a80c691606bf41f3364233533a79187b3}
+\-Disables the \-U\-S\-B manager and releases all resources
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em context} & \-The context that the manager was enabled with \\
+\hline
+\end{DoxyParams}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!enable@{enable}}
+\index{enable@{enable}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{enable}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \-R\-E\-T\-U\-R\-N\-\_\-\-C\-O\-D\-E\-S} {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-enable} (
+\begin{DoxyParamCaption}
+\item[{\-Context}]{context, }
+\item[{\-Intent}]{intent}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_a999a7a5d0469b66013752840aa54ce2c}
+\-Enables the
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em context} & \-The context that the \-U\-S\-B manager should register to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+\doxyref{\-R\-E\-T\-U\-R\-N\-\_\-\-C\-O\-D\-E\-S}{p.}{enumcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_1_1_r_e_t_u_r_n___c_o_d_e_s} -\/ the status of the enable request 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!ignore@{ignore}}
+\index{ignore@{ignore}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{ignore}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-ignore} (
+\begin{DoxyParamCaption}
+\item[{int}]{num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [package]}}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_a363d59886576bf4d5295a28d947980ba}
+\-I/\-O \-A\-P\-I discards the specified number of bytes from the internal read buffer
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em num} & the number of bytes to discard \\
+\hline
+\end{DoxyParams}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!is\-Connected@{is\-Connected}}
+\index{is\-Connected@{is\-Connected}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{is\-Connected}]{\setlength{\rightskip}{0pt plus 5cm}boolean {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-is\-Connected} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_a7680a7f38180bcc1a8bd9c21e45702f9}
+\-Describes if an accessory is attached or not
+
+\begin{DoxyReturn}{\-Returns}
+boolean -\/ true if one is attached, false otherwise 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!peek@{peek}}
+\index{peek@{peek}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{peek}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-peek} (
+\begin{DoxyParamCaption}
+\item[{byte[$\,$]}]{array}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [package]}}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_ab2cf63c2c3e29232a3e836046f07477b}
+fills the array with data from the read buffer without discarding it.
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em array} & the buffer to fill \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the number of bytes copied from the buffer 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!read@{read}}
+\index{read@{read}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-read} (
+\begin{DoxyParamCaption}
+\item[{byte[$\,$]}]{array}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [package]}}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_af9d378ad037343a219e322c10d874848}
+\-Reads bytes from the read buffer, removing them from the buffer once read
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em array} & where to copy the data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{\-Returns}
+the number of bytes copied (maximum will be the length of the array param 
+\end{DoxyReturn}
+\index{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}!write@{write}}
+\index{write@{write}!com::wheelphone::wheelphonelibrary::USBAccessoryManager@{com\-::wheelphone\-::wheelphonelibrary\-::\-U\-S\-B\-Accessory\-Manager}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf com.\-wheelphone.\-wheelphonelibrary.\-U\-S\-B\-Accessory\-Manager.\-write} (
+\begin{DoxyParamCaption}
+\item[{byte[$\,$]}]{data}
+\end{DoxyParamCaption}
+)}\label{classcom_1_1wheelphone_1_1wheelphonelibrary_1_1_u_s_b_accessory_manager_aeeb56f236f200606f32481f523a4fd52}
+\-Writes data to the accessory
+
+
+\begin{DoxyParams}{\-Parameters}
+{\em data} & the data to write \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{\-Exceptions}
+{\em \-Interrupted\-Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+\-H\-:/lavoro/local-\/repo/phonebot-\/working/\-\_\-android-\/side/\-Wheelphone\-Library/src/com/wheelphone/wheelphonelibrary/\-U\-S\-B\-Accessory\-Manager.\-java\end{DoxyCompactItemize}

@@ -1,0 +1,79 @@
+\contentsline {chapter}{\numberline {1}\discretionary {-}{}{}Class \discretionary {-}{}{}Index}{1}
+\contentsline {section}{\numberline {1.1}\discretionary {-}{}{}Class \discretionary {-}{}{}List}{1}
+\contentsline {chapter}{\numberline {2}\discretionary {-}{}{}File \discretionary {-}{}{}Index}{3}
+\contentsline {section}{\numberline {2.1}\discretionary {-}{}{}File \discretionary {-}{}{}List}{3}
+\contentsline {chapter}{\numberline {3}\discretionary {-}{}{}Class \discretionary {-}{}{}Documentation}{5}
+\contentsline {section}{\numberline {3.1}com.\discretionary {-}{}{}wheelphone.\discretionary {-}{}{}wheelphonelibrary.\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager\discretionary {-}{}{}Message.\discretionary {-}{}{}Message\discretionary {-}{}{}Type \discretionary {-}{}{}Enum \discretionary {-}{}{}Reference}{5}
+\contentsline {section}{\numberline {3.2}com.\discretionary {-}{}{}wheelphone.\discretionary {-}{}{}wheelphonelibrary.\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager.\discretionary {-}{}{}R\discretionary {-}{}{}E\discretionary {-}{}{}T\discretionary {-}{}{}U\discretionary {-}{}{}R\discretionary {-}{}{}N\discretionary {-}{}{}\_\discretionary {-}{}{}\discretionary {-}{}{}C\discretionary {-}{}{}O\discretionary {-}{}{}D\discretionary {-}{}{}E\discretionary {-}{}{}S \discretionary {-}{}{}Enum \discretionary {-}{}{}Reference}{5}
+\contentsline {subsection}{\numberline {3.2.1}\discretionary {-}{}{}Detailed \discretionary {-}{}{}Description}{5}
+\contentsline {section}{\numberline {3.3}com.\discretionary {-}{}{}wheelphone.\discretionary {-}{}{}wheelphonelibrary.\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager \discretionary {-}{}{}Class \discretionary {-}{}{}Reference}{6}
+\contentsline {subsection}{\numberline {3.3.1}\discretionary {-}{}{}Detailed \discretionary {-}{}{}Description}{6}
+\contentsline {subsection}{\numberline {3.3.2}\discretionary {-}{}{}Constructor \& \discretionary {-}{}{}Destructor \discretionary {-}{}{}Documentation}{7}
+\contentsline {subsubsection}{\numberline {3.3.2.1}\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager}{7}
+\contentsline {subsection}{\numberline {3.3.3}\discretionary {-}{}{}Member \discretionary {-}{}{}Function \discretionary {-}{}{}Documentation}{7}
+\contentsline {subsubsection}{\numberline {3.3.3.1}available}{7}
+\contentsline {subsubsection}{\numberline {3.3.3.2}disable}{7}
+\contentsline {subsubsection}{\numberline {3.3.3.3}enable}{7}
+\contentsline {subsubsection}{\numberline {3.3.3.4}ignore}{8}
+\contentsline {subsubsection}{\numberline {3.3.3.5}is\discretionary {-}{}{}Connected}{8}
+\contentsline {subsubsection}{\numberline {3.3.3.6}peek}{8}
+\contentsline {subsubsection}{\numberline {3.3.3.7}read}{8}
+\contentsline {subsubsection}{\numberline {3.3.3.8}write}{9}
+\contentsline {section}{\numberline {3.4}com.\discretionary {-}{}{}wheelphone.\discretionary {-}{}{}wheelphonelibrary.\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager.\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager\discretionary {-}{}{}Exception \discretionary {-}{}{}Class \discretionary {-}{}{}Reference}{9}
+\contentsline {subsection}{\numberline {3.4.1}\discretionary {-}{}{}Detailed \discretionary {-}{}{}Description}{9}
+\contentsline {section}{\numberline {3.5}com.\discretionary {-}{}{}wheelphone.\discretionary {-}{}{}wheelphonelibrary.\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager\discretionary {-}{}{}Message \discretionary {-}{}{}Class \discretionary {-}{}{}Reference}{10}
+\contentsline {subsection}{\numberline {3.5.1}\discretionary {-}{}{}Detailed \discretionary {-}{}{}Description}{10}
+\contentsline {subsection}{\numberline {3.5.2}\discretionary {-}{}{}Constructor \& \discretionary {-}{}{}Destructor \discretionary {-}{}{}Documentation}{10}
+\contentsline {subsubsection}{\numberline {3.5.2.1}\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager\discretionary {-}{}{}Message}{10}
+\contentsline {subsubsection}{\numberline {3.5.2.2}\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager\discretionary {-}{}{}Message}{11}
+\contentsline {subsubsection}{\numberline {3.5.2.3}\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager\discretionary {-}{}{}Message}{11}
+\contentsline {subsubsection}{\numberline {3.5.2.4}\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Accessory\discretionary {-}{}{}Manager\discretionary {-}{}{}Message}{11}
+\contentsline {section}{\numberline {3.6}com.\discretionary {-}{}{}wheelphone.\discretionary {-}{}{}wheelphonelibrary.\discretionary {-}{}{}Wheelphone\discretionary {-}{}{}Robot \discretionary {-}{}{}Class \discretionary {-}{}{}Reference}{11}
+\contentsline {subsection}{\numberline {3.6.1}\discretionary {-}{}{}Constructor \& \discretionary {-}{}{}Destructor \discretionary {-}{}{}Documentation}{14}
+\contentsline {subsubsection}{\numberline {3.6.1.1}\discretionary {-}{}{}Wheelphone\discretionary {-}{}{}Robot}{14}
+\contentsline {subsection}{\numberline {3.6.2}\discretionary {-}{}{}Member \discretionary {-}{}{}Function \discretionary {-}{}{}Documentation}{15}
+\contentsline {subsubsection}{\numberline {3.6.2.1}calibrate\discretionary {-}{}{}Sensors}{15}
+\contentsline {subsubsection}{\numberline {3.6.2.2}disable\discretionary {-}{}{}Cliff\discretionary {-}{}{}Avoidance}{15}
+\contentsline {subsubsection}{\numberline {3.6.2.3}disable\discretionary {-}{}{}Obstacle\discretionary {-}{}{}Avoidance}{15}
+\contentsline {subsubsection}{\numberline {3.6.2.4}disable\discretionary {-}{}{}Soft\discretionary {-}{}{}Acceleration}{15}
+\contentsline {subsubsection}{\numberline {3.6.2.5}disable\discretionary {-}{}{}Speed\discretionary {-}{}{}Control}{16}
+\contentsline {subsubsection}{\numberline {3.6.2.6}enable\discretionary {-}{}{}Cliff\discretionary {-}{}{}Avoidance}{16}
+\contentsline {subsubsection}{\numberline {3.6.2.7}enable\discretionary {-}{}{}Obstacle\discretionary {-}{}{}Avoidance}{16}
+\contentsline {subsubsection}{\numberline {3.6.2.8}enable\discretionary {-}{}{}Soft\discretionary {-}{}{}Acceleration}{16}
+\contentsline {subsubsection}{\numberline {3.6.2.9}enable\discretionary {-}{}{}Speed\discretionary {-}{}{}Control}{16}
+\contentsline {subsubsection}{\numberline {3.6.2.10}get\discretionary {-}{}{}Battery\discretionary {-}{}{}Raw}{17}
+\contentsline {subsubsection}{\numberline {3.6.2.11}get\discretionary {-}{}{}Battery\discretionary {-}{}{}Voltage}{17}
+\contentsline {subsubsection}{\numberline {3.6.2.12}get\discretionary {-}{}{}Flag\discretionary {-}{}{}Status}{17}
+\contentsline {subsubsection}{\numberline {3.6.2.13}get\discretionary {-}{}{}Front\discretionary {-}{}{}Ambient}{17}
+\contentsline {subsubsection}{\numberline {3.6.2.14}get\discretionary {-}{}{}Front\discretionary {-}{}{}Ambients}{17}
+\contentsline {subsubsection}{\numberline {3.6.2.15}get\discretionary {-}{}{}Front\discretionary {-}{}{}Prox}{18}
+\contentsline {subsubsection}{\numberline {3.6.2.16}get\discretionary {-}{}{}Front\discretionary {-}{}{}Proxs}{18}
+\contentsline {subsubsection}{\numberline {3.6.2.17}get\discretionary {-}{}{}Ground\discretionary {-}{}{}Ambient}{18}
+\contentsline {subsubsection}{\numberline {3.6.2.18}get\discretionary {-}{}{}Ground\discretionary {-}{}{}Ambients}{18}
+\contentsline {subsubsection}{\numberline {3.6.2.19}get\discretionary {-}{}{}Ground\discretionary {-}{}{}Prox}{19}
+\contentsline {subsubsection}{\numberline {3.6.2.20}get\discretionary {-}{}{}Ground\discretionary {-}{}{}Proxs}{19}
+\contentsline {subsubsection}{\numberline {3.6.2.21}get\discretionary {-}{}{}Left\discretionary {-}{}{}Encoder}{19}
+\contentsline {subsubsection}{\numberline {3.6.2.22}get\discretionary {-}{}{}Odometry}{19}
+\contentsline {subsubsection}{\numberline {3.6.2.23}get\discretionary {-}{}{}Odometry\discretionary {-}{}{}Theta}{20}
+\contentsline {subsubsection}{\numberline {3.6.2.24}get\discretionary {-}{}{}Odometry\discretionary {-}{}{}X}{20}
+\contentsline {subsubsection}{\numberline {3.6.2.25}get\discretionary {-}{}{}Odometry\discretionary {-}{}{}Y}{20}
+\contentsline {subsubsection}{\numberline {3.6.2.26}get\discretionary {-}{}{}Right\discretionary {-}{}{}Encoder}{20}
+\contentsline {subsubsection}{\numberline {3.6.2.27}is\discretionary {-}{}{}Calibrating}{20}
+\contentsline {subsubsection}{\numberline {3.6.2.28}is\discretionary {-}{}{}Charged}{21}
+\contentsline {subsubsection}{\numberline {3.6.2.29}is\discretionary {-}{}{}Charging}{21}
+\contentsline {subsubsection}{\numberline {3.6.2.30}is\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Connected}{21}
+\contentsline {subsubsection}{\numberline {3.6.2.31}pause\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Communication}{21}
+\contentsline {subsubsection}{\numberline {3.6.2.32}resume\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Communication}{21}
+\contentsline {subsubsection}{\numberline {3.6.2.33}set\discretionary {-}{}{}Left\discretionary {-}{}{}Speed}{22}
+\contentsline {subsubsection}{\numberline {3.6.2.34}set\discretionary {-}{}{}Odometry}{22}
+\contentsline {subsubsection}{\numberline {3.6.2.35}set\discretionary {-}{}{}Odometry\discretionary {-}{}{}Parameters}{22}
+\contentsline {subsubsection}{\numberline {3.6.2.36}set\discretionary {-}{}{}Raw\discretionary {-}{}{}Left\discretionary {-}{}{}Speed}{23}
+\contentsline {subsubsection}{\numberline {3.6.2.37}set\discretionary {-}{}{}Raw\discretionary {-}{}{}Right\discretionary {-}{}{}Speed}{23}
+\contentsline {subsubsection}{\numberline {3.6.2.38}set\discretionary {-}{}{}Raw\discretionary {-}{}{}Speed}{23}
+\contentsline {subsubsection}{\numberline {3.6.2.39}set\discretionary {-}{}{}Right\discretionary {-}{}{}Speed}{23}
+\contentsline {subsubsection}{\numberline {3.6.2.40}set\discretionary {-}{}{}Speed}{24}
+\contentsline {subsubsection}{\numberline {3.6.2.41}set\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Communication\discretionary {-}{}{}Timeout}{24}
+\contentsline {subsubsection}{\numberline {3.6.2.42}start\discretionary {-}{}{}U\discretionary {-}{}{}S\discretionary {-}{}{}B\discretionary {-}{}{}Communication}{24}
+\contentsline {chapter}{\numberline {4}\discretionary {-}{}{}File \discretionary {-}{}{}Documentation}{27}
+\contentsline {section}{\numberline {4.1}\discretionary {-}{}{}H\discretionary {-}{}{}:/lavoro/local-\/repo/phonebot-\/working/\discretionary {-}{}{}\_\discretionary {-}{}{}android-\/side/\discretionary {-}{}{}Wheelphone\discretionary {-}{}{}Library/src/com/wheelphone/wheelphonelibrary/\discretionary {-}{}{}Wheelphone\discretionary {-}{}{}Robot.java \discretionary {-}{}{}File \discretionary {-}{}{}Reference}{27}
+\contentsline {subsection}{\numberline {4.1.1}\discretionary {-}{}{}Detailed \discretionary {-}{}{}Description}{27}
