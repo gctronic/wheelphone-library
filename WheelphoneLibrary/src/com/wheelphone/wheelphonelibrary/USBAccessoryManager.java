@@ -51,6 +51,9 @@ import com.android.future.usb.UsbManager;
  */
 public class USBAccessoryManager {
 
+	double tempTime=0.0;
+	private String logString;
+	
 	private String actionString = null;
 	private Handler handler;
 	private int what;
@@ -819,6 +822,10 @@ public class USBAccessoryManager {
 					// bytes = inputStream.read(buffer, 0, 0);	// non blocking read				
 					
 					
+		    		logString = "Rx " + bytes + " in " + System.currentTimeMillis()-tempTime + " ms\n";
+		    		appendLog(logString);
+		    		tempTime = System.currentTimeMillis();
+		    		
 //					if(bytes==0) {
 //						timeout++;
 //						if(timeout>100) {
@@ -903,4 +910,35 @@ public class USBAccessoryManager {
 			return errorMessage;
 		}
 	}
+	
+	public void appendLog(String text)
+	{       
+	   File logFile = new File("sdcard/logFile.csv");
+	   if (!logFile.exists())
+	   {
+	      try
+	      {
+	         logFile.createNewFile();
+	      } 
+	      catch (IOException e)
+	      {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }
+	   }
+	   try
+	   {
+	      //BufferedWriter for performance, true to set append to file flag
+	      BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true)); 
+	      buf.append(text);
+	      buf.newLine(); 
+	      buf.close();
+	   }
+	   catch (IOException e)
+	   {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+	   }
+	}
+	
 }

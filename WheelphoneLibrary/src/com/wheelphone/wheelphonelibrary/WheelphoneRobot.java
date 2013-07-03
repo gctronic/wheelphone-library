@@ -88,8 +88,9 @@ public class WheelphoneRobot {
 															// was received, if this is the case a new command is sent to the robot and the flag is reset.
 	private Context context;
 	private Activity activity;
-	private boolean debug = true;
+	private boolean debug = false;
 	private String logString;
+	private static final double MM_S_TO_RAW = 4.8;			// transformation factor from mm/s to raw speed values (raw=mm_s/factor) 
 	
 	// odometry
 	private double wheelDiamLeft = 0.059;					// meters
@@ -104,7 +105,7 @@ public class WheelphoneRobot {
 	private double deltaDist=0.0;
 	private static final double ENC_TO_MM_S = 0.709;		// transformation factor from encoders values to mm/s
 	private double startTime=0.0, finalTime=0.0, totalTime=0.0;
-	private static final int MAX_TIME_BETWEEN_PACKETS=90;	// it means 100 ms, it is used to know when a packet is lost because the expected time is 50 ms 
+	private static final int MAX_TIME_BETWEEN_PACKETS=90;	// it means 90 ms, it is used to know when a packet is lost because the expected time is 50 ms 
 	private static final int MEAN_TIME_BETWEEN_PACKETS=50;	// it means 50 ms, it is the expected time between packets
 	
 	private class communicationTask extends TimerTask {          
@@ -117,7 +118,7 @@ public class WheelphoneRobot {
 				if(isCalibrating) {
 					isCalibratingCounter--;
 					if(debug) {
-						Log.e(TAG, "isCalibratingCounter = " + isCalibratingCounter);
+						Log.d(TAG, "isCalibratingCounter = " + isCalibratingCounter);
 					}
 					if(isCalibratingCounter == 0) {
 						isCalibrating = false;
@@ -148,7 +149,7 @@ public class WheelphoneRobot {
 					switch(((USBAccessoryManagerMessage)msg.obj).type) {
 						case READ:
 							if(debug) {
-								Log.e(TAG, "message: READ");
+								Log.d(TAG, "message: READ");
 							}
 							if(accessoryManager.isConnected() == false) {
 								return;
@@ -192,7 +193,7 @@ public class WheelphoneRobot {
 										totalTime = finalTime - startTime;
 										if(totalTime >= MAX_TIME_BETWEEN_PACKETS) {	// this is needed because the expected time is 50 ms, thus could be also 49 ms and thus "Math.floor" would return 0 instead of 1
 											// Since we expect a totalTime (time between packets) of 50 ms we can suppose whether a packet
-											// is lost or not. In case a packet is lost we need to multiply (by a factor dependent on the number of packets lost) 
+											// is lost/overwritten or not. In case a packet is lost/overwritten we need to multiply (by a factor dependent on the number of packets lost) 
 											// the value of the received leftEncoder and rightEncoder because they are reset at each robot transmission.											
 											leftEncSum += (leftEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);	// result is mm
 											rightEncSum += (rightEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);
@@ -204,12 +205,13 @@ public class WheelphoneRobot {
 										odometry[X_ODOM] += Math.cos(odometry[THETA_ODOM])*deltaDist;				
 										odometry[Y_ODOM] += Math.sin(odometry[THETA_ODOM])*deltaDist;
 										odometry[THETA_ODOM] = ((rightEncSum-leftEncSum)/wheelBase)/1000.0;	// over 1000 because rightEncSum and leftEncSum are in mm									    	  								    	
-								    	startTime = finalTime; 
-								    	
+								    									    	
 								    	if(debug) {
 								    		logString = lSpeed + "," + rSpeed + "," + leftEncoder + "," + rightEncoder + "," + leftEncSumPrev + "," + rightEncSumPrev + "," + leftEncSum + "," + rightEncSum + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";
 								    		appendLog(logString);
 								    	}
+								    	
+								    	startTime = finalTime; 
 								    	
 										if((flagRobotToPhone&0x20)==0x20) {
 											if((flagRobotToPhone&0x40)==0x40) {
@@ -231,13 +233,13 @@ public class WheelphoneRobot {
 							
 						case CONNECTED:
 							if(debug) {
-								Log.e(TAG, "message: CONNECTED");
+								Log.d(TAG, "message: CONNECTED");
 							}
 							break;
 							
 						case READY:
 							if(debug) {
-								Log.e(TAG, "message: READY");
+								Log.d(TAG, "message: READY");
 							}
 					    	packetReceived = 1;
 					        timer = new Timer();                                         
@@ -274,7 +276,7 @@ public class WheelphoneRobot {
 							
 						case DISCONNECTED:
 							if(debug) {
-								Log.e(TAG, "message: DISCONNECTED");
+								Log.d(TAG, "message: DISCONNECTED");
 							}
 							endUSBCommunication();
 							break;
@@ -353,7 +355,7 @@ public class WheelphoneRobot {
      */
     public void startUSBCommunication() {
     	if(debug) {
-    		Log.e(TAG, "startUSBCommunication");
+    		Log.d(TAG, "startUSBCommunication");
     	}
 	    if(checkForOpenAccessoryFramework() == false) {
 	    	return;
@@ -367,7 +369,7 @@ public class WheelphoneRobot {
      */
     public void resumeUSBCommunication() {
     	if(debug) {
-    		Log.e(TAG, "resumeUSBCommunication");
+    		Log.d(TAG, "resumeUSBCommunication");
     	}
     	accessoryManager.enable(context, activity.getIntent());
     }
@@ -378,7 +380,7 @@ public class WheelphoneRobot {
      */
     public void pauseUSBCommunication() {
     	if(debug) {
-    		Log.e(TAG, "pauseUSBCommunication");
+    		Log.d(TAG, "pauseUSBCommunication");
     	}
 	    switch(firmwareVersion) {
 	    	case 2:
@@ -406,7 +408,7 @@ public class WheelphoneRobot {
     
 	private void closeUSBCommunication() {
 		if(debug) {
-			Log.e(TAG, "closeUSBCommunication");
+			Log.d(TAG, "closeUSBCommunication");
 		}
     	accessoryManager.disable(context);
     	endUSBCommunication();
@@ -414,7 +416,7 @@ public class WheelphoneRobot {
 	
 	private void endUSBCommunication() {
 		if(debug) {
-			Log.e(TAG, "endUSBCommunication");
+			Log.d(TAG, "endUSBCommunication");
 		}
 		timer.cancel();
 		isConnected = false;
@@ -448,8 +450,8 @@ public class WheelphoneRobot {
 		if(r > MAX_SPEED_REAL) {
 			r = MAX_SPEED_REAL;
 		}		
-		lSpeed = (int) (l/4.8);
-		rSpeed = (int) (r/4.8);
+		lSpeed = (int) (l/MM_S_TO_RAW);
+		rSpeed = (int) (r/MM_S_TO_RAW);
 	}
 	
     /**
@@ -464,7 +466,7 @@ public class WheelphoneRobot {
 		if(l > MAX_SPEED_REAL) {
 			l = MAX_SPEED_REAL;
 		}		
-		lSpeed = (int) (l/4.8);
+		lSpeed = (int) (l/MM_S_TO_RAW);
 	}	
 	
     /**
@@ -479,7 +481,7 @@ public class WheelphoneRobot {
 		if(r > MAX_SPEED_REAL) {
 			r = MAX_SPEED_REAL;
 		}		
-		rSpeed = (int) (r/4.8);
+		rSpeed = (int) (r/MM_S_TO_RAW);
 	}	
 	
     /**
@@ -817,7 +819,7 @@ public class WheelphoneRobot {
     
     /**
     * \brief Return the odometry information resulting from the encoders values received by the robot.
-    * The positive X axis is pointing forward and the positive X axis is pointing to the left side of the robot.
+    * The positive x axis is pointing forward and the positive y axis is pointing to the left side of the robot.
     * \return array of length 3 containing sequentially x position (mm), y position (mm), theta (radians).
     */
     public double[] getOdometry() {
