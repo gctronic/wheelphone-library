@@ -88,7 +88,7 @@ public class WheelphoneRobot {
 															// was received, if this is the case a new command is sent to the robot and the flag is reset.
 	private Context context;
 	private Activity activity;
-	private boolean debug = false;
+	private boolean debug = true;
 	private String logString;
 	private static final double MM_S_TO_RAW = 4.8;			// transformation factor from mm/s to raw speed values (raw=mm_s/factor) 
 	
@@ -191,16 +191,16 @@ public class WheelphoneRobot {
 										rightEncSumPrev = rightEncSum;
 										finalTime = System.currentTimeMillis();
 										totalTime = finalTime - startTime;
-										if(totalTime >= MAX_TIME_BETWEEN_PACKETS) {	// this is needed because the expected time is 50 ms, thus could be also 49 ms and thus "Math.floor" would return 0 instead of 1
-											// Since we expect a totalTime (time between packets) of 50 ms we can suppose whether a packet
-											// is lost/overwritten or not. In case a packet is lost/overwritten we need to multiply (by a factor dependent on the number of packets lost) 
-											// the value of the received leftEncoder and rightEncoder because they are reset at each robot transmission.											
-											leftEncSum += (leftEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);	// result is mm
-											rightEncSum += (rightEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);
-										} else {
+//										if(totalTime >= MAX_TIME_BETWEEN_PACKETS) {	// this is needed because the expected time is 50 ms, thus could be also 49 ms and thus "Math.floor" would return 0 instead of 1
+//											// Since we expect a totalTime (time between packets) of 50 ms we can suppose whether a packet
+//											// is lost/overwritten or not. In case a packet is lost/overwritten we need to multiply (by a factor dependent on the number of packets lost) 
+//											// the value of the received leftEncoder and rightEncoder because they are reset at each robot transmission.											
+//											leftEncSum += (leftEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);	// result is mm
+//											rightEncSum += (rightEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);
+//										} else {
 											leftEncSum += (leftEncoder*ENC_TO_MM_S*totalTime/1000.0);
 											rightEncSum += (rightEncoder*ENC_TO_MM_S*totalTime/1000.0);											
-										}
+//										}
 										deltaDist = ((rightEncSum-rightEncSumPrev)+(leftEncSum-leftEncSumPrev))/2.0;
 										odometry[X_ODOM] += Math.cos(odometry[THETA_ODOM])*deltaDist;				
 										odometry[Y_ODOM] += Math.sin(odometry[THETA_ODOM])*deltaDist;
