@@ -22,8 +22,11 @@ package com.wheelphone.wheelphonelibrary;
  ********************************************************************/
 
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -822,9 +825,9 @@ public class USBAccessoryManager {
 					// bytes = inputStream.read(buffer, 0, 0);	// non blocking read				
 					
 					
-		    		logString = "Rx " + bytes + " in " + System.currentTimeMillis()-tempTime + " ms\n";
-		    		appendLog(logString);
-		    		tempTime = System.currentTimeMillis();
+		    		//logString = "Rx " + bytes + " in " + (System.currentTimeMillis()-tempTime) + " ms\n";
+		    		//appendLog(logString);
+		    		//tempTime = System.currentTimeMillis();
 		    		
 //					if(bytes==0) {
 //						timeout++;
