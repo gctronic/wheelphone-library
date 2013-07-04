@@ -93,9 +93,9 @@ public class WheelphoneRobot {
 	private static final double MM_S_TO_RAW = 4.8;			// transformation factor from mm/s to raw speed values (raw=mm_s/factor) 
 	
 	// odometry
-	private double wheelDiamLeft = 0.059;					// meters
-	private double wheelDiamRight = 0.059;
-	private double wheelBase = 0.087;
+	private double leftDiamCoeff = 1.0;
+	private double rightDiamCoeff = 1.0;
+	private double wheelBase = 0.087;						// meters
 	private double [] odometry = {0.0, 0.0, 0.0};			// x (mm), y (mm), theta (radians) respectively
 	private static final int X_ODOM = 0;
 	private static final int Y_ODOM = 1;
@@ -198,8 +198,8 @@ public class WheelphoneRobot {
 //											leftEncSum += (leftEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);	// result is mm
 //											rightEncSum += (rightEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);
 //										} else {
-											leftEncSum += (leftEncoder*ENC_TO_MM_S*totalTime/1000.0);
-											rightEncSum += (rightEncoder*ENC_TO_MM_S*totalTime/1000.0);											
+											leftEncSum += (leftEncoder*ENC_TO_MM_S*totalTime/1000.0)*leftDiamCoeff;
+											rightEncSum += (rightEncoder*ENC_TO_MM_S*totalTime/1000.0)*rightDiamCoeff;											
 //										}
 										deltaDist = ((rightEncSum-rightEncSumPrev)+(leftEncSum-leftEncSumPrev))/2.0;
 										odometry[X_ODOM] += Math.cos(odometry[THETA_ODOM])*deltaDist;				
@@ -347,6 +347,7 @@ public class WheelphoneRobot {
 		commandPacket[3] = flagPhoneToRobot;
 		accessoryManager.write(commandPacket);		
 		flagPhoneToRobot &= 0xEF; //~(1 << 4);	// calibration flag sent only once
+		flagPhoneToRobot &= ~(1 << 5);
     }    
     
     /**
@@ -865,17 +866,21 @@ public class WheelphoneRobot {
     
     /**
     * \brief Set/reset odometry parameters.
-    * \param dl left wheel diamater (m)
-    * \param dr right wheel diamater (m)
+    * \param dl left wheel diameter coefficient
+    * \param dr right wheel diameter coefficient
     * \param wb wheels distance (m)
     * \return none
     */
-    public void setOdometryParameters(double dl, double dr, double wb) {
-    	wheelDiamLeft = dl;
-    	wheelDiamRight = dr;
+    public void setOdometryParameters(double ldc, double rdc, double wb) {
+    	leftDiamCoeff = ldc;
+    	rightDiamCoeff = rdc;
     	wheelBase = wb;
     }
  
+    public void calibrateOdometry() {
+    	flagPhoneToRobot |= (1 << 5); 	
+    }
+    
     /**
     * \brief Return version of the firmware running on the robot. This is useful to know whether an update is available or not.
     * \return firmware version
