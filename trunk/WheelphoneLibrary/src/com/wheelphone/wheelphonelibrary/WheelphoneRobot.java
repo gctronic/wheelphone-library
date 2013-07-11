@@ -69,6 +69,7 @@ public class WheelphoneRobot {
 	private boolean isCalibrating = false;
 	private int isCalibratingCounter = 0;					// counter used to wait for the completion of the calibration
 	private int firmwareVersion = 0;						// robot firmware version
+	private boolean odomCalibFinish = false;
 	
 	// Robot control (phone => robot)
 	private int lSpeed=0, rSpeed=0;
@@ -221,6 +222,12 @@ public class WheelphoneRobot {
 											}
 										} else {
 											chargeState = NOT_CHARGING;
+										}
+										
+										if((flagRobotToPhone&0x80)==0x80) {
+											odomCalibFinish = true;
+										} else {
+											odomCalibFinish = false;
 										}
 
 										break;
@@ -879,6 +886,11 @@ public class WheelphoneRobot {
  
     public void calibrateOdometry() {
     	flagPhoneToRobot |= (1 << 5); 	
+    	odomCalibFinish = false;
+    }
+    
+    public boolean odometryCalibrationTerminated() {
+    	return odomCalibFinish;
     }
     
     /**
