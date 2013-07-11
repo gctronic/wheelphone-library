@@ -48,7 +48,7 @@ public class WheelphoneRobot {
     private boolean deviceAttached = false;					// flag indicating when the robot is attached
 	private USBAccessoryManager accessoryManager;			// low-level USB communication class
 	private boolean isConnected = false;					// flag indicating if the robot is connected (and exchanging packets) with the phone
-	private int commTimeoutLimit = 15;						// based on communication timer task (repeatedly scheduled at 50 ms) => 300 ms
+	private int commTimeoutLimit = 20;						// based on communication timer task (repeatedly scheduled at 50 ms) => 300 ms
 	
 	// Robot state (robot => phone)
 	private int[] proxValues = {0, 0, 0, 0};				// front proximity values (higher value means nearer object)	
@@ -88,9 +88,9 @@ public class WheelphoneRobot {
 															// was received, if this is the case a new command is sent to the robot and the flag is reset.
 	private Context context;
 	private Activity activity;
-	private boolean debug = true;
+	private boolean debug = false;
 	private String logString;
-	private static final double MM_S_TO_RAW = 4.8;			// transformation factor from mm/s to raw speed values (raw=mm_s/factor) 
+	private static final double MM_S_TO_BYTE = 2.4;			// scale the speed given in mm/s to a byte sent to the microcontroller 
 	
 	// odometry
 	private double leftDiamCoeff = 1.0;
@@ -207,7 +207,7 @@ public class WheelphoneRobot {
 										odometry[THETA_ODOM] = ((rightEncSum-leftEncSum)/wheelBase)/1000.0;	// over 1000 because rightEncSum and leftEncSum are in mm									    	  								    	
 								    									    	
 								    	if(debug) {
-								    		logString = lSpeed + "," + rSpeed + "," + leftEncoder + "," + rightEncoder + "," + leftEncSumPrev + "," + rightEncSumPrev + "," + leftEncSum + "," + rightEncSum + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";
+								    		logString = lSpeed + "," + rSpeed + "," + leftEncoder + "," + rightEncoder + "," + leftEncSumPrev + "," + rightEncSumPrev + "," + leftEncSum + "," + rightEncSum + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";							    	
 								    		appendLog(logString);
 								    	}
 								    	
@@ -451,8 +451,8 @@ public class WheelphoneRobot {
 		if(r > MAX_SPEED_REAL) {
 			r = MAX_SPEED_REAL;
 		}		
-		lSpeed = (int) (l/MM_S_TO_RAW);
-		rSpeed = (int) (r/MM_S_TO_RAW);
+		lSpeed = (int) (l/MM_S_TO_BYTE);
+		rSpeed = (int) (r/MM_S_TO_BYTE);
 	}
 	
     /**
@@ -467,7 +467,7 @@ public class WheelphoneRobot {
 		if(l > MAX_SPEED_REAL) {
 			l = MAX_SPEED_REAL;
 		}		
-		lSpeed = (int) (l/MM_S_TO_RAW);
+		lSpeed = (int) (l/MM_S_TO_BYTE);
 	}	
 	
     /**
@@ -482,7 +482,7 @@ public class WheelphoneRobot {
 		if(r > MAX_SPEED_REAL) {
 			r = MAX_SPEED_REAL;
 		}		
-		rSpeed = (int) (r/MM_S_TO_RAW);
+		rSpeed = (int) (r/MM_S_TO_BYTE);
 	}	
 	
     /**
