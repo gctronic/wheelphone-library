@@ -58,7 +58,7 @@ public class WheelphoneRobot {
 	private int[] groundAmbientValues = {0, 0, 0, 0};		// ground proximity ambient values
 	private int[] groundValuesCalibration = {0, 0, 0, 0};	// ground proximity values of the calibration
 	private int battery = 0;	
-	private int leftEncoder=0, rightEncoder=0;				// they contain the difference (not absolute value)
+	private int leftEncoder=0, rightEncoder=0;				// they contain the current measured motors speed in mm/s
 	private byte flagRobotToPhone = 0;						// bit 5: 1 => robot is charging, 0 => robot not charging
 															// bit 6: 1 => robot completely charged, 0 => robot not completely charged
 															// others bits not used
@@ -75,8 +75,8 @@ public class WheelphoneRobot {
 	private int lSpeed=0, rSpeed=0;
 	private static final int MIN_SPEED_RAW = -127;
 	private static final int MAX_SPEED_RAW = 127;
-	private static final int MIN_SPEED_REAL = -300;			// 300 mm/s
-	private static final int MAX_SPEED_REAL = 300;	
+	private static final int MIN_SPEED_REAL = -350;			// 350 mm/s
+	private static final int MAX_SPEED_REAL = 350;	
 	private byte flagPhoneToRobot=1;						// bit 0 => controller On/Off
 															// bit 1 => soft acceleration On/Off
 															// bit 2 => obstacle avoidance On/Off
@@ -91,7 +91,7 @@ public class WheelphoneRobot {
 	private Activity activity;
 	private boolean debug = false;
 	private String logString;
-	private static final double MM_S_TO_BYTE = 2.4;			// scale the speed given in mm/s to a byte sent to the microcontroller 
+	private static final double MM_S_TO_BYTE = 2.8;			// scale the speed given in mm/s to a byte sent to the microcontroller 
 	
 	// odometry
 	private double leftDiamCoeff = 1.0;
@@ -104,7 +104,6 @@ public class WheelphoneRobot {
 	private double leftEncSum=0.0, rightEncSum=0.0;
 	private double leftEncSumPrev=0.0, rightEncSumPrev=0.0;
 	private double deltaDist=0.0;
-	private static final double ENC_TO_MM_S = 0.709;		// transformation factor from encoders values to mm/s
 	private double startTime=0.0, finalTime=0.0, totalTime=0.0;
 	private static final int MAX_TIME_BETWEEN_PACKETS=90;	// it means 90 ms, it is used to know when a packet is lost because the expected time is 50 ms 
 	private static final int MEAN_TIME_BETWEEN_PACKETS=50;	// it means 50 ms, it is the expected time between packets
@@ -199,8 +198,8 @@ public class WheelphoneRobot {
 //											leftEncSum += (leftEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);	// result is mm
 //											rightEncSum += (rightEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);
 //										} else {
-											leftEncSum += (leftEncoder*ENC_TO_MM_S*totalTime/1000.0)*leftDiamCoeff;
-											rightEncSum += (rightEncoder*ENC_TO_MM_S*totalTime/1000.0)*rightDiamCoeff;											
+											leftEncSum += (leftEncoder*totalTime/1000.0)*leftDiamCoeff;
+											rightEncSum += (rightEncoder*totalTime/1000.0)*rightDiamCoeff;											
 //										}
 										deltaDist = ((rightEncSum-rightEncSumPrev)+(leftEncSum-leftEncSumPrev))/2.0;
 										odometry[X_ODOM] += Math.cos(odometry[THETA_ODOM])*deltaDist;				
@@ -208,8 +207,20 @@ public class WheelphoneRobot {
 										odometry[THETA_ODOM] = ((rightEncSum-leftEncSum)/wheelBase)/1000.0;	// over 1000 because rightEncSum and leftEncSum are in mm									    	  								    	
 								    									    	
 								    	if(debug) {
-								    		logString = lSpeed + "," + rSpeed + "," + leftEncoder + "," + rightEncoder + "," + leftEncSumPrev + "," + rightEncSumPrev + "," + leftEncSum + "," + rightEncSum + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";							    	
-								    		appendLog(logString);
+								    		//logString = lSpeed + "," + rSpeed + "," + leftEncoder + "," + rightEncoder + "," + leftEncSumPrev + "," + rightEncSumPrev + "," + leftEncSum + "," + rightEncSum + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";		
+								    		//logString = proxValues[0] + "," + proxValues[1] + "," + proxValues[2] + "," + proxValues[3] + "," + proxValues[1] + "," + groundValues[0] + "," + groundValues[1] + "," + groundValues[2] + "," + groundValues[3] + "," + battery + "," + leftEncoder + "," + rightEncoder + "\n";
+								    		int j=0;
+								    		//for(j=0; j<(commandPacket[57]&0xFF); j++) {
+								    		for(j=0; j<7; j++) {	
+								    			//debugControllerValues[j] = (commandPacket[21]&0xFF) + (commandPacket[22])*256;
+								    			logString = ((commandPacket[j*8+1]&0xFF) + (commandPacket[j*8+2])*256) + ",";
+								    			logString += ((commandPacket[j*8+3]&0xFF) + (commandPacket[j*8+4])*256) + ",";
+								    			logString += ((commandPacket[j*8+5]&0xFF) + (commandPacket[j*8+6])*256) + ",";
+								    			logString += ((commandPacket[j*8+7]&0xFF) + (commandPacket[j*8+8])*256) + ",";
+								    			logString += (commandPacket[57]&0xFF);
+								    			appendLog(logString);
+								    		}
+								    		
 								    	}
 								    	
 								    	startTime = finalTime; 
@@ -310,7 +321,8 @@ public class WheelphoneRobot {
 		activity = a;
 		context = c;
 		if(debug) {
-	    	logString = "lSpeed,rSpeed,leftEncoder,rightEncoder,leftEncSumPrev,rightEncSumPrev,leftEncSum,rightEncSum,startTime,finalTime,totalTime,odom_x,odom_y,odom_theta\n";
+	    	//logString = "lSpeed,rSpeed,leftEncoder,rightEncoder,leftEncSumPrev,rightEncSumPrev,leftEncSum,rightEncSum,startTime,finalTime,totalTime,odom_x,odom_y,odom_theta\n";
+			logString = "desired,measured,errorSum,controllerOut,counter\n";
 			appendLog(logString);
 		}
 	}
@@ -543,6 +555,22 @@ public class WheelphoneRobot {
 			r = MAX_SPEED_RAW;
 		}		
 		rSpeed = r;		
+	}
+	
+    /**
+     * \brief Flags setting directly with a byte value.
+     * \param value representing the flags to enable (1) or disable (0):
+     * - bit1: speed control enable/disable
+     * - bit2: soft acceleration enable/disable
+     * - bit3: obstacle avoidance enable/disable
+     * - bit4: cliff avoidance enable/disable
+     * - bit5: calibrate sensors
+     * - bit6: calibrate odometry
+     * - bit7/8: not used
+     * \return none
+     */	
+	public void setFlagsPhoneToRobot(byte value) {
+		flagPhoneToRobot = value;
 	}
 	
     /**
