@@ -58,7 +58,7 @@ public class WheelphoneRobot {
 	private int[] groundAmbientValues = {0, 0, 0, 0};		// ground proximity ambient values
 	private int[] groundValuesCalibration = {0, 0, 0, 0};	// ground proximity values of the calibration
 	private int battery = 0;	
-	private int leftEncoder=0, rightEncoder=0;				// they contain the current measured motors speed in mm/s
+	private int leftMeasuredSpeed=0, rightMeasuredSpeed=0;	// they contain the current measured motors speed in mm/s (speed measured using back EMF)
 	private byte flagRobotToPhone = 0;						// bit 5: 1 => robot is charging, 0 => robot not charging
 															// bit 6: 1 => robot completely charged, 0 => robot not completely charged
 															// others bits not used
@@ -101,13 +101,11 @@ public class WheelphoneRobot {
 	private static final int X_ODOM = 0;
 	private static final int Y_ODOM = 1;
 	private static final int THETA_ODOM = 2;
-	private double leftEncSum=0.0, rightEncSum=0.0;
-	private double leftEncSumPrev=0.0, rightEncSumPrev=0.0;
+	private double leftDist=0.0, rightDist=0.0;
+	private double leftDistPrev=0.0, rightDistPrev=0.0;
 	private double deltaDist=0.0;
 	private double startTime=0.0, finalTime=0.0, totalTime=0.0;
-	private static final int MAX_TIME_BETWEEN_PACKETS=90;	// it means 90 ms, it is used to know when a packet is lost because the expected time is 50 ms 
-	private static final int MEAN_TIME_BETWEEN_PACKETS=50;	// it means 50 ms, it is the expected time between packets
-	
+
 	private class communicationTask extends TimerTask {          
 		@Override        
 		public void run() {             
@@ -184,31 +182,23 @@ public class WheelphoneRobot {
 										groundAmbientValues[3] = 0x00<<24 | commandPacket[16]&0xFF;
 										battery = 0x00<<24 | commandPacket[17]&0xFF;
 										flagRobotToPhone = commandPacket[18]; 
-										leftEncoder = (commandPacket[19]&0xFF) + (commandPacket[20])*256;
-										rightEncoder = (commandPacket[21]&0xFF) + (commandPacket[22])*256;
+										leftMeasuredSpeed = (commandPacket[19]&0xFF) + (commandPacket[20])*256;
+										rightMeasuredSpeed = (commandPacket[21]&0xFF) + (commandPacket[22])*256;
 										
-										leftEncSumPrev = leftEncSum;
-										rightEncSumPrev = rightEncSum;
+										leftDistPrev = leftDist;
+										rightDistPrev = rightDist;
 										finalTime = System.currentTimeMillis();
 										totalTime = finalTime - startTime;
-//										if(totalTime >= MAX_TIME_BETWEEN_PACKETS) {	// this is needed because the expected time is 50 ms, thus could be also 49 ms and thus "Math.floor" would return 0 instead of 1
-//											// Since we expect a totalTime (time between packets) of 50 ms we can suppose whether a packet
-//											// is lost/overwritten or not. In case a packet is lost/overwritten we need to multiply (by a factor dependent on the number of packets lost) 
-//											// the value of the received leftEncoder and rightEncoder because they are reset at each robot transmission.											
-//											leftEncSum += (leftEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);	// result is mm
-//											rightEncSum += (rightEncoder*Math.floor(totalTime/MEAN_TIME_BETWEEN_PACKETS)*ENC_TO_MM_S*totalTime/1000.0);
-//										} else {
-											leftEncSum += (leftEncoder*totalTime/1000.0)*leftDiamCoeff;
-											rightEncSum += (rightEncoder*totalTime/1000.0)*rightDiamCoeff;											
-//										}
-										deltaDist = ((rightEncSum-rightEncSumPrev)+(leftEncSum-leftEncSumPrev))/2.0;
+										leftDist += (leftMeasuredSpeed*totalTime/1000.0)*leftDiamCoeff;
+										rightDist += (rightMeasuredSpeed*totalTime/1000.0)*rightDiamCoeff;											
+										deltaDist = ((rightDist-rightDistPrev)+(leftDist-leftDistPrev))/2.0;
 										odometry[X_ODOM] += Math.cos(odometry[THETA_ODOM])*deltaDist;				
 										odometry[Y_ODOM] += Math.sin(odometry[THETA_ODOM])*deltaDist;
-										odometry[THETA_ODOM] = ((rightEncSum-leftEncSum)/wheelBase)/1000.0;	// over 1000 because rightEncSum and leftEncSum are in mm									    	  								    	
+										odometry[THETA_ODOM] = ((rightDist-leftDist)/wheelBase)/1000.0;	// over 1000 because rightDist and leftDist are in mm									    	  								    	
 								    									    	
 								    	if(debug) {
-								    		//logString = lSpeed + "," + rSpeed + "," + leftEncoder + "," + rightEncoder + "," + leftEncSumPrev + "," + rightEncSumPrev + "," + leftEncSum + "," + rightEncSum + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";		
-								    		//logString = proxValues[0] + "," + proxValues[1] + "," + proxValues[2] + "," + proxValues[3] + "," + proxValues[1] + "," + groundValues[0] + "," + groundValues[1] + "," + groundValues[2] + "," + groundValues[3] + "," + battery + "," + leftEncoder + "," + rightEncoder + "\n";
+								    		//logString = lSpeed + "," + rSpeed + "," + leftMeasuredSpeed + "," + rightMeasuredSpeed + "," + leftDistPrev + "," + rightDistPrev + "," + leftDist + "," + rightDist + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";		
+								    		//logString = proxValues[0] + "," + proxValues[1] + "," + proxValues[2] + "," + proxValues[3] + "," + proxValues[1] + "," + groundValues[0] + "," + groundValues[1] + "," + groundValues[2] + "," + groundValues[3] + "," + battery + "," + leftMeasuredSpeed + "," + rightMeasuredSpeed + "\n";
 								    		int j=0;
 								    		//for(j=0; j<(commandPacket[57]&0xFF); j++) {
 								    		for(j=0; j<7; j++) {	
@@ -321,7 +311,7 @@ public class WheelphoneRobot {
 		activity = a;
 		context = c;
 		if(debug) {
-	    	//logString = "lSpeed,rSpeed,leftEncoder,rightEncoder,leftEncSumPrev,rightEncSumPrev,leftEncSum,rightEncSum,startTime,finalTime,totalTime,odom_x,odom_y,odom_theta\n";
+	    	//logString = "lSpeed,rSpeed,leftMeasuredSpeed,rightMeasuredSpeed,leftDistPrev,rightDistPrev,leftDist,rightDist,startTime,finalTime,totalTime,odom_x,odom_y,odom_theta\n";
 			logString = "desired,measured,errorSum,controllerOut,counter\n";
 			appendLog(logString);
 		}
@@ -706,20 +696,19 @@ public class WheelphoneRobot {
     }
     
     /**
-     * \brief The value of the left encoder returned from the robot. The encoders values are based on the measured speed not on a real  
-     * encoder device. The values given by the robot are the current encoders values, not the absolute value.
-     * \return left encoder (positive or negative)
+     * \brief The value of the left motor speed returned from the robot. This value is the measured speed using back EMF.
+     * \return left speed (positive or negative)
      */
-    public int getLeftEncoder() {
-    	return leftEncoder;
+    public int getLeftSpeed() {
+    	return leftMeasuredSpeed;
     }
     
     /**
-     * \brief The value of the right encoder returned from the robot. For more details refer to "getLeftEncoder".
-     * \return right encoder (positive or negative)
+     * \brief The value of the right motor speed returned from the robot. For more details refer to "getLeftSpeed".
+     * \return right speed (positive or negative)
      */
-    public int getRightEncoder() {
-    	return rightEncoder;
+    public int getRightSpeed() {
+    	return rightMeasuredSpeed;
     }
     
     /**
@@ -854,7 +843,7 @@ public class WheelphoneRobot {
     }
     
     /**
-    * \brief Return the odometry information resulting from the encoders values received by the robot.
+    * \brief Return the odometry information resulting from the measured speeds values received by the robot.
     * The positive x axis is pointing forward and the positive y axis is pointing to the left side of the robot.
     * \return array of length 3 containing sequentially x position (mm), y position (mm), theta (radians).
     */
