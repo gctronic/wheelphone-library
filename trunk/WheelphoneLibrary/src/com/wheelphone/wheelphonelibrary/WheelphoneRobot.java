@@ -17,17 +17,14 @@ The low-level communication with the robot (packets exchange) is handled interna
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Environment;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -84,11 +81,11 @@ public class WheelphoneRobot {
 															// others bits not used
 															
 	// Various
-	private String TAG = "Wheelphone";
+	private static final String TAG = WheelphoneRobot.class.getName();
 	private Timer timer = new Timer();						// timer used for scheduling the communication every 50 ms: this task poll a flag indicating whether a message 
 															// was received, if this is the case a new command is sent to the robot and the flag is reset.
 	private Context context;
-	private Activity activity;
+	private Intent activityIntent;
 	private boolean debug = false;
 	private String logString;
 	private static final double MM_S_TO_BYTE = 2.8;			// scale the speed given in mm/s to a byte sent to the microcontroller 
@@ -105,6 +102,14 @@ public class WheelphoneRobot {
 	private double leftDistPrev=0.0, rightDistPrev=0.0;
 	private double deltaDist=0.0;
 	private double startTime=0.0, finalTime=0.0, totalTime=0.0;
+
+	/*
+	 * Interface that should be implemented by classes that would like to be notified by when the WheelphoneRobot state is updated. (Observer pattern)
+	 */
+	public interface WheelPhoneRobotListener{
+		public void onWheelphoneUpdate();
+	}
+	private WheelPhoneRobotListener mEventListener;
 
 	private class communicationTask extends TimerTask {          
 		@Override        
@@ -230,6 +235,7 @@ public class WheelphoneRobot {
 										} else {
 											odomCalibFinish = false;
 										}
+										if(mEventListener!=null) mEventListener.onWheelphoneUpdate(); //Notify listener of an update
 
 										break;
 								}
@@ -304,12 +310,11 @@ public class WheelphoneRobot {
     /**
      * \brief Class constructor
      * \param a pass the main activity instance (this)
-     * \param c pass the main activity instance (this)
      * \return WheelphoneRobot instance
      */
-	public WheelphoneRobot(Activity a, Context c) {
-		activity = a;
+	public WheelphoneRobot(Context c, Intent i) {
 		context = c;
+		activityIntent = i;
 		if(debug) {
 	    	//logString = "lSpeed,rSpeed,leftMeasuredSpeed,rightMeasuredSpeed,leftDistPrev,rightDistPrev,leftDist,rightDist,startTime,finalTime,totalTime,odom_x,odom_y,odom_theta\n";
 			logString = "desired,measured,errorSum,controllerOut,counter\n";
@@ -354,7 +359,7 @@ public class WheelphoneRobot {
 		commandPacket[1] = (byte)lSpeed;
 		commandPacket[2] = (byte)rSpeed;
 		commandPacket[3] = flagPhoneToRobot;
-		accessoryManager.write(commandPacket);		
+		accessoryManager.write(commandPacket);	
 		flagPhoneToRobot &= 0xEF; //~(1 << 4);	// calibration flag sent only once
 		flagPhoneToRobot &= ~(1 << 5);
     }    
@@ -381,7 +386,7 @@ public class WheelphoneRobot {
     	if(debug) {
     		Log.d(TAG, "resumeUSBCommunication");
     	}
-    	accessoryManager.enable(context, activity.getIntent());
+		accessoryManager.enable(context, activityIntent);
     }
     
     /**
@@ -947,5 +952,17 @@ public class WheelphoneRobot {
 	      e.printStackTrace();
 	   }
 	}
+	
+	/*
+	 * Observer pattern glue code:
+	 */
+	public void setWheelPhoneRobotListener(WheelPhoneRobotListener eventListener) {
+		mEventListener = eventListener;
+	}
+
+	public void removeWheelPhoneRobotListener() {
+		mEventListener = null;
+	}
+
     
 }
