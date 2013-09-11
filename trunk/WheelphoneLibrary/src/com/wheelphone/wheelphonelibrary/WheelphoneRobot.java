@@ -54,6 +54,7 @@ public class WheelphoneRobot {
 	private int[] groundValues = {0, 0, 0, 0};				// ground proximity values (darker surface/cliff => lower values)
 	private int[] groundAmbientValues = {0, 0, 0, 0};		// ground proximity ambient values
 	private int[] groundValuesCalibration = {0, 0, 0, 0};	// ground proximity values of the calibration
+	public static final int maxBatteryValue = 152;
 	private int battery = 0;	
 	private int leftMeasuredSpeed=0, rightMeasuredSpeed=0;	// they contain the current measured motors speed in mm/s (speed measured using back EMF)
 	private byte flagRobotToPhone = 0;						// bit 5: 1 => robot is charging, 0 => robot not charging
@@ -125,6 +126,7 @@ public class WheelphoneRobot {
 					}
 					if(isCalibratingCounter == 0) {
 						isCalibrating = false;
+						resetOdometry();	// reset odometry when calibration is done
 					}
 				}
 			} else {
@@ -235,7 +237,9 @@ public class WheelphoneRobot {
 										} else {
 											odomCalibFinish = false;
 										}
-										if(mEventListener!=null) mEventListener.onWheelphoneUpdate(); //Notify listener of an update
+										if(mEventListener!=null) {
+											mEventListener.onWheelphoneUpdate(); //Notify listener of an update
+										}
 
 										break;
 								}
@@ -293,6 +297,9 @@ public class WheelphoneRobot {
 								Log.d(TAG, "message: DISCONNECTED");
 							}
 							endUSBCommunication();
+							if(mEventListener!=null) {
+								mEventListener.onWheelphoneUpdate(); //Notify listener of a disconnection
+							}							
 							break;
 					}				
 				
@@ -651,7 +658,7 @@ public class WheelphoneRobot {
     
     /**
      * \brief Returns the sampled value of the battery.
-     * \return battery level (from 0 to 100)
+     * \return battery level (from 0 to maxBatteryValue=152)
      */
     public int getBatteryRaw() {
     	return battery;
@@ -659,10 +666,31 @@ public class WheelphoneRobot {
     
     /**
      * \brief Returns the current battery voltage.
-     * \return battery voltage (from 3.7 to 4.2 volts)
+     * \return battery voltage (from 3.5 to 4.2 volts)
      */
     public float getBatteryVoltage() {
-    	return (float) (4.2*(float)((battery+800)/900));
+    	return (float) (4.2*(float)((battery+763)/915));	// 915 corresponds to the adc sampled value of the battery at 4.2 volts
+    }														// 763 corresponds to the adc sampled value of the battery at 3.5 volts
+    														// the "battery" variable actually contains the "sampled value - 763"
+        
+    /**
+     * \brief Returns the percentage of charge remaining in the battery.
+     * \return battery charge (from 0% to 100%)
+     */
+    public int getBatteryCharge() {
+    	return (int)(100*battery/maxBatteryValue);
+    }    
+
+    /**
+     * \brief Returns the battery charge low status.
+     * \return true if low, false otherwise
+     */    
+    public boolean batteryIsLow() {
+    	if(battery < 23) {	// 23/152=15%
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
     
     /**
@@ -913,6 +941,14 @@ public class WheelphoneRobot {
     
     public boolean odometryCalibrationTerminated() {
     	return odomCalibFinish;
+    }
+    
+    public void resetOdometry() {
+    	setOdometry(0,0,0);
+    	leftDist = 0;
+    	rightDist = 0;
+    	leftDistPrev = 0;
+    	rightDistPrev = 0;
     }
     
     /**
