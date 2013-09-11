@@ -573,6 +573,10 @@ public class USBAccessoryManager {
 				 */
 				while (tries-- > 0) {
 					try {
+						if(outputStream == null) {	// do this check because during the sleep of 2 seconds (see about 10 lines afterwards)
+													// the cable could be detached or the robot turned off, thus raising an exception
+							break;
+						}
 						outputStream.write(data);
 						tries = 0;
 					} catch (IOException e) {
