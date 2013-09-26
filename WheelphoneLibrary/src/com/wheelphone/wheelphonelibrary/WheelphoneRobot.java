@@ -87,7 +87,7 @@ public class WheelphoneRobot {
 															// was received, if this is the case a new command is sent to the robot and the flag is reset.
 	private Context context;
 	private Intent activityIntent;
-	private boolean debug = false;
+	private boolean debug = true;
 	private String logString;
 	private static final double MM_S_TO_BYTE = 2.8;			// scale the speed given in mm/s to a byte sent to the microcontroller 
 	
@@ -210,13 +210,19 @@ public class WheelphoneRobot {
 								    		//for(j=0; j<(commandPacket[57]&0xFF); j++) {
 								    		for(j=0; j<7; j++) {	
 								    			//debugControllerValues[j] = (commandPacket[21]&0xFF) + (commandPacket[22])*256;
-								    			logString = ((commandPacket[j*8+1]&0xFF) + (commandPacket[j*8+2])*256) + ",";
-								    			logString += ((commandPacket[j*8+3]&0xFF) + (commandPacket[j*8+4])*256) + ",";
-								    			logString += ((commandPacket[j*8+5]&0xFF) + (commandPacket[j*8+6])*256) + ",";
-								    			logString += ((commandPacket[j*8+7]&0xFF) + (commandPacket[j*8+8])*256) + ",";
-								    			logString += (commandPacket[57]&0xFF);
-								    			appendLog(logString);
+//								    			logString = ((commandPacket[j*8+1]&0xFF) + (commandPacket[j*8+2])*256) + ",";
+//								    			logString += ((commandPacket[j*8+3]&0xFF) + (commandPacket[j*8+4])*256) + ",";
+//								    			logString += ((commandPacket[j*8+5]&0xFF) + (commandPacket[j*8+6])*256) + ",";
+//								    			logString += ((commandPacket[j*8+7]&0xFF) + (commandPacket[j*8+8])*256) + ",";
+//								    			logString += (commandPacket[57]&0xFF);
+//								    			appendLog(logString);
 								    		}
+								    		
+							    			logString = commandPacket[1] + ",";
+							    			logString += ((commandPacket[2]&0xFF) + (commandPacket[3])*256 + (commandPacket[4])*65536 + (commandPacket[5])*16777216) + ",";
+							    			logString += ((commandPacket[6]&0xFF) + (commandPacket[7])*256 + (commandPacket[8])*65536 + (commandPacket[9])*16777216) + ",";
+							    			logString += (commandPacket[10]&0xFF) + (commandPacket[11])*256;
+							    			appendLog(logString);
 								    		
 								    	}
 								    	
@@ -324,8 +330,8 @@ public class WheelphoneRobot {
 		activityIntent = i;
 		if(debug) {
 	    	//logString = "lSpeed,rSpeed,leftMeasuredSpeed,rightMeasuredSpeed,leftDistPrev,rightDistPrev,leftDist,rightDist,startTime,finalTime,totalTime,odom_x,odom_y,odom_theta\n";
-			logString = "desired,measured,errorSum,controllerOut,counter\n";
-			appendLog(logString);
+			//logString = "desired,measured,errorSum,controllerOut,counter\n";
+			//appendLog(logString);
 		}
 	}
 	
