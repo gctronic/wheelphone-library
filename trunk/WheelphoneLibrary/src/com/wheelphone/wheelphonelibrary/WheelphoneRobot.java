@@ -87,7 +87,7 @@ public class WheelphoneRobot {
 															// was received, if this is the case a new command is sent to the robot and the flag is reset.
 	private Context context;
 	private Intent activityIntent;
-	private boolean debug = true;
+	private boolean debug = false;
 	private String logString;
 	private static final double MM_S_TO_BYTE = 2.8;			// scale the speed given in mm/s to a byte sent to the microcontroller 
 	
@@ -103,7 +103,8 @@ public class WheelphoneRobot {
 	private double leftDistPrev=0.0, rightDistPrev=0.0;
 	private double deltaDist=0.0;
 	private double startTime=0.0, finalTime=0.0, totalTime=0.0;
-
+	private boolean logEnabled = false;
+	
 	/*
 	 * Interface that should be implemented by classes that would like to be notified by when the WheelphoneRobot state is updated. (Observer pattern)
 	 */
@@ -202,7 +203,19 @@ public class WheelphoneRobot {
 										odometry[X_ODOM] += Math.cos(odometry[THETA_ODOM])*deltaDist;				
 										odometry[Y_ODOM] += Math.sin(odometry[THETA_ODOM])*deltaDist;
 										odometry[THETA_ODOM] = ((rightDist-leftDist)/wheelBase)/1000.0;	// over 1000 because rightDist and leftDist are in mm									    	  								    	
-								    									    	
+								    			
+										if(logEnabled) {
+											logString = proxValues[0] + "," + proxValues[1] + "," + proxValues[2] + "," + proxValues[3] + ",";
+											logString += proxAmbientValues[0] + "," + proxAmbientValues[1] + "," + proxAmbientValues[2] + "," + proxAmbientValues[3] + ",";
+											logString += groundValues[0] + "," + groundValues[1] + "," + groundValues[2] + "," + groundValues[3] + ",";
+											logString += groundAmbientValues[0] + "," + groundAmbientValues[1] + "," + groundAmbientValues[2] + "," + groundAmbientValues[3] + ",";
+											logString += battery + ",";
+											logString += flagRobotToPhone + ",";
+											logString += leftMeasuredSpeed + "," + rightMeasuredSpeed + ",";
+											logString += odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM];
+											appendLog(logString);
+										}
+										
 								    	if(debug) {
 								    		//logString = lSpeed + "," + rSpeed + "," + leftMeasuredSpeed + "," + rightMeasuredSpeed + "," + leftDistPrev + "," + rightDistPrev + "," + leftDist + "," + rightDist + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";		
 								    		//logString = proxValues[0] + "," + proxValues[1] + "," + proxValues[2] + "," + proxValues[3] + "," + proxValues[1] + "," + groundValues[0] + "," + groundValues[1] + "," + groundValues[2] + "," + groundValues[3] + "," + battery + "," + leftMeasuredSpeed + "," + rightMeasuredSpeed + "\n";
@@ -217,11 +230,18 @@ public class WheelphoneRobot {
 //								    			logString += (commandPacket[57]&0xFF);
 //								    			appendLog(logString);
 								    		}
-								    		
-							    			logString = commandPacket[1] + ",";
-							    			logString += ((commandPacket[2]&0xFF) + (commandPacket[3])*256 + (commandPacket[4])*65536 + (commandPacket[5])*16777216) + ",";
-							    			logString += ((commandPacket[6]&0xFF) + (commandPacket[7])*256 + (commandPacket[8])*65536 + (commandPacket[9])*16777216) + ",";
-							    			logString += (commandPacket[10]&0xFF) + (commandPacket[11])*256;
+								    										    		
+							    			logString = (((commandPacket[1]&0xFF) + (commandPacket[2])*256)&0x0000FFF) + ",";	// unsigned int
+							    			logString += (commandPacket[3]&0xFF) + (commandPacket[4])*256 + ",";
+							    			logString += (commandPacket[5]&0xFF) + (commandPacket[6])*256 + ",";
+							    			logString += (commandPacket[7]&0xFF) + (commandPacket[8])*256 + ",";
+							    			logString += (commandPacket[9]&0xFF) + (commandPacket[10])*256 + ",";
+							    			logString += (commandPacket[11]&0xFF) + ",";
+							    			logString += (commandPacket[12]&0xFF) + (commandPacket[13])*256 + ",";
+							    			logString += (commandPacket[14]&0xFF) + (commandPacket[15])*256 + ",";
+							    			logString += (commandPacket[16]&0xFF) + (commandPacket[17])*256 + ",";
+							    			logString += (commandPacket[18]&0xFF) + (commandPacket[19])*256 + ",";
+							    			logString += (commandPacket[20]&0xFF) + (commandPacket[21])*256;
 							    			appendLog(logString);
 								    		
 								    	}
@@ -963,6 +983,22 @@ public class WheelphoneRobot {
     */
     public int getFirmwareVersion() {
     	return firmwareVersion;
+    }
+    
+    /**
+    * \brief Enable the logging of the sensors data received from the robot and the computed odometry.
+    */
+    void enableDataLog() {
+    	logEnabled = true;
+		logString = "prox0,prox1,prox2,prox3,proxAmb0,proxAmb1,proxAmb2,proxAmb3,ground0,ground1,ground2,ground3,groundAmb0,groundAmb1,groundAmb2,groundAmb3,battery,flagRobotToPhone,leftSpeed,rightSpeed,x,y,theta";
+		appendLog(logString);
+    }
+    
+    /**
+    * \brief Disable the logging.
+    */
+    void disableDataLog() {
+    	logEnabled = false;
     }
     
 	public void appendLog(String text)
