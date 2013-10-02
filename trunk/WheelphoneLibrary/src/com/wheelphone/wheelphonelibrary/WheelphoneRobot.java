@@ -988,20 +988,21 @@ public class WheelphoneRobot {
     /**
     * \brief Enable the logging of the sensors data received from the robot and the computed odometry.
     */
-    void enableDataLog() {
+    public void enableDataLog() {
     	logEnabled = true;
 		logString = "prox0,prox1,prox2,prox3,proxAmb0,proxAmb1,proxAmb2,proxAmb3,ground0,ground1,ground2,ground3,groundAmb0,groundAmb1,groundAmb2,groundAmb3,battery,flagRobotToPhone,leftSpeed,rightSpeed,x,y,theta";
 		appendLog(logString);
     }
     
+    
     /**
     * \brief Disable the logging.
     */
-    void disableDataLog() {
+    public void disableDataLog() {
     	logEnabled = false;
     }
     
-	public void appendLog(String text)
+	void appendLog(String text)
 	{       
 	   File logFile = new File("sdcard/logFile.csv");
 	   if (!logFile.exists())
