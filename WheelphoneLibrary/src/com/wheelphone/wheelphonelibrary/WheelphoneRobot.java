@@ -90,6 +90,7 @@ public class WheelphoneRobot {
 	private boolean debug = false;
 	private String logString;
 	private static final double MM_S_TO_BYTE = 2.8;			// scale the speed given in mm/s to a byte sent to the microcontroller 
+	private static final int SPEED_THR = 3;					// under this value the received measured speed is set to 0 to avoid noisy measure affecting odometry
 	
 	// odometry
 	private double leftDiamCoeff = 1.0;
@@ -191,7 +192,13 @@ public class WheelphoneRobot {
 										battery = 0x00<<24 | commandPacket[17]&0xFF;
 										flagRobotToPhone = commandPacket[18]; 
 										leftMeasuredSpeed = (commandPacket[19]&0xFF) + (commandPacket[20])*256;
-										rightMeasuredSpeed = (commandPacket[21]&0xFF) + (commandPacket[22])*256;
+										rightMeasuredSpeed = (commandPacket[21]&0xFF) + (commandPacket[22])*256;										
+										if(Math.abs(leftMeasuredSpeed) < SPEED_THR) {
+											leftMeasuredSpeed = 0;
+										}
+										if(Math.abs(rightMeasuredSpeed) < SPEED_THR) {
+											rightMeasuredSpeed = 0;
+										}
 										
 										leftDistPrev = leftDist;
 										rightDistPrev = rightDist;
