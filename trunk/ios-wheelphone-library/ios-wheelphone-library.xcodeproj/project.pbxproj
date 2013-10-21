@@ -1,0 +1,595 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		7B7211A4180FA99A00430B1C /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 7B7211A5180FA99A00430B1C /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				7B7211AA180FAA0000430B1C /* ShellScript */,
+			);
+			dependencies = (
+				7B7211A9180FA9BF00430B1C /* PBXTargetDependency */,
+				7B7211D5180FADBE00430B1C /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		7B721190180FA53500430B1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B72118F180FA53500430B1C /* Foundation.framework */; };
+		7B721195180FA53500430B1C /* ios_wheelphone_library.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B721194180FA53500430B1C /* ios_wheelphone_library.h */; };
+		7B72119E180FA5B300430B1C /* ios_wheelphone_library.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B721194180FA53500430B1C /* ios_wheelphone_library.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B7211B1180FAC2200430B1C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7211B0180FAC2200430B1C /* CoreFoundation.framework */; };
+		7B7211B7180FAC2200430B1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211B5180FAC2200430B1C /* InfoPlist.strings */; };
+		7B7211D8180FB29300430B1C /* WheelphoneRobot.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7211D6180FB29300430B1C /* WheelphoneRobot.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B7211D9180FB29300430B1C /* WheelphoneRobot.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7211D7180FB29300430B1C /* WheelphoneRobot.m */; };
+		7B7211E0180FD53A00430B1C /* AQRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7211DE180FD53A00430B1C /* AQRecorder.h */; };
+		7B7211E1180FD53A00430B1C /* AQRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B7211DF180FD53A00430B1C /* AQRecorder.mm */; };
+		7B7211EA180FD5D800430B1C /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B7211E3180FD5D800430B1C /* CADebugMacros.cpp */; };
+		7B7211EB180FD5D800430B1C /* CADebugMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7211E4180FD5D800430B1C /* CADebugMacros.h */; };
+		7B7211EC180FD5D800430B1C /* CAMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7211E5180FD5D800430B1C /* CAMath.h */; };
+		7B7211ED180FD5D800430B1C /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B7211E6180FD5D800430B1C /* CAStreamBasicDescription.cpp */; };
+		7B7211EE180FD5D800430B1C /* CAStreamBasicDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7211E7180FD5D800430B1C /* CAStreamBasicDescription.h */; };
+		7B7211EF180FD5D800430B1C /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B7211E8180FD5D800430B1C /* CAXException.cpp */; };
+		7B7211F0180FD5D800430B1C /* CAXException.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7211E9180FD5D800430B1C /* CAXException.h */; };
+		7B7211F3180FD76900430B1C /* CADebugPrintf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B7211F1180FD76900430B1C /* CADebugPrintf.cpp */; };
+		7B7211F4180FD76900430B1C /* CADebugPrintf.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7211F2180FD76900430B1C /* CADebugPrintf.h */; };
+		7B721205181107B200430B1C /* dtmf_hash.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211F9181107B100430B1C /* dtmf_hash.wav */; };
+		7B721206181107B200430B1C /* dtmf_star.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211FA181107B100430B1C /* dtmf_star.wav */; };
+		7B721207181107B200430B1C /* dtmf0.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211FB181107B100430B1C /* dtmf0.wav */; };
+		7B721208181107B200430B1C /* dtmf1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211FC181107B100430B1C /* dtmf1.wav */; };
+		7B721209181107B200430B1C /* dtmf2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211FD181107B100430B1C /* dtmf2.wav */; };
+		7B72120A181107B200430B1C /* dtmf3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211FE181107B100430B1C /* dtmf3.wav */; };
+		7B72120B181107B200430B1C /* dtmf4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B7211FF181107B100430B1C /* dtmf4.wav */; };
+		7B72120C181107B200430B1C /* dtmf5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721200181107B100430B1C /* dtmf5.wav */; };
+		7B72120D181107B200430B1C /* dtmf6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721201181107B100430B1C /* dtmf6.wav */; };
+		7B72120E181107B200430B1C /* dtmf7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721202181107B200430B1C /* dtmf7.wav */; };
+		7B72120F181107B200430B1C /* dtmf8.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721203181107B200430B1C /* dtmf8.wav */; };
+		7B721210181107B200430B1C /* dtmf9.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721204181107B200430B1C /* dtmf9.wav */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7B7211A8180FA9BF00430B1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B721184180FA53500430B1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B72118B180FA53500430B1C;
+			remoteInfo = "ios-wheelphone-library";
+		};
+		7B7211D4180FADBE00430B1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7B721184180FA53500430B1C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7B7211AE180FAC2200430B1C;
+			remoteInfo = "wheelphone-library-resources";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		7B72118A180FA53500430B1C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+				7B721195180FA53500430B1C /* ios_wheelphone_library.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		7B72118C180FA53500430B1C /* libios-wheelphone-library.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libios-wheelphone-library.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B72118F180FA53500430B1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7B721193180FA53500430B1C /* ios-wheelphone-library-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios-wheelphone-library-Prefix.pch"; sourceTree = "<group>"; };
+		7B721194180FA53500430B1C /* ios_wheelphone_library.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ios_wheelphone_library.h; sourceTree = "<group>"; };
+		7B7211AF180FAC2200430B1C /* ios-wheelphone-library.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ios-wheelphone-library.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B7211B0180FAC2200430B1C /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		7B7211B4180FAC2200430B1C /* wheelphone-library-resources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "wheelphone-library-resources-Info.plist"; sourceTree = "<group>"; };
+		7B7211B6180FAC2200430B1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7B7211B8180FAC2200430B1C /* wheelphone-library-resources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "wheelphone-library-resources-Prefix.pch"; sourceTree = "<group>"; };
+		7B7211D6180FB29300430B1C /* WheelphoneRobot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WheelphoneRobot.h; path = ../WheelphoneRobot.h; sourceTree = "<group>"; };
+		7B7211D7180FB29300430B1C /* WheelphoneRobot.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = WheelphoneRobot.m; path = ../WheelphoneRobot.m; sourceTree = "<group>"; };
+		7B7211DE180FD53A00430B1C /* AQRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AQRecorder.h; sourceTree = "<group>"; };
+		7B7211DF180FD53A00430B1C /* AQRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AQRecorder.mm; sourceTree = "<group>"; };
+		7B7211E3180FD5D800430B1C /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
+		7B7211E4180FD5D800430B1C /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		7B7211E5180FD5D800430B1C /* CAMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAMath.h; sourceTree = "<group>"; };
+		7B7211E6180FD5D800430B1C /* CAStreamBasicDescription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAStreamBasicDescription.cpp; sourceTree = "<group>"; };
+		7B7211E7180FD5D800430B1C /* CAStreamBasicDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStreamBasicDescription.h; sourceTree = "<group>"; };
+		7B7211E8180FD5D800430B1C /* CAXException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CAXException.cpp; sourceTree = "<group>"; };
+		7B7211E9180FD5D800430B1C /* CAXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAXException.h; sourceTree = "<group>"; };
+		7B7211F1180FD76900430B1C /* CADebugPrintf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugPrintf.cpp; sourceTree = "<group>"; };
+		7B7211F2180FD76900430B1C /* CADebugPrintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugPrintf.h; sourceTree = "<group>"; };
+		7B7211F9181107B100430B1C /* dtmf_hash.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf_hash.wav; sourceTree = "<group>"; };
+		7B7211FA181107B100430B1C /* dtmf_star.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf_star.wav; sourceTree = "<group>"; };
+		7B7211FB181107B100430B1C /* dtmf0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf0.wav; sourceTree = "<group>"; };
+		7B7211FC181107B100430B1C /* dtmf1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf1.wav; sourceTree = "<group>"; };
+		7B7211FD181107B100430B1C /* dtmf2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf2.wav; sourceTree = "<group>"; };
+		7B7211FE181107B100430B1C /* dtmf3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf3.wav; sourceTree = "<group>"; };
+		7B7211FF181107B100430B1C /* dtmf4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf4.wav; sourceTree = "<group>"; };
+		7B721200181107B100430B1C /* dtmf5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf5.wav; sourceTree = "<group>"; };
+		7B721201181107B100430B1C /* dtmf6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf6.wav; sourceTree = "<group>"; };
+		7B721202181107B200430B1C /* dtmf7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf7.wav; sourceTree = "<group>"; };
+		7B721203181107B200430B1C /* dtmf8.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf8.wav; sourceTree = "<group>"; };
+		7B721204181107B200430B1C /* dtmf9.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf9.wav; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7B721189180FA53500430B1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B721190180FA53500430B1C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B7211AC180FAC2200430B1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B7211B1180FAC2200430B1C /* CoreFoundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7B721183180FA53500430B1C = {
+			isa = PBXGroup;
+			children = (
+				7B7211F9181107B100430B1C /* dtmf_hash.wav */,
+				7B7211FA181107B100430B1C /* dtmf_star.wav */,
+				7B7211FB181107B100430B1C /* dtmf0.wav */,
+				7B7211FC181107B100430B1C /* dtmf1.wav */,
+				7B7211FD181107B100430B1C /* dtmf2.wav */,
+				7B7211FE181107B100430B1C /* dtmf3.wav */,
+				7B7211FF181107B100430B1C /* dtmf4.wav */,
+				7B721200181107B100430B1C /* dtmf5.wav */,
+				7B721201181107B100430B1C /* dtmf6.wav */,
+				7B721202181107B200430B1C /* dtmf7.wav */,
+				7B721203181107B200430B1C /* dtmf8.wav */,
+				7B721204181107B200430B1C /* dtmf9.wav */,
+				7B721191180FA53500430B1C /* ios-wheelphone-library */,
+				7B7211B2180FAC2200430B1C /* wheelphone-library-resources */,
+				7B72118E180FA53500430B1C /* Frameworks */,
+				7B72118D180FA53500430B1C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7B72118D180FA53500430B1C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7B72118C180FA53500430B1C /* libios-wheelphone-library.a */,
+				7B7211AF180FAC2200430B1C /* ios-wheelphone-library.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7B72118E180FA53500430B1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B72118F180FA53500430B1C /* Foundation.framework */,
+				7B7211B0180FAC2200430B1C /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7B721191180FA53500430B1C /* ios-wheelphone-library */ = {
+			isa = PBXGroup;
+			children = (
+				7B7211E2180FD5D800430B1C /* PublicUtility */,
+				7B7211DE180FD53A00430B1C /* AQRecorder.h */,
+				7B7211DF180FD53A00430B1C /* AQRecorder.mm */,
+				7B7211D6180FB29300430B1C /* WheelphoneRobot.h */,
+				7B7211D7180FB29300430B1C /* WheelphoneRobot.m */,
+				7B721194180FA53500430B1C /* ios_wheelphone_library.h */,
+				7B721192180FA53500430B1C /* Supporting Files */,
+			);
+			path = "ios-wheelphone-library";
+			sourceTree = "<group>";
+		};
+		7B721192180FA53500430B1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B721193180FA53500430B1C /* ios-wheelphone-library-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B7211B2180FAC2200430B1C /* wheelphone-library-resources */ = {
+			isa = PBXGroup;
+			children = (
+				7B7211B3180FAC2200430B1C /* Supporting Files */,
+			);
+			path = "wheelphone-library-resources";
+			sourceTree = "<group>";
+		};
+		7B7211B3180FAC2200430B1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7B7211B4180FAC2200430B1C /* wheelphone-library-resources-Info.plist */,
+				7B7211B5180FAC2200430B1C /* InfoPlist.strings */,
+				7B7211B8180FAC2200430B1C /* wheelphone-library-resources-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B7211E2180FD5D800430B1C /* PublicUtility */ = {
+			isa = PBXGroup;
+			children = (
+				7B7211F1180FD76900430B1C /* CADebugPrintf.cpp */,
+				7B7211F2180FD76900430B1C /* CADebugPrintf.h */,
+				7B7211E3180FD5D800430B1C /* CADebugMacros.cpp */,
+				7B7211E4180FD5D800430B1C /* CADebugMacros.h */,
+				7B7211E5180FD5D800430B1C /* CAMath.h */,
+				7B7211E6180FD5D800430B1C /* CAStreamBasicDescription.cpp */,
+				7B7211E7180FD5D800430B1C /* CAStreamBasicDescription.h */,
+				7B7211E8180FD5D800430B1C /* CAXException.cpp */,
+				7B7211E9180FD5D800430B1C /* CAXException.h */,
+			);
+			path = PublicUtility;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		7B72119D180FA57500430B1C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B72119E180FA5B300430B1C /* ios_wheelphone_library.h in Headers */,
+				7B7211D8180FB29300430B1C /* WheelphoneRobot.h in Headers */,
+				7B7211E0180FD53A00430B1C /* AQRecorder.h in Headers */,
+				7B7211EB180FD5D800430B1C /* CADebugMacros.h in Headers */,
+				7B7211EC180FD5D800430B1C /* CAMath.h in Headers */,
+				7B7211EE180FD5D800430B1C /* CAStreamBasicDescription.h in Headers */,
+				7B7211F0180FD5D800430B1C /* CAXException.h in Headers */,
+				7B7211F4180FD76900430B1C /* CADebugPrintf.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		7B72118B180FA53500430B1C /* ios-wheelphone-library */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B72119A180FA53500430B1C /* Build configuration list for PBXNativeTarget "ios-wheelphone-library" */;
+			buildPhases = (
+				7B721188180FA53500430B1C /* Sources */,
+				7B721189180FA53500430B1C /* Frameworks */,
+				7B72118A180FA53500430B1C /* CopyFiles */,
+				7B72119D180FA57500430B1C /* Headers */,
+				7B7211A3180FA84800430B1C /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ios-wheelphone-library";
+			productName = "ios-wheelphone-library";
+			productReference = 7B72118C180FA53500430B1C /* libios-wheelphone-library.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7B7211AE180FAC2200430B1C /* wheelphone-library-resources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7B7211B9180FAC2200430B1C /* Build configuration list for PBXNativeTarget "wheelphone-library-resources" */;
+			buildPhases = (
+				7B7211AB180FAC2200430B1C /* Sources */,
+				7B7211AC180FAC2200430B1C /* Frameworks */,
+				7B7211AD180FAC2200430B1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "wheelphone-library-resources";
+			productName = "wheelphone-library-resources";
+			productReference = 7B7211AF180FAC2200430B1C /* ios-wheelphone-library.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7B721184180FA53500430B1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Stefano Morgani";
+			};
+			buildConfigurationList = 7B721187180FA53500430B1C /* Build configuration list for PBXProject "ios-wheelphone-library" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7B721183180FA53500430B1C;
+			productRefGroup = 7B72118D180FA53500430B1C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7B72118B180FA53500430B1C /* ios-wheelphone-library */,
+				7B7211A4180FA99A00430B1C /* Framework */,
+				7B7211AE180FAC2200430B1C /* wheelphone-library-resources */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7B7211AD180FAC2200430B1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B7211B7180FAC2200430B1C /* InfoPlist.strings in Resources */,
+				7B721205181107B200430B1C /* dtmf_hash.wav in Resources */,
+				7B721206181107B200430B1C /* dtmf_star.wav in Resources */,
+				7B721207181107B200430B1C /* dtmf0.wav in Resources */,
+				7B721208181107B200430B1C /* dtmf1.wav in Resources */,
+				7B721209181107B200430B1C /* dtmf2.wav in Resources */,
+				7B72120A181107B200430B1C /* dtmf3.wav in Resources */,
+				7B72120B181107B200430B1C /* dtmf4.wav in Resources */,
+				7B72120C181107B200430B1C /* dtmf5.wav in Resources */,
+				7B72120D181107B200430B1C /* dtmf6.wav in Resources */,
+				7B72120E181107B200430B1C /* dtmf7.wav in Resources */,
+				7B72120F181107B200430B1C /* dtmf8.wav in Resources */,
+				7B721210181107B200430B1C /* dtmf9.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7B7211A3180FA84800430B1C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n";
+		};
+		7B7211AA180FAA0000430B1C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7B721188180FA53500430B1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7B7211D9180FB29300430B1C /* WheelphoneRobot.m in Sources */,
+				7B7211E1180FD53A00430B1C /* AQRecorder.mm in Sources */,
+				7B7211EA180FD5D800430B1C /* CADebugMacros.cpp in Sources */,
+				7B7211ED180FD5D800430B1C /* CAStreamBasicDescription.cpp in Sources */,
+				7B7211EF180FD5D800430B1C /* CAXException.cpp in Sources */,
+				7B7211F3180FD76900430B1C /* CADebugPrintf.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7B7211AB180FAC2200430B1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7B7211A9180FA9BF00430B1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B72118B180FA53500430B1C /* ios-wheelphone-library */;
+			targetProxy = 7B7211A8180FA9BF00430B1C /* PBXContainerItemProxy */;
+		};
+		7B7211D5180FADBE00430B1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7B7211AE180FAC2200430B1C /* wheelphone-library-resources */;
+			targetProxy = 7B7211D4180FADBE00430B1C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		7B7211B5180FAC2200430B1C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7B7211B6180FAC2200430B1C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		7B721198180FA53500430B1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		7B721199180FA53500430B1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7B72119B180FA53500430B1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/ios_wheelphone_library.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios-wheelphone-library/ios-wheelphone-library-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Debug;
+		};
+		7B72119C180FA53500430B1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				DSTROOT = /tmp/ios_wheelphone_library.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ios-wheelphone-library/ios-wheelphone-library-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
+				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = Release;
+		};
+		7B7211A6180FA99A00430B1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7B7211A7180FA99A00430B1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7B7211BA180FAC2200430B1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wheelphone-library-resources/wheelphone-library-resources-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "wheelphone-library-resources/wheelphone-library-resources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "ios-wheelphone-library";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		7B7211BB180FAC2200430B1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wheelphone-library-resources/wheelphone-library-resources-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "wheelphone-library-resources/wheelphone-library-resources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "ios-wheelphone-library";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7B721187180FA53500430B1C /* Build configuration list for PBXProject "ios-wheelphone-library" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B721198180FA53500430B1C /* Debug */,
+				7B721199180FA53500430B1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7B72119A180FA53500430B1C /* Build configuration list for PBXNativeTarget "ios-wheelphone-library" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B72119B180FA53500430B1C /* Debug */,
+				7B72119C180FA53500430B1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7B7211A5180FA99A00430B1C /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B7211A6180FA99A00430B1C /* Debug */,
+				7B7211A7180FA99A00430B1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7B7211B9180FAC2200430B1C /* Build configuration list for PBXNativeTarget "wheelphone-library-resources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7B7211BA180FAC2200430B1C /* Debug */,
+				7B7211BB180FAC2200430B1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7B721184180FA53500430B1C /* Project object */;
+}

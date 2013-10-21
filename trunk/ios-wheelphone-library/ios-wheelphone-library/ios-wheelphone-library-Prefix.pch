@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'ios-wheelphone-library' target in the 'ios-wheelphone-library' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
