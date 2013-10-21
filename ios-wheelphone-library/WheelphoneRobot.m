@@ -52,6 +52,17 @@ int const X_ODOM = 0;
 int const Y_ODOM = 1;
 int const THETA_ODOM = 2;
 
++ (NSBundle *)frameworkBundle {
+    static NSBundle* frameworkBundle = nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        NSString* mainBundlePath = [[NSBundle mainBundle] resourcePath];
+        NSString* frameworkBundlePath = [mainBundlePath stringByAppendingPathComponent:@"ios-wheelphone-library.bundle"];
+        frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
+    });
+    return frameworkBundle;
+}
+
 - (id)init
 {
     self = [super init];
@@ -64,18 +75,18 @@ int const THETA_ODOM = 2;
         rightDiamCoeff = 1.0;
         wheelBase = 0.087;
         logEnabled = false;
-        audioFilePath[DTMF_0] = [[NSBundle mainBundle] pathForResource:@"dtmf0" ofType:@"wav"];
-        audioFilePath[DTMF_1] = [[NSBundle mainBundle] pathForResource:@"dtmf1" ofType:@"wav"];
-        audioFilePath[DTMF_2] = [[NSBundle mainBundle] pathForResource:@"dtmf2" ofType:@"wav"];
-        audioFilePath[DTMF_3] = [[NSBundle mainBundle] pathForResource:@"dtmf3" ofType:@"wav"];
-        audioFilePath[DTMF_4] = [[NSBundle mainBundle] pathForResource:@"dtmf4" ofType:@"wav"];
-        audioFilePath[DTMF_5] = [[NSBundle mainBundle] pathForResource:@"dtmf5" ofType:@"wav"];
-        audioFilePath[DTMF_6] = [[NSBundle mainBundle] pathForResource:@"dtmf6" ofType:@"wav"];
-        audioFilePath[DTMF_7] = [[NSBundle mainBundle] pathForResource:@"dtmf7" ofType:@"wav"];
-        audioFilePath[DTMF_8] = [[NSBundle mainBundle] pathForResource:@"dtmf8" ofType:@"wav"];
-        audioFilePath[DTMF_9] = [[NSBundle mainBundle] pathForResource:@"dtmf9" ofType:@"wav"];
-        audioFilePath[DTMF_STAR] = [[NSBundle mainBundle] pathForResource:@"dtmf_star" ofType:@"wav"];
-        audioFilePath[DTMF_HASH] = [[NSBundle mainBundle] pathForResource:@"dtmf_hash" ofType:@"wav"];
+        audioFilePath[DTMF_0] = [[[self class] frameworkBundle] pathForResource:@"dtmf0" ofType:@"wav"];
+        audioFilePath[DTMF_1] = [[[self class] frameworkBundle] pathForResource:@"dtmf1" ofType:@"wav"];
+        audioFilePath[DTMF_2] = [[[self class] frameworkBundle] pathForResource:@"dtmf2" ofType:@"wav"];
+        audioFilePath[DTMF_3] = [[[self class] frameworkBundle] pathForResource:@"dtmf3" ofType:@"wav"];
+        audioFilePath[DTMF_4] = [[[self class] frameworkBundle] pathForResource:@"dtmf4" ofType:@"wav"];
+        audioFilePath[DTMF_5] = [[[self class] frameworkBundle] pathForResource:@"dtmf5" ofType:@"wav"];
+        audioFilePath[DTMF_6] = [[[self class] frameworkBundle] pathForResource:@"dtmf6" ofType:@"wav"];
+        audioFilePath[DTMF_7] = [[[self class] frameworkBundle] pathForResource:@"dtmf7" ofType:@"wav"];
+        audioFilePath[DTMF_8] = [[[self class] frameworkBundle] pathForResource:@"dtmf8" ofType:@"wav"];
+        audioFilePath[DTMF_9] = [[[self class] frameworkBundle] pathForResource:@"dtmf9" ofType:@"wav"];
+        audioFilePath[DTMF_STAR] = [[[self class] frameworkBundle] pathForResource:@"dtmf_star" ofType:@"wav"];
+        audioFilePath[DTMF_HASH] = [[[self class] frameworkBundle] pathForResource:@"dtmf_hash" ofType:@"wav"];
         audioFileURL[DTMF_0] = [NSURL fileURLWithPath:audioFilePath[DTMF_0]];
         audioFileURL[DTMF_1] = [NSURL fileURLWithPath:audioFilePath[DTMF_1]];
         audioFileURL[DTMF_2] = [NSURL fileURLWithPath:audioFilePath[DTMF_2]];

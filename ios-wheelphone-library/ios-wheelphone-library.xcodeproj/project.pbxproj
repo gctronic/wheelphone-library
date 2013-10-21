@@ -483,6 +483,7 @@
 				DSTROOT = /tmp/ios_wheelphone_library.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios-wheelphone-library/ios-wheelphone-library-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
@@ -499,6 +500,7 @@
 				DSTROOT = /tmp/ios_wheelphone_library.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ios-wheelphone-library/ios-wheelphone-library-Prefix.pch";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
@@ -510,6 +512,7 @@
 		7B7211A6180FA99A00430B1C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -517,6 +520,7 @@
 		7B7211A7180FA99A00430B1C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -531,6 +535,7 @@
 				INFOPLIST_FILE = "wheelphone-library-resources/wheelphone-library-resources-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "ios-wheelphone-library";
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -580,6 +585,7 @@
 				7B7211A7180FA99A00430B1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7B7211B9180FAC2200430B1C /* Build configuration list for PBXNativeTarget "wheelphone-library-resources" */ = {
 			isa = XCConfigurationList;
@@ -588,6 +594,7 @@
 				7B7211BB180FAC2200430B1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
