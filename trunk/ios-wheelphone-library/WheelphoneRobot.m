@@ -399,7 +399,7 @@ int const THETA_ODOM = 2;
         if(currFlagPhoneToRobot != flagPhoneToRobot) {
             // speed control and soft acceleration are always enabled in audio communication mode
             
-            if((currFlagPhoneToRobot&0x04) != (flagPhoneToRobot&0x04)) {
+            if((currFlagPhoneToRobot&0x04) != (flagPhoneToRobot&0x04)) {    // obstacle avoidance
                 testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_STAR] error:nil];
                 [testAudioPlayer prepareToPlay];
                 [testAudioPlayer play];
@@ -413,7 +413,7 @@ int const THETA_ODOM = 2;
                 
             }
             
-            if((currFlagPhoneToRobot&0x08) != (flagPhoneToRobot&0x08)) {
+            if((currFlagPhoneToRobot&0x08) != (flagPhoneToRobot&0x08)) {    // cliff avoidance
                 testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_HASH] error:nil];
                 [testAudioPlayer prepareToPlay];
                 [testAudioPlayer play];
@@ -425,6 +425,15 @@ int const THETA_ODOM = 2;
                     currFlagPhoneToRobot &= ~(1 << 3);
                 }
                 
+            }
+            
+            if((flagPhoneToRobot&0x10) > 0) {    // calibrate sensor
+                testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_0] error:nil];
+                [testAudioPlayer prepareToPlay];
+                [testAudioPlayer play];
+                [NSThread sleepForTimeInterval:pause];
+                sleepDone = true;
+                flagPhoneToRobot &= ~(1 << 4);                
             }
         
         }
@@ -572,8 +581,8 @@ void propListener(	void *                  inClientData,
         
         flagRobotToPhone = (int)currPacket[13];
         
-        leftMeasuredSpeed = (int)currPacket[14] + ((int)currPacket[15])*256;
-        rightMeasuredSpeed = (int)currPacket[16] + ((int)currPacket[17])*256;
+        leftMeasuredSpeed = (signed int)(currPacket[14] + currPacket[15]*256);
+        rightMeasuredSpeed = (signed int)(currPacket[16] + currPacket[17]*256);
         if(abs(leftMeasuredSpeed) < SPEED_THR) {
             leftMeasuredSpeed = 0;
         }
@@ -761,6 +770,9 @@ void propListener(	void *                  inClientData,
 }
 
 - (void) calibrateSensors {
+    
+    printf("calibrate sensors\n");
+    
     int i=0;
     for(i=0; i<4; i++) {
         proxValuesCalibration[i] = proxValues[i];

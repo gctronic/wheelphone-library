@@ -28,7 +28,7 @@
 	int groundValuesCalibration[4];     // ground proximity values of the calibration
 	int maxBatteryValue;
 	int battery;
-	int leftMeasuredSpeed, rightMeasuredSpeed;	// they contain the current measured motors speed in mm/s (speed measured using back EMF)
+	int16_t leftMeasuredSpeed, rightMeasuredSpeed;	// they contain the current measured motors speed in mm/s (speed measured using back EMF)
 	char flagRobotToPhone;				// bit 5: 1 => robot is charging, 0 => robot not charging
                                         // bit 6: 1 => robot completely charged, 0 => robot not completely charged
                                         // others bits not used
