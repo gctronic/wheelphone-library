@@ -53,6 +53,11 @@
 		7B72120E181107B200430B1C /* dtmf7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721202181107B200430B1C /* dtmf7.wav */; };
 		7B72120F181107B200430B1C /* dtmf8.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721203181107B200430B1C /* dtmf8.wav */; };
 		7B721210181107B200430B1C /* dtmf9.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721204181107B200430B1C /* dtmf9.wav */; };
+		7B7B3DD91817D06800D8D4FC /* OpenALHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */; };
+		7B7B3DDA1817D06800D8D4FC /* OpenALHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */; };
+		7B7B3DDC1817D23A00D8D4FC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */; };
+		7B7B3DE01817F62E00D8D4FC /* Sosumi.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B7B3DDF1817F62E00D8D4FC /* Sosumi.caf */; };
+		7B7B3DE21817FABD00D8D4FC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +125,11 @@
 		7B721202181107B200430B1C /* dtmf7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf7.wav; sourceTree = "<group>"; };
 		7B721203181107B200430B1C /* dtmf8.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf8.wav; sourceTree = "<group>"; };
 		7B721204181107B200430B1C /* dtmf9.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf9.wav; sourceTree = "<group>"; };
+		7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALHelper.h; sourceTree = "<group>"; };
+		7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenALHelper.m; sourceTree = "<group>"; };
+		7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		7B7B3DDF1817F62E00D8D4FC /* Sosumi.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sosumi.caf; sourceTree = "<group>"; };
+		7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +137,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B7B3DE21817FABD00D8D4FC /* AudioToolbox.framework in Frameworks */,
+				7B7B3DDC1817D23A00D8D4FC /* OpenAL.framework in Frameworks */,
 				7B721190180FA53500430B1C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +157,7 @@
 		7B721183180FA53500430B1C = {
 			isa = PBXGroup;
 			children = (
+				7B7B3DDF1817F62E00D8D4FC /* Sosumi.caf */,
 				7B7211F9181107B100430B1C /* dtmf_hash.wav */,
 				7B7211FA181107B100430B1C /* dtmf_star.wav */,
 				7B7211FB181107B100430B1C /* dtmf0.wav */,
@@ -176,6 +189,8 @@
 		7B72118E180FA53500430B1C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */,
+				7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */,
 				7B72118F180FA53500430B1C /* Foundation.framework */,
 				7B7211B0180FAC2200430B1C /* CoreFoundation.framework */,
 			);
@@ -185,6 +200,8 @@
 		7B721191180FA53500430B1C /* ios-wheelphone-library */ = {
 			isa = PBXGroup;
 			children = (
+				7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */,
+				7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */,
 				7B7211E2180FD5D800430B1C /* PublicUtility */,
 				7B7211DE180FD53A00430B1C /* AQRecorder.h */,
 				7B7211DF180FD53A00430B1C /* AQRecorder.mm */,
@@ -253,6 +270,7 @@
 				7B7211EE180FD5D800430B1C /* CAStreamBasicDescription.h in Headers */,
 				7B7211F0180FD5D800430B1C /* CAXException.h in Headers */,
 				7B7211F4180FD76900430B1C /* CADebugPrintf.h in Headers */,
+				7B7B3DD91817D06800D8D4FC /* OpenALHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +359,7 @@
 				7B72120E181107B200430B1C /* dtmf7.wav in Resources */,
 				7B72120F181107B200430B1C /* dtmf8.wav in Resources */,
 				7B721210181107B200430B1C /* dtmf9.wav in Resources */,
+				7B7B3DE01817F62E00D8D4FC /* Sosumi.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +405,7 @@
 				7B7211ED180FD5D800430B1C /* CAStreamBasicDescription.cpp in Sources */,
 				7B7211EF180FD5D800430B1C /* CAXException.cpp in Sources */,
 				7B7211F3180FD76900430B1C /* CADebugPrintf.cpp in Sources */,
+				7B7B3DDA1817D06800D8D4FC /* OpenALHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
