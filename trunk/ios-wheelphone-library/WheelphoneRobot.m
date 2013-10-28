@@ -8,6 +8,7 @@
 
 #import "WheelphoneRobot.h"
 #import "AQRecorder.h"
+#import "OpenALHelper.h"
 
 @interface WheelphoneRobot () {
     AQRecorder* recorder;
@@ -103,6 +104,14 @@ int const THETA_ODOM = 2;
         commTimeoutLimit = 50;
         isConnected = false;
         
+        //NSString *soundPath = [[[self class] frameworkBundle] pathForResource:@"dtmf0" ofType:@"wav"];
+        //NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
+        //AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &_calibrateSound);
+        
+        //[OpenALHelper loadSoundNamed:@"dtmf0" withFileName:@"dtmf0" andExtension:@"wav"];
+        //[OpenALHelper loadSoundNamed:@"dtmf5" withFileName:@"dtmf5" andExtension:@"wav"];
+        //[OpenALHelper loadSoundNamed:@"sosumi" withFileName:@"Sosumi" andExtension:@"caf"];
+
         [self initAudioCommunication];
         
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(updateSensorsNotification:) name: @"sensorsUpdate" object: nil];
@@ -125,6 +134,10 @@ int const THETA_ODOM = 2;
         //UInt32 category = kAudioSessionCategory_RecordAudio;
         error = AudioSessionSetProperty(kAudioSessionProperty_AudioCategory, sizeof(category), &category);
         if (error) printf("couldn't set audio category!");
+        
+        //category = kAudioSessionMode_VoiceChat;
+        //error = AudioSessionSetProperty(kAudioSessionProperty_Mode, sizeof(category), &category);
+        //if (error) printf("couldn't set audio mode!");
         
         //UInt32 allowMixing = true;
         //AudioSessionSetProperty(kAudioSessionProperty_OverrideCategoryMixWithOthers, sizeof(allowMixing), &allowMixing);
@@ -224,6 +237,9 @@ int const THETA_ODOM = 2;
             testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
             [testAudioPlayer prepareToPlay];
             [testAudioPlayer play];
+            
+            //[OpenALHelper playSoundNamed:@"dtmf5"];
+            //[OpenALHelper playSoundNamed:@"sosumi"];
             
             //printf("5\n");
             [NSThread sleepForTimeInterval:pause];
@@ -430,7 +446,13 @@ int const THETA_ODOM = 2;
             if((flagPhoneToRobot&0x10) > 0) {    // calibrate sensor
                 testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_0] error:nil];
                 [testAudioPlayer prepareToPlay];
+                [testAudioPlayer setVolume:1.0];
                 [testAudioPlayer play];
+                
+                //AudioServicesPlaySystemSound(_calibrateSound);
+                
+                //[OpenALHelper playSoundNamed:@"dtmf0"];
+                
                 [NSThread sleepForTimeInterval:pause];
                 sleepDone = true;
                 flagPhoneToRobot &= ~(1 << 4);                
@@ -439,7 +461,7 @@ int const THETA_ODOM = 2;
         }
         
         if(!sleepDone) {
-            [NSThread sleepForTimeInterval:0.015];   // wait 50 ms to avoid running continuously
+            [NSThread sleepForTimeInterval:0.015];   // wait at least 15 ms to avoid running continuously
         }
         
         //stop1 = [NSDate date];
@@ -772,6 +794,8 @@ void propListener(	void *                  inClientData,
 - (void) calibrateSensors {
     
     printf("calibrate sensors\n");
+    
+    //[OpenALHelper playSoundNamed:@"sosumi"];
     
     int i=0;
     for(i=0; i<4; i++) {

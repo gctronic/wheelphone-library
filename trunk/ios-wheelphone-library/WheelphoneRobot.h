@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #include <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <OpenAl/al.h>
+#import <OpenAl/alc.h>
 
 @interface WheelphoneRobot : NSObject {
     
@@ -63,6 +66,9 @@
     NSDate *startTime, *finalTime;
     NSTimeInterval totalTime;
 	BOOL logEnabled;
+    
+    // TESTING
+    //SystemSoundID _calibrateSound;
     
 }
 
