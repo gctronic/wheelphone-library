@@ -25,6 +25,7 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -174,6 +175,11 @@ public class WheelphoneRobot {
 			    			
 									case UPDATE_STATE:		
 										proxValues[0] = 0x00<<24 | commandPacket[1]&0xFF;	// to get unsigned int
+										//if(accessoryManager instanceof USBAccessoryManagerAddOnLib) {
+										//	proxValues[0] = 1;
+										//} else if(accessoryManager instanceof USBAccessoryManagerAndroidLib) {
+										//	proxValues[0] = 2;
+										//}
 										proxValues[1] = 0x00<<24 | commandPacket[2]&0xFF;
 										proxValues[2] = 0x00<<24 | commandPacket[3]&0xFF;
 										proxValues[3] = 0x00<<24 | commandPacket[4]&0xFF;
@@ -188,9 +194,9 @@ public class WheelphoneRobot {
 										groundAmbientValues[0] = 0x00<<24 | commandPacket[13]&0xFF;
 										groundAmbientValues[1] = 0x00<<24 | commandPacket[14]&0xFF;
 										groundAmbientValues[2] = 0x00<<24 | commandPacket[15]&0xFF;
-										groundAmbientValues[3] = 0x00<<24 | commandPacket[16]&0xFF;
+										groundAmbientValues[3] = 0x00<<24 | commandPacket[16]&0xFF;								
 										battery = 0x00<<24 | commandPacket[17]&0xFF;
-										flagRobotToPhone = commandPacket[18]; 
+										flagRobotToPhone = commandPacket[18]; 										
 										leftMeasuredSpeed = (commandPacket[19]&0xFF) + (commandPacket[20])*256;
 										rightMeasuredSpeed = (commandPacket[21]&0xFF) + (commandPacket[22])*256;										
 										if(Math.abs(leftMeasuredSpeed) < SPEED_THR) {
@@ -295,15 +301,16 @@ public class WheelphoneRobot {
 					    	packetReceived = 1;
 					        timer = new Timer();                                         
 					        timer.schedule(new communicationTask(), 0, 50);
-							isConnected = true;
-									
-					        if(debug) {
-					        	Log.d(TAG, "Handler:READY");
-					        }
+							isConnected = true;										
 					    	
-							String version = ((USBAccessoryManagerMessage)msg.obj).accessory.getVersion();
+							String version = accessoryManager.getVersion();							
 							firmwareVersion = getFirmwareVersion(version);
 							
+					        if(debug) {
+					        	Log.d(TAG, "usb version = " + version);
+					        	Log.d(TAG, "firmware version = " + firmwareVersion);
+					        }
+					        
 							switch(firmwareVersion){
 								case 2:
 								case 3:
@@ -362,20 +369,6 @@ public class WheelphoneRobot {
 		}
 	}
 	
-	private boolean checkForOpenAccessoryFramework(){
-	    try {
-	    	@SuppressWarnings({ "unused", "rawtypes" })
-			Class s = Class.forName("com.android.future.usb.UsbManager");
-	    	s = Class.forName("com.android.future.usb.UsbAccessory");
-	    } catch (ClassNotFoundException e) {
-	    	if(debug) {
-	    		Log.d("ClassNotFound",e.toString());
-	    	}
-	    	return false;
-	    }
-	    return true;
-    }	
-	
     private int getFirmwareVersion(String version) {    	
     	String major = "0";    	
     	int positionOfDot;    	
@@ -412,10 +405,13 @@ public class WheelphoneRobot {
     	if(debug) {
     		Log.d(TAG, "startUSBCommunication");
     	}
-	    if(checkForOpenAccessoryFramework() == false) {
-	    	return;
-	    }
-       	accessoryManager = new USBAccessoryManager(handler, USBAccessoryWhat);    	
+    	   
+    	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+    		accessoryManager = new USBAccessoryManagerAndroidLib(handler, USBAccessoryWhat);
+    	} else {
+    		accessoryManager = new USBAccessoryManagerAddOnLib(handler, USBAccessoryWhat);
+    	}
+   	
     }
     
     /**
