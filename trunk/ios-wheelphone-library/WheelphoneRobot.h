@@ -40,9 +40,13 @@
 	int isCalibratingCounter;           // counter used to wait for the completion of the calibration
 	int firmwareVersion;				// robot firmware version
 	BOOL odomCalibFinish;
-	
+	BOOL obstacleAvoidanceEnabled;
+    BOOL cliffAvoidanceEnabled;
+    
 	// ROBOT CONTROL (phone => robot)
 	int lSpeed, rSpeed;                 // desired left and right speed
+    int avgSpeed, avgSpeedPrev;         // average speed => (left+right)/2
+    int rotSpeed;                       // rotational speed => (left-right)/2
     int currentLeftSpeed, currentRightSpeed;    // current left and right speed; these are the speed that are currently set on the robot and are updated until they reach the desired speed
 	char flagPhoneToRobot;              // bit 0 => controller On/Off
                                         // bit 1 => soft acceleration On/Off
@@ -50,6 +54,8 @@
                                         // bit 3 => cliff avoidance On/Off
                                         // others bits not used
     char currFlagPhoneToRobot;
+    bool stopSent;
+    int noStopCount;
     
 	// VARIOUS
 	BOOL debug;
@@ -399,6 +405,8 @@
  */
 - (void) setCommunicationTimeout: (int) ms;
 
+- (BOOL) isObstacleAvoidanceEnabled;
+- (BOOL) isCliffAvoidanceEnabled;
 
 
 @end
