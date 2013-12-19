@@ -118,7 +118,13 @@ int const THETA_ODOM = 2;
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(updateSensorsNotification:) name: @"sensorsUpdate" object: nil];
         
         [NSThread detachNewThreadSelector:@selector(handleCommandsToRobotTask) toTarget:self withObject:nil];
+        
+        if(debug) {
+            NSLog(@"Library initialized!\n");
+        }
+        
     }
+    
     return self;
 }
 
@@ -246,6 +252,9 @@ int const THETA_ODOM = 2;
             testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
             [testAudioPlayer prepareToPlay];
             [testAudioPlayer play];
+            if(debug) {
+                printf("DTMF_5 sent\n");
+            }
             
             /*
             NSError * error = nil ;
@@ -273,6 +282,9 @@ int const THETA_ODOM = 2;
             [testAudioPlayer prepareToPlay];
             [testAudioPlayer play];
             [NSThread sleepForTimeInterval:pause];
+            if(debug) {
+                printf("DTMF_5 sent\n");
+            }
             
             sleepDone = true;
         } else if((lSpeed*currentLeftSpeed)<0 && (rSpeed*currentRightSpeed)<0) {   // inverted direction for both motors
@@ -290,6 +302,9 @@ int const THETA_ODOM = 2;
             testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
             [testAudioPlayer prepareToPlay];
             [testAudioPlayer play];
+            if(debug) {
+                printf("DTMF_5 sent\n");
+            }
             
             /*
             NSError * error = nil ;
@@ -314,6 +329,9 @@ int const THETA_ODOM = 2;
             [testAudioPlayer prepareToPlay];
             [testAudioPlayer play];
             [NSThread sleepForTimeInterval:pause];
+            if(debug) {
+                printf("DTMF_5 sent\n");
+            }
             
             sleepDone = true;
         } /*else if((abs(avgSpeedPrev)-abs(avgSpeed))>AVG_DIFF_SPEED_TO_STOP && stopSent==false) {   // big change in average speed and stop not already just sent
@@ -375,6 +393,9 @@ int const THETA_ODOM = 2;
                 testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_2] error:nil];
                 [testAudioPlayer prepareToPlay];
                 [testAudioPlayer play];
+                if(debug) {
+                    printf("DTMF_2 sent\n");
+                }
 
                 /*
                 NSError * error = nil ;
@@ -411,6 +432,9 @@ int const THETA_ODOM = 2;
                 testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_8] error:nil];
                 [testAudioPlayer prepareToPlay];
                 [testAudioPlayer play];
+                if(debug) {
+                    printf("DTMF_8 sent\n");
+                }
                 
                 /*
                 NSError * error = nil ;
@@ -452,6 +476,9 @@ int const THETA_ODOM = 2;
                     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_1] error:nil];
                     [testAudioPlayer prepareToPlay];
                     [testAudioPlayer play];
+                    if(debug) {
+                        printf("DTMF_1 sent\n");
+                    }
                     
                     /*
                     NSError * error = nil ;
@@ -497,6 +524,9 @@ int const THETA_ODOM = 2;
                     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_7] error:nil];
                     [testAudioPlayer prepareToPlay];
                     [testAudioPlayer play];
+                    if(debug) {
+                        printf("DTMF_7 sent\n");
+                    }
                     
                     /*
                     NSError * error = nil ;
@@ -534,6 +564,9 @@ int const THETA_ODOM = 2;
                     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_3] error:nil];
                     [testAudioPlayer prepareToPlay];
                     [testAudioPlayer play];
+                    if(debug) {
+                        printf("DTMF_3 sent\n");
+                    }
                     
                     /*
                     NSError * error = nil ;
@@ -569,6 +602,9 @@ int const THETA_ODOM = 2;
                     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_9] error:nil];
                     [testAudioPlayer prepareToPlay];
                     [testAudioPlayer play];
+                    if(debug) {
+                        printf("DTMF_9 sent\n");
+                    }
                     
                     /*
                     NSError * error = nil ;
@@ -606,6 +642,9 @@ int const THETA_ODOM = 2;
                 testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_STAR] error:nil];
                 [testAudioPlayer prepareToPlay];
                 [testAudioPlayer play];
+                if(debug) {
+                    printf("DTMF_STAR sent\n");
+                }
                 
                 /*
                 NSError * error = nil ;
@@ -637,6 +676,9 @@ int const THETA_ODOM = 2;
                 testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_HASH] error:nil];
                 [testAudioPlayer prepareToPlay];
                 [testAudioPlayer play];
+                if(debug) {
+                    printf("DTMF_HASH sent\n");
+                }
                 
                 /*
                 NSError * error = nil ;
@@ -669,6 +711,9 @@ int const THETA_ODOM = 2;
                 [testAudioPlayer prepareToPlay];
                 //[testAudioPlayer setVolume:1.0];
                 [testAudioPlayer play];
+                if(debug) {
+                    printf("DTMF_0 sent\n");
+                }
                 
                 /*
                 NSError * error = nil ;
@@ -947,6 +992,9 @@ void propListener(	void *                  inClientData,
 }
 
 - (void) setLeftSpeed: (int) l {
+    if(debug) {
+        printf("setLeftSpeed = %d\n", l);
+    }
     if(l < MIN_SPEED_REAL) {
         l = MIN_SPEED_REAL;
     }
@@ -960,6 +1008,9 @@ void propListener(	void *                  inClientData,
 }
 
 - (void) setRightSpeed: (int) r {
+    if(debug) {
+        printf("setRightSpeed = %d\n", r);
+    }
     if(r < MIN_SPEED_REAL) {
         r = MIN_SPEED_REAL;
     }

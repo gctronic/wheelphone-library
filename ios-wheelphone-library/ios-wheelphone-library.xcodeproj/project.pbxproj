@@ -56,7 +56,6 @@
 		7B7B3DD91817D06800D8D4FC /* OpenALHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */; };
 		7B7B3DDA1817D06800D8D4FC /* OpenALHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */; };
 		7B7B3DDC1817D23A00D8D4FC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */; };
-		7B7B3DE01817F62E00D8D4FC /* Sosumi.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7B7B3DDF1817F62E00D8D4FC /* Sosumi.caf */; };
 		7B7B3DE21817FABD00D8D4FC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
@@ -359,7 +358,6 @@
 				7B72120E181107B200430B1C /* dtmf7.wav in Resources */,
 				7B72120F181107B200430B1C /* dtmf8.wav in Resources */,
 				7B721210181107B200430B1C /* dtmf9.wav in Resources */,
-				7B7B3DE01817F62E00D8D4FC /* Sosumi.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +453,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stefano Morgani (5QWJ4RGGU9)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -485,6 +484,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stefano Morgani (5QWJ4RGGU9)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -499,6 +499,7 @@
 		7B72119B180FA53500430B1C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Stefano Morgani";
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/ios_wheelphone_library.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -515,6 +516,7 @@
 		7B72119C180FA53500430B1C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Stefano Morgani";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/ios_wheelphone_library.dst;
