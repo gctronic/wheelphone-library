@@ -104,6 +104,7 @@ int const THETA_ODOM = 2;
         commTimeout = 0;
         commTimeoutLimit = 50;
         isConnected = false;
+        stopSent = false;
         
         //NSString *soundPath = [[[self class] frameworkBundle] pathForResource:@"dtmf0" ofType:@"wav"];
         //NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
@@ -237,7 +238,7 @@ int const THETA_ODOM = 2;
         }
         */
         
-        if(lSpeed==0 && rSpeed==0) {
+        if(lSpeed==0 && rSpeed==0 && stopSent==false) {
             currentLeftSpeed=0;
             currentRightSpeed=0;
             
@@ -248,8 +249,11 @@ int const THETA_ODOM = 2;
             
             //[testAudioPlayer[DTMF_5] prepareToPlay];
             //[testAudioPlayer[DTMF_5] play];
-            
-            testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
+            NSError * error = NULL;
+            testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:&error];
+            if(testAudioPlayer == NULL) {
+                NSLog( @"error in creating AVAudioPlayer - %@ %@", [error domain], [error localizedDescription] );
+            }
             [testAudioPlayer prepareToPlay];
             [testAudioPlayer play];
             if(debug) {
@@ -287,6 +291,7 @@ int const THETA_ODOM = 2;
             }
             
             sleepDone = true;
+            stopSent = true;
         } else if((lSpeed*currentLeftSpeed)<0 && (rSpeed*currentRightSpeed)<0) {   // inverted direction for both motors
             currentLeftSpeed=0;
             currentRightSpeed=0;
@@ -334,6 +339,7 @@ int const THETA_ODOM = 2;
             }
             
             sleepDone = true;
+            stopSent = false;
         } /*else if((abs(avgSpeedPrev)-abs(avgSpeed))>AVG_DIFF_SPEED_TO_STOP && stopSent==false) {   // big change in average speed and stop not already just sent
             stopSent = true;
             noStopCount = 0;
@@ -375,6 +381,7 @@ int const THETA_ODOM = 2;
             
             sleepDone = true;
         }*/ else {
+            
             int diffLeft = lSpeed-currentLeftSpeed;
             int diffRight = rSpeed-currentRightSpeed;
             
@@ -416,6 +423,7 @@ int const THETA_ODOM = 2;
                 //printf("2 (diffL=%d, diffR=%d)\n", diffLeft, diffRight);
                 [NSThread sleepForTimeInterval:pause];
                 
+                stopSent = false;
                 sleepDone = true;
             } else if(diffLeft<=-DTMF_SPEED_STEP && diffRight<=-DTMF_SPEED_STEP) {    // current speed is higher than desired for both motors
                 currentLeftSpeed-=DTMF_SPEED_STEP;
@@ -455,6 +463,7 @@ int const THETA_ODOM = 2;
                 //printf("8 (diffL=%d, diffR=%d)\n", diffLeft, diffRight);
                 [NSThread sleepForTimeInterval:pause];
                 
+                stopSent = false;
                 sleepDone = true;
             } else {
                 
@@ -509,6 +518,7 @@ int const THETA_ODOM = 2;
                     //executionTime = [stop timeIntervalSinceDate:start];
                     //printf("execution time 2 = %f\n", executionTime);
                     
+                    stopSent = false;
                     sleepDone = true;
                 } else if(diffLeft<=-DTMF_SPEED_STEP) {  // current left speed is higher than desired
                     currentLeftSpeed-=DTMF_SPEED_STEP;
@@ -547,6 +557,7 @@ int const THETA_ODOM = 2;
                     //printf("7 (diff=%d)\n", diffLeft);
                     [NSThread sleepForTimeInterval:pause];
                     
+                    stopSent = false;
                     sleepDone = true;
                 }
                 
@@ -587,6 +598,7 @@ int const THETA_ODOM = 2;
                     //printf("3 (diff=%d)\n", diffRight);
                     [NSThread sleepForTimeInterval:pause];
                     
+                    stopSent = false;
                     sleepDone = true;
                 } else if(diffRight<=-DTMF_SPEED_STEP) {
                     currentRightSpeed-=DTMF_SPEED_STEP;
@@ -625,6 +637,7 @@ int const THETA_ODOM = 2;
                     //printf("9 (diff=%d)\n", diffRight);
                     [NSThread sleepForTimeInterval:pause];
                     
+                    stopSent = false;
                     sleepDone = true;
                 }
                 
