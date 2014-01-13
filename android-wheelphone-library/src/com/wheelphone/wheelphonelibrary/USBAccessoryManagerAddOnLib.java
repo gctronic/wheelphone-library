@@ -55,7 +55,6 @@ import com.android.future.usb.UsbManager;
 public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 
 	double tempTime=0.0;
-	private String logString;
 	
 	private String actionString = null;
 	private Handler handler;
@@ -72,7 +71,9 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 	private ArrayList<byte[]> readData = new ArrayList<byte[]>();
 	
 	private String TAG =  USBAccessoryManagerAddOnLib.class.getName();
-
+	private String logString;
+	private boolean debugUsbComm = false;
+	
 	/***********************************************************************/
 	/** Public API **/
 	/***********************************************************************/
@@ -171,7 +172,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 								permissionIntent);
 						
 						if(parcelFileDescriptor == null) {
-							Log.d(TAG, "USBAccessoryManager:enable() parcelFileDescriptor == null");
+							if(debugUsbComm) {
+								logString = TAG + ": enable() parcelFileDescriptor == null";
+								Log.d(TAG, logString);
+								appendLog("debugUsbComm.txt", logString, false);
+							}
 							return RETURN_CODES.FILE_DESCRIPTOR_WOULD_NOT_OPEN;
 						}
 						
@@ -181,7 +186,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 								parcelFileDescriptor.getFileDescriptor());
 						
 						if(outputStream == null) {
-							Log.d(TAG, "USBAccessoryManager:enable() outputStream == null");
+							if(debugUsbComm) {
+								logString = TAG + ": enable() outputStream == null";
+								Log.d(TAG, logString);
+								appendLog("debugUsbComm.txt", logString, false);
+							}
 							
 							try {
 								parcelFileDescriptor.close();
@@ -192,8 +201,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 							return RETURN_CODES.FILE_DESCRIPTOR_WOULD_NOT_OPEN;
 						}
 
-						Log.d(TAG,
-								"USBAccessoryManager:enable() outputStream open");
+						if(debugUsbComm) {
+							logString = TAG + ": enable() outputStream open";
+							Log.d(TAG, logString);
+							appendLog("debugUsbComm.txt", logString, false);
+						}
 
 						// If the ParcelFileDescriptor was successfully opened,
 						// mark the accessory as enabled and open
@@ -206,8 +218,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 										USBAccessoryManagerMessageAddOnLib.MessageType.READY,
 										accessory)).sendToTarget();
 
-						Log.d(TAG,
-								"USBAccessoryManagerAddOnLib:enable() device ready");
+						if(debugUsbComm) {
+							logString = TAG + ": enable() device ready";
+							Log.d(TAG, logString);
+							appendLog("debugUsbComm.txt", logString, false);
+						}
 
 						return RETURN_CODES.SUCCESS;
 					} else {
@@ -225,6 +240,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 						 * having the openAccessory() request return null,
 						 * ending up in this section of code.
 						 */
+						if(debugUsbComm) {
+							logString = TAG + ": FILE_DESCRIPTOR_WOULD_NOT_OPEN";
+							Log.d(TAG, logString);
+							appendLog("debugUsbComm.txt", logString, false);
+						}
 						return RETURN_CODES.FILE_DESCRIPTOR_WOULD_NOT_OPEN;
 					}
 				} else {
@@ -259,6 +279,12 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 	public void disable(Context context) {
 		// Free up all of the required resources
 		closeAccessory();
+		
+		if(debugUsbComm) {
+			logString = TAG + ": disable()";
+			Log.d(TAG, logString);
+			appendLog("debugUsbComm.txt", logString, false);
+		}
 
 		// Unregister the broadcast receiver
 		try {
@@ -576,9 +602,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 						outputStream.write(data);
 						tries = 0;
 					} catch (IOException e) {
-						Log.d(TAG,
-								"USBAccessoryManager:write():IOException: "
-										+ e.toString());
+						if(debugUsbComm) {
+							logString = TAG + ": write():IOException: " + e.toString();
+							Log.d(TAG,logString);
+							appendLog("debugUsbComm.txt", logString, false);
+						}
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e1) {
@@ -601,6 +629,12 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 			/* get the action for this event */
 			String action = intent.getAction();
 
+			if(debugUsbComm) {
+				logString = TAG + ": New Action Received " + action;
+				Log.d(TAG, logString);
+				appendLog("debugUsbComm.txt", logString, false);
+			}			
+			
 			/*
 			 * if it corresponds to the packageName, then it was a permissions
 			 * grant request
@@ -643,8 +677,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 						readThread = new ReadThread(parcelFileDescriptor);
 						readThread.start();
 
-						Log.d(TAG,
-								"USBAccessoryManager:BroadcastReceiver()-1");
+						if(debugUsbComm) {
+							logString = TAG + ": BroadcastReceiver()-1";
+							Log.d(TAG, logString);
+							appendLog("debugUsbComm.txt", logString, false);
+						}
 						handler.obtainMessage(
 								what,
 								new USBAccessoryManagerMessageAddOnLib(
@@ -662,6 +699,13 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 				 * if it was a device attach notice, then try to open the
 				 * accessory
 				 */
+				
+				if(debugUsbComm) {
+					logString = TAG + ": ACTION_USB_ACCESSORY_ATTACHED";
+					Log.d(TAG, logString);
+					appendLog("debugUsbComm.txt", logString, false);
+				}
+				
 				UsbManager deviceManager = null;
 				UsbAccessory[] accessories = null;
 				UsbAccessory accessory = null;
@@ -694,11 +738,15 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 					readThread = new ReadThread(parcelFileDescriptor);
 					readThread.start();
 
-					Log.d(TAG, "USBAccessoryManagerAddOnLib:BroadcastReceiver()-2");
+					if(debugUsbComm) {
+						logString = TAG + ": BroadcastReceiver()-2";
+						Log.d(TAG, logString);
+						appendLog("debugUsbComm.txt", logString, false);
+					}
 					handler.obtainMessage(
 							what,
 							new USBAccessoryManagerMessageAddOnLib(
-									USBAccessoryManagerMessageAddOnLib.MessageType.READY,
+									USBAccessoryManagerMessageAddOnLib.MessageType.ATTACHED,
 									accessory)).sendToTarget();
 				} else {
 					// TODO: error. report to user?
@@ -713,7 +761,7 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 				handler.obtainMessage(
 						what,
 						new USBAccessoryManagerMessageAndroidLib(
-								USBAccessoryManagerMessageAndroidLib.MessageType.DISCONNECTED))
+								USBAccessoryManagerMessageAndroidLib.MessageType.DETACHED))
 						.sendToTarget();
 			} else if (UsbManager.EXTRA_PERMISSION_GRANTED.equals(action)) {
 
@@ -880,6 +928,11 @@ public class USBAccessoryManagerAddOnLib extends USBAccessoryManager {
 			try {
 				inputStream.close();
 			} catch (IOException e) {
+				if(debugUsbComm) {
+					logString = TAG + ": readThread cancel " + e.getMessage();
+					Log.d(TAG, logString);
+					appendLog("debugUsbComm.txt", logString, false);
+				}				
 			}
 
 			try {

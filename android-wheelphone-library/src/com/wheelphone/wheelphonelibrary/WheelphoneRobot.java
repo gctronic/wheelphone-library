@@ -29,6 +29,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 
 public class WheelphoneRobot {
@@ -39,14 +40,15 @@ public class WheelphoneRobot {
 	private final static int USBAccessoryWhat	= 0;		// type of message received
 	private static final int UPDATE_STATE		= 4;
 	private static final int APP_CONNECT		= (int)0xFE;
-	private static final int APP_DISCONNECT		= (int)0xFF;
-	private int commTimeout = 0;							// timeout indicating that nothing is received from the robot for a while
-	private int packetReceived = 1;							// flag indicating when a new packet is received from the robot; after this flag is set the next packet 
+	private static final int APP_DISCONNECT		= (int)0xFF;			
+	private int packetReceived = 0;							// flag indicating when a new packet is received from the robot; after this flag is set the next packet 
 															// containing the new commands is sent to the robot (communication is synchronized)
-    private boolean deviceAttached = false;					// flag indicating when the robot is attached
+	private int commTrials = 0;
+	private static final int MAX_TRIALS = 0;
 	private USBAccessoryManager accessoryManager;			// low-level USB communication class
 	private boolean isConnected = false;					// flag indicating if the robot is connected (and exchanging packets) with the phone
-	private int commTimeoutLimit = 20;						// based on communication timer task (repeatedly scheduled at 50 ms) => 300 ms
+	private int commTimeoutLimit = 50;						// based on communication timer task (repeatedly scheduled at 50 ms) => 2000 ms
+	private boolean debugUsbComm = false;
 	
 	// Robot state (robot => phone)
 	private int[] proxValues = {0, 0, 0, 0};				// front proximity values (higher value means nearer object)	
@@ -69,6 +71,8 @@ public class WheelphoneRobot {
 	private int isCalibratingCounter = 0;					// counter used to wait for the completion of the calibration
 	private int firmwareVersion = 0;						// robot firmware version
 	private boolean odomCalibFinish = false;
+	private boolean obstacleAvoidanceEnabled = false;
+	private boolean cliffAvoidanceEnabled = false;
 	
 	// Robot control (phone => robot)
 	private int lSpeed=0, rSpeed=0;
@@ -84,14 +88,16 @@ public class WheelphoneRobot {
 															
 	// Various
 	private static final String TAG = WheelphoneRobot.class.getName();
-	private Timer timer = new Timer();						// timer used for scheduling the communication every 50 ms: this task poll a flag indicating whether a message 
+	private Timer timer = null;						// timer used for scheduling the communication every 50 ms: this task poll a flag indicating whether a message 
 															// was received, if this is the case a new command is sent to the robot and the flag is reset.
 	private Context context;
 	private Intent activityIntent;
-	private boolean debug = false;
+	private boolean debugSensorsData = false;
+	private boolean debugLogic = false;
 	private String logString;
 	private static final double MM_S_TO_BYTE = 2.8;			// scale the speed given in mm/s to a byte sent to the microcontroller 
 	private static final int SPEED_THR = 3;					// under this value the received measured speed is set to 0 to avoid noisy measure affecting odometry
+	private int timerTaskId = 0;
 	
 	// odometry
 	private double leftDiamCoeff = 1.0;
@@ -115,17 +121,37 @@ public class WheelphoneRobot {
 	}
 	private WheelPhoneRobotListener mEventListener;
 
-	private class communicationTask extends TimerTask {          
+	private class communicationTask extends TimerTask {     
+		private int currentId;	// id of this task
+		private int timeout;	// timeout indicating that nothing is received from the robot for a while
+		
+		public communicationTask(int id) {
+			currentId = id;
+			timeout = 0;
+		}
+		
 		@Override        
-		public void run() {             
+		public void run() {        
+			if(debugUsbComm) {
+				logString = TAG + ": timerTask id = " + currentId;
+				Log.d(TAG, logString);
+				appendLog("debugUsbComm.txt", logString, false);
+			}
 			if(packetReceived==1) {
 				packetReceived=0;
 				sendCommandsToRobot();
-				commTimeout = 0;
+				if(debugUsbComm) {
+					logString = TAG + ": write update packet)";
+					Log.d(TAG, logString);
+					appendLog("debugUsbComm.txt", logString, false);
+				}
+				timeout = 0;
 				if(isCalibrating) {
 					isCalibratingCounter--;
-					if(debug) {
-						Log.d(TAG, "isCalibratingCounter = " + isCalibratingCounter);
+					if(debugLogic) {
+						logString = TAG + ": isCalibratingCounter = " + isCalibratingCounter + "\n"; 
+						Log.d(TAG, logString);
+						appendLog("debugLogic.txt", logString, false);
 					}
 					if(isCalibratingCounter == 0) {
 						isCalibrating = false;
@@ -133,9 +159,26 @@ public class WheelphoneRobot {
 					}
 				}
 			} else {
-				commTimeout++;				
-				if(commTimeout == commTimeoutLimit) {		// about "50*commTimeoutLimit" ms is passed without any answer from the robot					
-					closeUSBCommunication();				// disconnect because probably the robot was turned off
+				if(debugUsbComm) {
+					//logString = TAG + ": timeout = " + timeout + "(trials="+commTrials+")";
+					logString = TAG + ": timeout = " + timeout + "(trials="+commTrials+")";
+					Log.d(TAG, logString);
+					appendLog("debugUsbComm.txt", logString, false);
+				}	
+				timeout++;
+				if(timeout == commTimeoutLimit) {	// about "50*commTimeoutLimit" ms is passed without any answer from the robot; 50 ms is the task frequency
+					if(debugUsbComm) {
+						logString = TAG + ": commTask timer cancel id = " + currentId;
+						Log.d(TAG, logString);
+						appendLog("debugUsbComm.txt", logString, false);
+					}			
+					isConnected = false;
+					cancel();
+//					closeUSBCommunication();				// disconnect because probably the robot was turned off					
+//					if(commTrials < MAX_TRIALS) {
+//						commTrials++;
+//						startUSBCommunication();
+//					}
 				}
 			}       
 		}    
@@ -156,8 +199,10 @@ public class WheelphoneRobot {
 					
 					switch(((USBAccessoryManagerMessage)msg.obj).type) {
 						case READ:
-							if(debug) {
-								Log.d(TAG, "message: READ");
+							if(debugUsbComm) {
+								logString = TAG + ": READ";
+								Log.d(TAG, logString);
+								appendLog("debugUsbComm.txt", logString, false);
 							}
 							if(accessoryManager.isConnected() == false) {
 								return;
@@ -226,10 +271,10 @@ public class WheelphoneRobot {
 											logString += flagRobotToPhone + ",";
 											logString += leftMeasuredSpeed + "," + rightMeasuredSpeed + ",";
 											logString += odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM];
-											appendLog(logString);
+											appendLog("logFile.csv", logString, false);
 										}
 										
-								    	if(debug) {
+								    	if(debugSensorsData) {
 								    		//logString = lSpeed + "," + rSpeed + "," + leftMeasuredSpeed + "," + rightMeasuredSpeed + "," + leftDistPrev + "," + rightDistPrev + "," + leftDist + "," + rightDist + "," + startTime + "," + finalTime + "," + totalTime + "," + odometry[X_ODOM] + "," + odometry[Y_ODOM] + "," + odometry[THETA_ODOM] + "\n";		
 								    		//logString = proxValues[0] + "," + proxValues[1] + "," + proxValues[2] + "," + proxValues[3] + "," + proxValues[1] + "," + groundValues[0] + "," + groundValues[1] + "," + groundValues[2] + "," + groundValues[3] + "," + battery + "," + leftMeasuredSpeed + "," + rightMeasuredSpeed + "\n";
 								    		int j=0;
@@ -255,7 +300,7 @@ public class WheelphoneRobot {
 							    			logString += (commandPacket[16]&0xFF) + (commandPacket[17])*256 + ",";
 							    			logString += (commandPacket[18]&0xFF) + (commandPacket[19])*256 + ",";
 							    			logString += (commandPacket[20]&0xFF) + (commandPacket[21])*256;
-							    			appendLog(logString);
+							    			appendLog("sensorsData.csv", logString, false);
 								    		
 								    	}
 								    	
@@ -276,6 +321,17 @@ public class WheelphoneRobot {
 										} else {
 											odomCalibFinish = false;
 										}
+								        if((flagRobotToPhone&0x01)==0x01) {
+								            obstacleAvoidanceEnabled = true;
+								        } else {
+								            obstacleAvoidanceEnabled = false;
+								        }
+								        
+								        if((flagRobotToPhone&0x02)==0x02) {
+								            cliffAvoidanceEnabled = true;
+								        } else {
+								            cliffAvoidanceEnabled = false;
+								        }
 										if(mEventListener!=null) {
 											mEventListener.onWheelphoneUpdate(); //Notify listener of an update
 										}
@@ -288,41 +344,51 @@ public class WheelphoneRobot {
 							
 							break;
 							
-						case CONNECTED:
-							if(debug) {
-								Log.d(TAG, "message: CONNECTED");
+						case ATTACHED:
+							if(debugUsbComm) {
+								logString = TAG + ": ATTACHED";
+								Log.d(TAG, logString);
+								appendLog("debugUsbComm.txt", logString, false);
 							}
 							break;
 							
 						case READY:
-							if(debug) {
-								Log.d(TAG, "message: READY");
-							}
-					    	packetReceived = 1;
-					        timer = new Timer();                                         
-					        timer.schedule(new communicationTask(), 0, 50);
-							isConnected = true;										
+							if(debugUsbComm) {
+								logString = TAG + ": READY";
+								Log.d(TAG, logString);
+								appendLog("debugUsbComm.txt", logString, false);
+							}								
 					    	
 							String version = accessoryManager.getVersion();							
 							firmwareVersion = getFirmwareVersion(version);
 							
-					        if(debug) {
-					        	Log.d(TAG, "usb version = " + version);
-					        	Log.d(TAG, "firmware version = " + firmwareVersion);
+					        if(debugUsbComm) {
+					        	logString = TAG + ": usb version = " + version + "\n";
+					        	logString += TAG + ": firmware version = " + firmwareVersion;
+					        	Log.d(TAG, logString);
+					        	appendLog("debugUsbComm.txt", logString, false);
 					        }
 					        
 							switch(firmwareVersion){
 								case 2:
 								case 3:
-									deviceAttached = true;
 									commandPacket2[0] = (byte) APP_CONNECT;
 									commandPacket2[1] = 0;
-									if(debug) {
-										Log.d(TAG,"sending connect message.");
+									if(debugUsbComm) {
+										logString = TAG + ": sending connect message";
+										Log.d(TAG, logString);
+										appendLog("debugUsbComm.txt", logString, false);										
 									}
 									accessoryManager.write(commandPacket2);
-									if(debug) {
-										Log.d(TAG,"connect message sent.");
+									if(debugUsbComm) {
+										logString = TAG + ": write APP_CONNECT)";
+										Log.d(TAG, logString);
+										appendLog("debugUsbComm.txt", logString, false);
+									}
+									if(debugUsbComm) {
+										logString = TAG + ": connect message sent";
+										Log.d(TAG, logString);
+										appendLog("debugUsbComm.txt", logString, false);
 									}
 									break;
 								case 4:	// next protocol version...
@@ -330,13 +396,25 @@ public class WheelphoneRobot {
 								default:
 									break;
 							}
+							
+					    	packetReceived = 1;
+							isConnected = true;	
+							
 							break;
 							
-						case DISCONNECTED:
-							if(debug) {
-								Log.d(TAG, "message: DISCONNECTED");
+						case DETACHED:
+							if(debugUsbComm) {
+								logString = TAG + ": DETACHED (trials="+commTrials+")";
+								Log.d(TAG, logString);
+								appendLog("debugUsbComm.txt", logString, false);
 							}
-							endUSBCommunication();
+//							closeUSBCommunication();
+//							if(commTrials < MAX_TRIALS) {
+//								commTrials++;
+//								startUSBCommunication();
+//							}								
+							isConnected = false;
+							
 							if(mEventListener!=null) {
 								mEventListener.onWheelphoneUpdate(); //Notify listener of a disconnection
 							}							
@@ -362,10 +440,18 @@ public class WheelphoneRobot {
 	public WheelphoneRobot(Context c, Intent i) {
 		context = c;
 		activityIntent = i;
-		if(debug) {
+		if(debugLogic) {
+			logString = "";
+			appendLog("debugLogic.txt", logString, true);
+		}
+		if(debugSensorsData) {
 	    	//logString = "lSpeed,rSpeed,leftMeasuredSpeed,rightMeasuredSpeed,leftDistPrev,rightDistPrev,leftDist,rightDist,startTime,finalTime,totalTime,odom_x,odom_y,odom_theta\n";
 			//logString = "desired,measured,errorSum,controllerOut,counter\n";
-			//appendLog(logString);
+			appendLog("sensorsData.csv", logString, true);
+		}
+		if(debugUsbComm) {
+			//logString = "";
+			//appendLog("debugUsbComm.txt", logString, true);
 		}
 	}
 	
@@ -398,41 +484,75 @@ public class WheelphoneRobot {
     }    
     
     /**
-     * \brief To be inserted into the "onStart" function of the main activity class.
+     * \brief To be inserted into the "onResume" function of the main activity class.
      * \return none
      */
     public void startUSBCommunication() {
-    	if(debug) {
-    		Log.d(TAG, "startUSBCommunication");
+    	if(debugUsbComm) {
+    		logString = TAG + ": startUSBCommunication";
+    		Log.d(TAG, logString);
+    		appendLog("debugUsbComm.txt", logString, false);
     	}
     	   
+//    	if(accessoryManager.isConnected()) {	// ! this check is not working
+//    		return;
+//    	}
+//    	if(!accessoryManager.isClosed()) {	// ! this check is not working
+//    		return;
+//    	}
+    	
     	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
     		accessoryManager = new USBAccessoryManagerAndroidLib(handler, USBAccessoryWhat);
     	} else {
     		accessoryManager = new USBAccessoryManagerAddOnLib(handler, USBAccessoryWhat);
     	}
+    	
+		accessoryManager.enable(context, activityIntent);
+		
+		if(timer != null) {
+			if(debugUsbComm) {
+	    		logString = TAG + ": startUSBCommunication timer cancel id = " + (timerTaskId-1);
+	    		Log.d(TAG, logString);
+	    		appendLog("debugUsbComm.txt", logString, false);
+			}		
+			timer.cancel();
+		}
+        timer = new Timer();                                         
+        timer.schedule(new communicationTask(timerTaskId), 0, 50);
+		if(debugUsbComm) {
+    		logString = TAG + ": startUSBCommunication new timer wiht id = " + timerTaskId;
+    		Log.d(TAG, logString);
+    		appendLog("debugUsbComm.txt", logString, false);
+		}        
+		timerTaskId++;
+		
+//		if(commTrials > 0) {
+//			byte[] commandPacket2 = new byte[2];
+//			commandPacket2[0] = (byte) APP_CONNECT;
+//			commandPacket2[1] = 0;
+//			accessoryManager.write(commandPacket2);				
+//			packetReceived = 1;
+//	        timer = new Timer();                                         
+//	        timer.schedule(new communicationTask(timerTaskId), 0, 50);
+//	        timerTaskId++;
+//	        isConnected = true;	    
+//		}
    	
     }
-    
-    /**
-     * \brief To be inserted into the "onResume" function of the main activity class.
-     * \return none
-     */
-    public void resumeUSBCommunication() {
-    	if(debug) {
-    		Log.d(TAG, "resumeUSBCommunication");
-    	}
-		accessoryManager.enable(context, activityIntent);
-    }
-    
+       
     /**
      * \brief To be inserted into the "onPause" function of the main activity class.
      * \return none
-     */
-    public void pauseUSBCommunication() {
-    	if(debug) {
-    		Log.d(TAG, "pauseUSBCommunication");
-    	}
+     */    
+	public void closeUSBCommunication() {
+		if(debugUsbComm) {
+    		logString = TAG + ": closeUSBCommunication";
+    		Log.d(TAG, logString);
+    		appendLog("debugUsbComm.txt", logString, false);
+		}
+		
+		accessoryManager.disable(context);
+		
 	    switch(firmwareVersion) {
 	    	case 2:
 	    	case 3:
@@ -449,35 +569,17 @@ public class WheelphoneRobot {
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}		
 
-		accessoryManager.disable(context);
-		endUSBCommunication();    
-		
-    }
-    
-    
-	private void closeUSBCommunication() {
-		if(debug) {
-			Log.d(TAG, "closeUSBCommunication");
-		}
-    	accessoryManager.disable(context);
-    	endUSBCommunication();
-	}
-	
-	private void endUSBCommunication() {
-		if(debug) {
-			Log.d(TAG, "endUSBCommunication");
-		}
+		if(debugUsbComm) {
+    		logString = TAG + ": closeUSBCommunication timer cancel id = " + (timerTaskId-1);
+    		Log.d(TAG, logString);
+    		appendLog("debugUsbComm.txt", logString, false);
+		}		
 		timer.cancel();
+		
 		isConnected = false;
-    	if(deviceAttached == false) {
-    		return;
-    	}    	
-    	if(debug) {
-    		Log.d(TAG,"endUSBCommunication()");
-    	}    	
-    }	
+	}
 	
     /**
      * \brief Set the new left and right speeds for the robot. The new data
@@ -883,7 +985,7 @@ public class WheelphoneRobot {
     * \brief Indicate whether the robot is connected (and exchanging packets) with the phone or not.
     * \return true (if robot connected), false otherwise
     */
-    public boolean isUSBConnected() {
+    public boolean isRobotConnected() {
     	return isConnected;
     }
     
@@ -892,7 +994,7 @@ public class WheelphoneRobot {
     * \param timeout in milliseconds
     * \return none
     */
-    public void setUSBCommunicationTimeout(int ms) {
+    public void setCommunicationTimeout(int ms) {
     	commTimeoutLimit = ms/50;
     }
     
@@ -994,7 +1096,7 @@ public class WheelphoneRobot {
     public void enableDataLog() {
     	logEnabled = true;
 		logString = "prox0,prox1,prox2,prox3,proxAmb0,proxAmb1,proxAmb2,proxAmb3,ground0,ground1,ground2,ground3,groundAmb0,groundAmb1,groundAmb2,groundAmb3,battery,flagRobotToPhone,leftSpeed,rightSpeed,x,y,theta";
-		appendLog(logString);
+		appendLog("logFile.csv", logString, true);
     }
     
     
@@ -1005,11 +1107,10 @@ public class WheelphoneRobot {
     	logEnabled = false;
     }
     
-	void appendLog(String text)
+	void appendLog(String fileName, String text, boolean clearFile)
 	{       
-	   File logFile = new File("sdcard/logFile.csv");
-	   if (!logFile.exists())
-	   {
+	   File logFile = new File("sdcard/" + fileName);
+	   if (!logFile.exists()) {
 	      try
 	      {
 	         logFile.createNewFile();
@@ -1019,6 +1120,16 @@ public class WheelphoneRobot {
 	         // TODO Auto-generated catch block
 	         e.printStackTrace();
 	      }
+	   } else {
+		   if(clearFile) {
+			   logFile.delete();
+			   try {
+				   logFile.createNewFile();
+			   } catch (IOException e) {
+				   // TODO Auto-generated catch block
+				   e.printStackTrace();
+			   }
+		   }
 	   }
 	   try
 	   {
@@ -1044,7 +1155,14 @@ public class WheelphoneRobot {
 
 	public void removeWheelPhoneRobotListener() {
 		mEventListener = null;
+	}	
+	
+	public boolean isObstacleAvoidanceEnabled() {
+	    return obstacleAvoidanceEnabled;
 	}
 
+	public boolean isCliffAvoidanceEnabled() {
+	    return cliffAvoidanceEnabled;
+	}
     
 }

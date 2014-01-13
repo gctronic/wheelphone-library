@@ -50,11 +50,10 @@ public abstract class USBAccessoryManager {
 		return true;
 	}
 	
-	public void appendLog(String text)
+	void appendLog(String fileName, String text, boolean clearFile)
 	{       
-	   File logFile = new File("sdcard/logFile.csv");
-	   if (!logFile.exists())
-	   {
+	   File logFile = new File("sdcard/" + fileName);
+	   if (!logFile.exists()) {
 	      try
 	      {
 	         logFile.createNewFile();
@@ -64,6 +63,16 @@ public abstract class USBAccessoryManager {
 	         // TODO Auto-generated catch block
 	         e.printStackTrace();
 	      }
+	   } else {
+		   if(clearFile) {
+			   logFile.delete();
+			   try {
+				   logFile.createNewFile();
+			   } catch (IOException e) {
+				   // TODO Auto-generated catch block
+				   e.printStackTrace();
+			   }
+		   }
 	   }
 	   try
 	   {
