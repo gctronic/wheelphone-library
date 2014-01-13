@@ -5,8 +5,8 @@ public abstract class USBAccessoryManagerMessage {
 	public enum MessageType {
 		READ,
 		ERROR,
-		CONNECTED,
-		DISCONNECTED,
+		ATTACHED,
+		DETACHED,
 		READY
 	};
 
