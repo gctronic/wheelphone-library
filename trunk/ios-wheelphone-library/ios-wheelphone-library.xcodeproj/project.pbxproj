@@ -55,8 +55,6 @@
 		7B72120E181107B200430B1C /* dtmf7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721202181107B200430B1C /* dtmf7.wav */; };
 		7B72120F181107B200430B1C /* dtmf8.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721203181107B200430B1C /* dtmf8.wav */; };
 		7B721210181107B200430B1C /* dtmf9.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721204181107B200430B1C /* dtmf9.wav */; };
-		7B7B3DD91817D06800D8D4FC /* OpenALHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */; };
-		7B7B3DDA1817D06800D8D4FC /* OpenALHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */; };
 		7B7B3DDC1817D23A00D8D4FC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */; };
 		7B7B3DE21817FABD00D8D4FC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
@@ -128,8 +126,6 @@
 		7B721202181107B200430B1C /* dtmf7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf7.wav; sourceTree = "<group>"; };
 		7B721203181107B200430B1C /* dtmf8.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf8.wav; sourceTree = "<group>"; };
 		7B721204181107B200430B1C /* dtmf9.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmf9.wav; sourceTree = "<group>"; };
-		7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALHelper.h; sourceTree = "<group>"; };
-		7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenALHelper.m; sourceTree = "<group>"; };
 		7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -203,8 +199,6 @@
 			children = (
 				7B2D4A4318BC822400AE3014 /* MHAudioBufferPlayer.h */,
 				7B2D4A4418BC822400AE3014 /* MHAudioBufferPlayer.m */,
-				7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */,
-				7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */,
 				7B7211E2180FD5D800430B1C /* PublicUtility */,
 				7B7211DE180FD53A00430B1C /* AQRecorder.h */,
 				7B7211DF180FD53A00430B1C /* AQRecorder.mm */,
@@ -274,7 +268,6 @@
 				7B7211F0180FD5D800430B1C /* CAXException.h in Headers */,
 				7B2D4A4518BC822400AE3014 /* MHAudioBufferPlayer.h in Headers */,
 				7B7211F4180FD76900430B1C /* CADebugPrintf.h in Headers */,
-				7B7B3DD91817D06800D8D4FC /* OpenALHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +402,6 @@
 				7B7211EF180FD5D800430B1C /* CAXException.cpp in Sources */,
 				7B7211F3180FD76900430B1C /* CADebugPrintf.cpp in Sources */,
 				7B2D4A4618BC822400AE3014 /* MHAudioBufferPlayer.m in Sources */,
-				7B7B3DDA1817D06800D8D4FC /* OpenALHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
