@@ -104,12 +104,14 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
         unsigned i=0;
         short currentValue=0, prevValue=0;
         
+        if(DEBUG_ALGORITHM) {
 //      printf("sizeof short = %ld bytes\n", sizeof(short));
-//      printf("valid data size = %ld bytes\n", inBuffer->mAudioDataByteSize);
+            //printf("valid data size = %ld bytes\n", inBuffer->mAudioDataByteSize);
 //      printf("buffer size = %ld bytes\n", inBuffer->mAudioDataBytesCapacity);
 //      //if(inBuffer->mPacketDescriptionCapacity != NULL) {
 //          printf("desc capacity = %ld\n", inBuffer->mPacketDescriptionCapacity);
 //      //}
+        }
         
         if(DEBUG_ALGORITHM) {
             printf("max signal value = %d\n", aqr->maxSigValue);
@@ -139,6 +141,13 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
                 aqr->tempValues[2] = aqr->tempValues[3];
                 aqr->tempValues[3] = coreAudioBuffer[i];
             }
+            
+            /*
+            if(i%300==0) {
+                aqr->maxSigValue--;
+                aqr->minSigValue++;
+            }
+             */
             
             if(aqr->maxSigValue < coreAudioBuffer[i]) {
                 aqr->maxSigValue = coreAudioBuffer[i];

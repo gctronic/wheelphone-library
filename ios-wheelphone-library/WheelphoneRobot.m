@@ -8,7 +8,6 @@
 
 #import "WheelphoneRobot.h"
 #import "AQRecorder.h"
-#import "OpenALHelper.h"
 #import "MHAudioBufferPlayer.h"
 
 @interface WheelphoneRobot () {
@@ -110,27 +109,19 @@ int const THETA_ODOM = 2;
         audioFileURL[DTMF_STAR] = [NSURL fileURLWithPath:audioFilePath[DTMF_STAR]];
         audioFileURL[DTMF_HASH] = [NSURL fileURLWithPath:audioFilePath[DTMF_HASH]];
         commTimeout = 0;
-        commTimeoutLimit = 50;
+        commTimeoutLimit = 10;
         isConnected = false;
         stopSent = false;
-        
-        //NSString *soundPath = [[[self class] frameworkBundle] pathForResource:@"dtmf0" ofType:@"wav"];
-        //NSURL *soundURL = [NSURL fileURLWithPath:soundPath];
-        //AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &_calibrateSound);
-        
-        //[OpenALHelper loadSoundNamed:@"dtmf0" withFileName:@"dtmf0" andExtension:@"wav"];
-        //[OpenALHelper loadSoundNamed:@"dtmf5" withFileName:@"dtmf5" andExtension:@"wav"];
-        //[OpenALHelper loadSoundNamed:@"sosumi" withFileName:@"Sosumi" andExtension:@"caf"];
 
         [self initAudioCommunication];
         
         [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(updateSensorsNotification:) name: @"sensorsUpdate" object: nil];
         
-        [NSThread detachNewThreadSelector:@selector(handleCommandsToRobotTask) toTarget:self withObject:nil];
-        
         if(debug) {
             NSLog(@"Library initialized!\n");
         }
+        
+        //calculateFirstSensorUpdateTime = true;
         
     }
     
@@ -178,6 +169,7 @@ int const THETA_ODOM = 2;
     
     // Start the recorder
     recorder->StartRecord();
+    //startTime1 = [NSDate date];
     
 	player = [[MHAudioBufferPlayer alloc] initWithSampleRate:8000.0 channels:1 bitsPerChannel:16 packetsPerBuffer:NUM_PACKETS];
 	player.gain = 1.0f;
@@ -318,29 +310,15 @@ int const THETA_ODOM = 2;
         
         flagPhoneToRobotSent = 1;
         
-        flagPhoneToRobot &= ~(1 << 4);      // stop sending calibration flag after it is sent once
-        audioSeq[2] = flagPhoneToRobot;
-        
 	};
     
     [self registerForBackgroundNotifications];
     
-    /*
-    while(1) {
-        [self sendSerialAudioSequence];
-        [NSThread sleepForTimeInterval:0.100];
-        [player start];
-        if([self enableObstacleAvoidance] == 0) {
-            break;
-        } else {
-            [player stop];
-            [NSThread sleepForTimeInterval:0.350];
-        }
-    }
-    [self disableObstacleAvoidance];
-    */
+    // pass to serial mode
+    [NSThread detachNewThreadSelector:@selector(switchToSerialModeTask) toTarget:self withObject:nil];
     
-	//[player start];
+    // look for communication timeout in the background
+    [NSThread detachNewThreadSelector:@selector(commTimeoutTask) toTarget:self withObject:nil];
     
     startTime = [NSDate date];  // initialize startTime otherwise "timeIntervalSinceDate" will returns "nan" when it
                                 // will be called for calculating odometry. It is initialized here after the communication
@@ -355,27 +333,27 @@ int const THETA_ODOM = 2;
     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_STAR] error:nil];
     [testAudioPlayer prepareToPlay];
     [testAudioPlayer play];
-    [NSThread sleepForTimeInterval:0.120];
+    [NSThread sleepForTimeInterval:0.220];
     
     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_HASH] error:nil];
     [testAudioPlayer prepareToPlay];
     [testAudioPlayer play];
-    [NSThread sleepForTimeInterval:0.120];
+    [NSThread sleepForTimeInterval:0.220];
     
     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_STAR] error:nil];
     [testAudioPlayer prepareToPlay];
     [testAudioPlayer play];
-    [NSThread sleepForTimeInterval:0.120];
+    [NSThread sleepForTimeInterval:0.220];
     
     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_HASH] error:nil];
     [testAudioPlayer prepareToPlay];
     [testAudioPlayer play];
-    [NSThread sleepForTimeInterval:0.120];
+    [NSThread sleepForTimeInterval:0.220];
     
     testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
     [testAudioPlayer prepareToPlay];
     [testAudioPlayer play];
-    [NSThread sleepForTimeInterval:0.120];
+    [NSThread sleepForTimeInterval:0.220];
     
 }
 
@@ -383,583 +361,55 @@ int const THETA_ODOM = 2;
     recorder->StopRecord();
 }
 
-- (void)handleCommandsToRobotTask {
-    
-    //int counter=0;
-    //int tempSpeed=0;
-    BOOL sleepDone=false;
-    double pause=0.045; // wait 45 ms to let the command be interpreted
-    
-    //NSDate *start = [NSDate date];
-    //NSDate *stop = [NSDate date];
-    //NSTimeInterval executionTime = [stop timeIntervalSinceDate:start];
-    
-    //NSDate *start1 = [NSDate date];
-    //NSDate *stop1 = [NSDate date];
-    //NSTimeInterval executionTime1 = [stop timeIntervalSinceDate:start];
+- (void)switchToSerialModeTask {
+
+    isSwitchingToSerialMode = true;
     
     while(1) {
         
-        commTimeout++;
-        if(commTimeout == commTimeoutLimit) {		// about "50*commTimeoutLimit" ms is passed without any answer from the robot
-            isConnected = false; // robot disconnected
-        }
-        
-        //start1 = [NSDate date];
-        
-        sleepDone = false;
-        
-        /*
-         if(recorder->isFollowingEnabled()) {
-         //counter++;
-         //if(counter>=1) {
-         //    counter=0;
-         if(tempSpeed <= (125-125)) {
-         tempSpeed+=125;
-         } else {
-         tempSpeed = 125;
-         }
-         //}
-         desiredLeftSpeed = tempSpeed;
-         desiredRightSpeed = 0;
-         }
-         */
-        
-        /*
-        noStopCount++;
-        if(noStopCount >= 10) {
-            noStopCount = 10;
-            stopSent = false;
-        }
-        */
-        
-        if(lSpeed==0 && rSpeed==0 && stopSent==false) {
-            currentLeftSpeed=0;
-            currentRightSpeed=0;
-            
-            //played=false;
-            //[testAudioPlayer[DTMF_5] prepareToPlay];
-            //[testAudioPlayer[DTMF_5] play];
-            //while(!played);
-            
-            //[testAudioPlayer[DTMF_5] prepareToPlay];
-            //[testAudioPlayer[DTMF_5] play];
-            NSError * error = NULL;
-            testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:&error];
-            if(testAudioPlayer == NULL) {
-                NSLog( @"error in creating AVAudioPlayer - %@ %@", [error domain], [error localizedDescription] );
-            }
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            if(debug) {
-                printf("DTMF_5 sent\n");
-            }
-            
-            /*
-            NSError * error = nil ;
-            NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_5] options:NSDataReadingMapped error:&error ] ;
-            if (!data) {
-                continue;
-                //if (error) { @throw error ;}
-            }
-            AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-            if (!audioPlayer) {
-                continue;
-                //if ( error ) { @throw error ; }
-            }
-            [audioPlayer prepareToPlay];
-            [audioPlayer play];
-            */
-            
-            //[OpenALHelper playSoundNamed:@"dtmf5"];
-            //[OpenALHelper playSoundNamed:@"sosumi"];
-            
-            //printf("5\n");
-            [NSThread sleepForTimeInterval:pause];
-            
-            // play twice the stop to be sure it is received
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            [NSThread sleepForTimeInterval:pause];
-            if(debug) {
-                printf("DTMF_5 sent\n");
-            }
-            
-            sleepDone = true;
-            stopSent = true;
-        } else if((lSpeed*currentLeftSpeed)<0 && (rSpeed*currentRightSpeed)<0) {   // inverted direction for both motors
-            currentLeftSpeed=0;
-            currentRightSpeed=0;
-            
-            //played=false;
-            //[testAudioPlayer[DTMF_5] prepareToPlay];
-            //[testAudioPlayer[DTMF_5] play];
-            //while(!played);
-            
-            //[testAudioPlayer[DTMF_5] prepareToPlay];
-            //[testAudioPlayer[DTMF_5] play];
-            
-            testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            if(debug) {
-                printf("DTMF_5 sent\n");
-            }
-            
-            /*
-            NSError * error = nil ;
-            NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_5] options:NSDataReadingMapped error:&error ] ;
-            if (!data) {
-                continue;
-                //if (error) { @throw error ;}
-            }
-            AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-            if (!audioPlayer) {
-                continue;
-                //if ( error ) { @throw error ; }
-            }
-            [audioPlayer prepareToPlay];
-            [audioPlayer play];
-            */
-            
-            //printf("5\n");
-            [NSThread sleepForTimeInterval:pause];
-            
-            // play twice the stop to be sure it is received
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            [NSThread sleepForTimeInterval:pause];
-            if(debug) {
-                printf("DTMF_5 sent\n");
-            }
-            
-            sleepDone = true;
-            stopSent = false;
-        } /*else if((abs(avgSpeedPrev)-abs(avgSpeed))>AVG_DIFF_SPEED_TO_STOP && stopSent==false) {   // big change in average speed and stop not already just sent
-            stopSent = true;
-            noStopCount = 0;
-            
-            currentLeftSpeed=0;
-            currentRightSpeed=0;
-            
-            testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            
-            //printf("5\n");
-            [NSThread sleepForTimeInterval:pause];
-            
-            // play twice the stop to be sure it is received
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            [NSThread sleepForTimeInterval:pause];
-            
-            sleepDone = true;
-        } else if(abs(rotSpeed)>ROT_SPEED_TO_STOP && stopSent==false) {
-            stopSent = true;
-            noStopCount = 0;
-           
-            currentLeftSpeed=0;
-            currentRightSpeed=0;
-            
-            testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_5] error:nil];
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            
-            //printf("5\n");
-            [NSThread sleepForTimeInterval:pause];
-            
-            // play twice the stop to be sure it is received
-            [testAudioPlayer prepareToPlay];
-            [testAudioPlayer play];
-            [NSThread sleepForTimeInterval:pause];
-            
-            sleepDone = true;
-        }*/ else {
-            
-            int diffLeft = lSpeed-currentLeftSpeed;
-            int diffRight = rSpeed-currentRightSpeed;
-            
-            if(diffLeft>=DTMF_SPEED_STEP && diffRight>=DTMF_SPEED_STEP) {   // current speed is lower than desired for both motors
-                currentLeftSpeed+=DTMF_SPEED_STEP;
-                currentRightSpeed+=DTMF_SPEED_STEP;
-                
-                //played=false;
-                //[testAudioPlayer[DTMF_2] prepareToPlay];
-                //[testAudioPlayer[DTMF_2] play];
-                //while(!played);
-                
-                //[testAudioPlayer[DTMF_2] prepareToPlay];
-                //[testAudioPlayer[DTMF_2] play];
-                
-                testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_2] error:nil];
-                [testAudioPlayer prepareToPlay];
-                [testAudioPlayer play];
-                if(debug) {
-                    printf("DTMF_2 sent\n");
-                }
-
-                /*
-                NSError * error = nil ;
-                NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_2] options:NSDataReadingMapped error:&error ] ;
-                if (!data) {
-                    continue;
-                    //if (error) { @throw error ;}
-                }
-                AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                if (!audioPlayer) {
-                    continue;
-                    //if ( error ) { @throw error ; }
-                }
-                [audioPlayer prepareToPlay];
-                [audioPlayer play];
-                */
-                
-                //printf("2 (diffL=%d, diffR=%d)\n", diffLeft, diffRight);
-                [NSThread sleepForTimeInterval:pause];
-                
-                stopSent = false;
-                sleepDone = true;
-            } else if(diffLeft<=-DTMF_SPEED_STEP && diffRight<=-DTMF_SPEED_STEP) {    // current speed is higher than desired for both motors
-                currentLeftSpeed-=DTMF_SPEED_STEP;
-                currentRightSpeed-=DTMF_SPEED_STEP;
-                
-                //played=false;
-                //[testAudioPlayer[DTMF_8] prepareToPlay];
-                //[testAudioPlayer[DTMF_8] play];
-                //while(!played);
-                
-                //[testAudioPlayer[DTMF_8] prepareToPlay];
-                //[testAudioPlayer[DTMF_8] play];
-                
-                testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_8] error:nil];
-                [testAudioPlayer prepareToPlay];
-                [testAudioPlayer play];
-                if(debug) {
-                    printf("DTMF_8 sent\n");
-                }
-                
-                /*
-                NSError * error = nil ;
-                NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_8] options:NSDataReadingMapped error:&error ] ;
-                if (!data) {
-                    continue;
-                    //if (error) { @throw error ;}
-                }
-                AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                if (!audioPlayer) {
-                    continue;
-                    //if ( error ) { @throw error ; }
-                }
-                [audioPlayer prepareToPlay];
-                [audioPlayer play];
-                */
-                
-                //printf("8 (diffL=%d, diffR=%d)\n", diffLeft, diffRight);
-                [NSThread sleepForTimeInterval:pause];
-                
-                stopSent = false;
-                sleepDone = true;
+        [self sendSerialAudioSequence];
+        [NSThread sleepForTimeInterval:0.100];
+        [player start];
+        if([self enableCliffAvoidance] == 0) {
+            if([self disableCliffAvoidance] == 0) {
+                //printf("switched to serial mode\n");
+                break;
             } else {
-                
-                if(diffLeft>=DTMF_SPEED_STEP) { // current left speed is lower than desired
-                    currentLeftSpeed+=DTMF_SPEED_STEP;
-                    
-                    //start = [NSDate date];
-                    
-                    //AudioServicesPlaySystemSound(_fwSound);
-                    
-                    //played=false;
-                    //[testAudioPlayer[DTMF_1] prepareToPlay];
-                    //[testAudioPlayer[DTMF_1] play];
-                    //while(!played);
-                    
-                    //[testAudioPlayer[DTMF_1] prepareToPlay];
-                    //[testAudioPlayer[DTMF_1] play];
-                    
-                    testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_1] error:nil];
-                    [testAudioPlayer prepareToPlay];
-                    [testAudioPlayer play];
-                    if(debug) {
-                        printf("DTMF_1 sent\n");
-                    }
-                    
-                    /*
-                    NSError * error = nil ;
-                    NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_1] options:NSDataReadingMapped error:&error ] ;
-                    if (!data) {
-                        continue;
-                        //if (error) { @throw error ;}
-                    }
-                    AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                    if (!audioPlayer) {
-                        continue;
-                        //if ( error ) { @throw error ; }
-                    }
-                    [audioPlayer prepareToPlay];
-                    [audioPlayer play];
-                    */
-                    
-                    //stop = [NSDate date];
-                    //executionTime = [stop timeIntervalSinceDate:start];
-                    //printf("execution time 1 = %f\n", executionTime);
-                    
-                    //printf("1 (diff=%d)\n", diffLeft);
-                    
-                    //start = [NSDate date];
-                    [NSThread sleepForTimeInterval:pause];
-                    //[testAudioPlayer[DTMF_1] prepareToPlay];
-                    //stop = [NSDate date];
-                    //executionTime = [stop timeIntervalSinceDate:start];
-                    //printf("execution time 2 = %f\n", executionTime);
-                    
-                    stopSent = false;
-                    sleepDone = true;
-                } else if(diffLeft<=-DTMF_SPEED_STEP) {  // current left speed is higher than desired
-                    currentLeftSpeed-=DTMF_SPEED_STEP;
-                    
-                    //played=false;
-                    //[testAudioPlayer[DTMF_7] prepareToPlay];
-                    //[testAudioPlayer[DTMF_7] play];
-                    //while(!played);
-                    
-                    //[testAudioPlayer[DTMF_7] prepareToPlay];
-                    //[testAudioPlayer[DTMF_7] play];
-                    
-                    testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_7] error:nil];
-                    [testAudioPlayer prepareToPlay];
-                    [testAudioPlayer play];
-                    if(debug) {
-                        printf("DTMF_7 sent\n");
-                    }
-                    
-                    /*
-                    NSError * error = nil ;
-                    NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_7] options:NSDataReadingMapped error:&error ] ;
-                    if (!data) {
-                        continue;
-                        //if (error) { @throw error ;}
-                    }
-                    AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                    if (!audioPlayer) {
-                        continue;
-                        //if ( error ) { @throw error ; }
-                    }
-                    [audioPlayer prepareToPlay];
-                    [audioPlayer play];
-                     */
-                    
-                    //printf("7 (diff=%d)\n", diffLeft);
-                    [NSThread sleepForTimeInterval:pause];
-                    
-                    stopSent = false;
-                    sleepDone = true;
-                }
-                
-                if(diffRight>=DTMF_SPEED_STEP) { // current right speed is lower than desired
-                    currentRightSpeed+=DTMF_SPEED_STEP;
-                    
-                    //played=false;
-                    //[testAudioPlayer[DTMF_3] prepareToPlay];
-                    //[testAudioPlayer[DTMF_3] play];
-                    //while(!played);
-                    
-                    //[testAudioPlayer[DTMF_3] prepareToPlay];
-                    //[testAudioPlayer[DTMF_3] play];
-                    
-                    testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_3] error:nil];
-                    [testAudioPlayer prepareToPlay];
-                    [testAudioPlayer play];
-                    if(debug) {
-                        printf("DTMF_3 sent\n");
-                    }
-                    
-                    /*
-                    NSError * error = nil ;
-                    NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_3] options:NSDataReadingMapped error:&error ] ;
-                    if (!data) {
-                        continue;
-                        //if (error) { @throw error ;}
-                    }
-                    AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                    if (!audioPlayer) {
-                        continue;
-                        //if ( error ) { @throw error ; }
-                    }
-                    [audioPlayer prepareToPlay];
-                    [audioPlayer play];
-                    */
-                    
-                    //printf("3 (diff=%d)\n", diffRight);
-                    [NSThread sleepForTimeInterval:pause];
-                    
-                    stopSent = false;
-                    sleepDone = true;
-                } else if(diffRight<=-DTMF_SPEED_STEP) {
-                    currentRightSpeed-=DTMF_SPEED_STEP;
-                    
-                    //played=false;
-                    //[testAudioPlayer[DTMF_9] prepareToPlay];
-                    //[testAudioPlayer[DTMF_9] play];
-                    //while(!played);
-                    
-                    //[testAudioPlayer[DTMF_9] prepareToPlay];
-                    //[testAudioPlayer[DTMF_9] play];
-                    
-                    testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_9] error:nil];
-                    [testAudioPlayer prepareToPlay];
-                    [testAudioPlayer play];
-                    if(debug) {
-                        printf("DTMF_9 sent\n");
-                    }
-                    
-                    /*
-                    NSError * error = nil ;
-                    NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_9] options:NSDataReadingMapped error:&error ] ;
-                    if (!data) {
-                        continue;
-                        //if (error) { @throw error ;}
-                    }
-                    AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                    if (!audioPlayer) {
-                        continue;
-                        //if ( error ) { @throw error ; }
-                    }
-                    [audioPlayer prepareToPlay];
-                    [audioPlayer play];
-                    */
-                    
-                    //printf("9 (diff=%d)\n", diffRight);
-                    [NSThread sleepForTimeInterval:pause];
-                    
-                    stopSent = false;
-                    sleepDone = true;
-                }
-                
+                [player stop];
+                [NSThread sleepForTimeInterval:0.350];
             }
+        } else {
+            [player stop];
+            [NSThread sleepForTimeInterval:0.350];
         }
-        
-        //printf("des(%d,%d), curr(%d,%d), robot(%d,%d)\n", desiredLeftSpeed, desiredRightSpeed, currentLeftSpeed, currentRightSpeed, robotL, robotR);
-        
-        //}
-        
-        if(currFlagPhoneToRobot != flagPhoneToRobot) {
-            // speed control and soft acceleration are always enabled in audio communication mode
-            
-            if((currFlagPhoneToRobot&0x04) != (flagPhoneToRobot&0x04)) {    // obstacle avoidance
-                testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_STAR] error:nil];
-                [testAudioPlayer prepareToPlay];
-                [testAudioPlayer play];
-                if(debug) {
-                    printf("DTMF_STAR sent\n");
-                }
-                
-                /*
-                NSError * error = nil ;
-                NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_STAR] options:NSDataReadingMapped error:&error ] ;
-                if (!data) {
-                    continue;
-                    //if (error) { @throw error ;}
-                }
-                AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                if (!audioPlayer) {
-                    continue;
-                    //if ( error ) { @throw error ; }
-                }
-                [audioPlayer prepareToPlay];
-                [audioPlayer play];
-                */
-                
-                [NSThread sleepForTimeInterval:pause];
-                sleepDone = true;
-                if((flagPhoneToRobot&0x04) > 0) {
-                    currFlagPhoneToRobot |= (1 << 2);
-                } else {
-                    currFlagPhoneToRobot &= ~(1 << 2);
-                }
-                
-            }
-            
-            if((currFlagPhoneToRobot&0x08) != (flagPhoneToRobot&0x08)) {    // cliff avoidance
-                testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_HASH] error:nil];
-                [testAudioPlayer prepareToPlay];
-                [testAudioPlayer play];
-                if(debug) {
-                    printf("DTMF_HASH sent\n");
-                }
-                
-                /*
-                NSError * error = nil ;
-                NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_HASH] options:NSDataReadingMapped error:&error ] ;
-                if (!data) {
-                    continue;
-                    //if (error) { @throw error ;}
-                }
-                AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                if (!audioPlayer) {
-                    continue;
-                    //if ( error ) { @throw error ; }
-                }
-                [audioPlayer prepareToPlay];
-                [audioPlayer play];
-                */
-                
-                [NSThread sleepForTimeInterval:pause];
-                sleepDone = true;
-                if((flagPhoneToRobot&0x08) > 0) {
-                    currFlagPhoneToRobot |= (1 << 3);
-                } else {
-                    currFlagPhoneToRobot &= ~(1 << 3);
-                }
-                
-            }
-            
-            if((flagPhoneToRobot&0x10) > 0) {    // calibrate sensor
-                testAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileURL[DTMF_0] error:nil];
-                [testAudioPlayer prepareToPlay];
-                //[testAudioPlayer setVolume:1.0];
-                [testAudioPlayer play];
-                if(debug) {
-                    printf("DTMF_0 sent\n");
-                }
-                
-                /*
-                NSError * error = nil ;
-                NSData * data = [ NSData dataWithContentsOfFile:audioFilePath[DTMF_0] options:NSDataReadingMapped error:&error ] ;
-                if (!data) {
-                    continue;
-                    //if (error) { @throw error ;}
-                }
-                AVAudioPlayer *audioPlayer = data ? [[AVAudioPlayer alloc] initWithData:data error:&error ] : nil ;
-                if (!audioPlayer) {
-                    continue;
-                    //if ( error ) { @throw error ; }
-                }
-                [audioPlayer prepareToPlay];
-                [audioPlayer play];
-                */
-                
-                //AudioServicesPlaySystemSound(_calibrateSound);
-                
-                //[OpenALHelper playSoundNamed:@"dtmf0"];
-                
-                [NSThread sleepForTimeInterval:pause];
-                sleepDone = true;
-                flagPhoneToRobot &= ~(1 << 4);                
-            }
-        
-        }
-        
-        if(!sleepDone) {
-            [NSThread sleepForTimeInterval:0.015];   // wait at least 15 ms to avoid running continuously
-        }
-        
-        //stop1 = [NSDate date];
-        //executionTime1 = [stop1 timeIntervalSinceDate:start1];
-        //printf("total time = %f\n", executionTime1);
-        
+
     }
-    //[self performSelectorOnMainThread:@selector(makeMyProgressBarMoving) withObject:nil waitUntilDone:NO];
+    
+    isSwitchingToSerialMode = false;
+    
+}
+
+- (void) commTimeoutTask {
+    
+    while(1) {
+        if(commTimeout < commTimeoutLimit) {    // do not overflow commTimeout
+            commTimeout++;
+        }
+        if(commTimeout == commTimeoutLimit) {		// about "100*commTimeoutLimit" ms is passed without any answer from the robot
+            if(isConnected == true) {
+                isConnected = false; // robot disconnected
+                [self performSelectorOnMainThread:@selector(helperMethod) withObject:nil waitUntilDone:NO];
+                [player stop];
+                //printf("disconnected\n");
+            }
+            robotConnectedCount = 0;
+        }
+        [NSThread sleepForTimeInterval:0.100];
+    }
+}
+
+- (void) helperMethod{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WPCommStateUpdate" object:nil userInfo:nil];
     
 }
 
@@ -1078,6 +528,16 @@ void propListener(	void *                  inClientData,
     
     if ([[notification name] isEqualToString:@"sensorsUpdate"]) {
         
+        /*
+        // first sensor update takes about 1.5 seconds; this is due probably to threshold adaptation.
+        if(calculateFirstSensorUpdateTime) {
+            calculateFirstSensorUpdateTime = false;
+            finalTime1 = [NSDate date];
+            totalTime1 = [finalTime1 timeIntervalSinceDate:startTime1];
+            printf("first sensor update time=%f\n", totalTime1);
+        }
+        */
+        
         proxValues[0] = (int)currPacket[0];
         proxValues[1] = (int)currPacket[1];
         proxValues[2] = (int)currPacket[2];
@@ -1096,8 +556,10 @@ void propListener(	void *                  inClientData,
         battery = (int)currPacket[12];
         
         flagRobotToPhone = (int)currPacket[13];
-        flagRobotToPhoneReceived = 1;
-        printf("flagRobotToPhone=%d\n",flagRobotToPhone);
+        if(flagRobotToPhoneReceived < WAIT_PACKETS_FOR_UPDATE) {
+            flagRobotToPhoneReceived++;
+        }
+        //printf("flagRobotToPhone = %d\n", flagRobotToPhone);
         
         leftMeasuredSpeed = (signed int)(currPacket[14] + currPacket[15]*256);
         rightMeasuredSpeed = (signed int)(currPacket[16] + currPacket[17]*256);
@@ -1118,6 +580,8 @@ void propListener(	void *                  inClientData,
         odometry[X_ODOM] += cos(odometry[THETA_ODOM])*deltaDist;
         odometry[Y_ODOM] += sin(odometry[THETA_ODOM])*deltaDist;
         odometry[THETA_ODOM] = ((rightDist-leftDist)/wheelBase)/1000.0;	// over 1000 because rightDist and leftDist are in mm
+        
+        //printf("x=%f, y=%f, theta=%f\n", odometry[X_ODOM], odometry[Y_ODOM], odometry[THETA_ODOM]);
         
         if(logEnabled) {
             /*
@@ -1173,7 +637,19 @@ void propListener(	void *                  inClientData,
         }
         
         commTimeout = 0;
-        isConnected = true;
+        robotConnectedCount++;
+        if(robotConnectedCount >= 10) {
+            robotConnectedCount = 10;    // avoid overflow
+            if(isConnected == false) {
+                isConnected = true;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"WPCommStateUpdate" object:nil userInfo:nil];
+                if(isSwitchingToSerialMode == false) {
+                    // pass to serial mode again if the robot was disconnected for a while
+                    [NSThread detachNewThreadSelector:@selector(switchToSerialModeTask) toTarget:self withObject:nil];
+                }
+                //printf("connected\n");
+            }
+        }
         
         //Notify listener of an update
         [[NSNotificationCenter defaultCenter] postNotificationName:@"WPUpdate" object:nil userInfo:nil];
@@ -1318,7 +794,6 @@ void propListener(	void *                  inClientData,
     audioSeq[2] = flagPhoneToRobot;
 }
 
-// return 0 if no error, otherwise return 1
 - (int) enableObstacleAvoidance {
     unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot |= (1 << 2);
@@ -1326,22 +801,24 @@ void propListener(	void *                  inClientData,
     flagPhoneToRobotSent = 0;
     startTimeMs = [self getTimeMs];
     while(flagPhoneToRobotSent == 0) {
-        printf("a\n");
         currTimeMs = [self getTimeMs];
-        if((currTimeMs - startTimeMs) > 500) {
+        if((currTimeMs - startTimeMs) > 3000) {
+            //printf("timeout send\n");
             return 1;
         }
     }
-    startTimeMs = [self getTimeMs];
+    //printf("EN OA sent in %ld ms\n", currTimeMs - startTimeMs);
     flagRobotToPhoneReceived = 0;
-    while(flagRobotToPhoneReceived == 0) {
-        printf("b\n");
+    startTimeMs = [self getTimeMs];
+    while(flagRobotToPhoneReceived < WAIT_PACKETS_FOR_UPDATE) { // it takes some time to receive the updated packet back from the robot so wait to receive more packets before testing the result
         currTimeMs = [self getTimeMs];
-        if((currTimeMs - startTimeMs) > 500) {
+        if((currTimeMs - startTimeMs) > 3000) {
+            //printf("timeout recv\n");
             return 1;
         }
     }
-    printf("flagRobotToPhone = %d\n", flagRobotToPhone);
+    //printf("EN OA received in %ld ms\n", currTimeMs - startTimeMs);
+    //printf("flagRobotToPhone = %d (2)\n", flagRobotToPhone);
     if((flagRobotToPhone&0x01)==0x01) {
         return 0;
     } else {
@@ -1349,7 +826,6 @@ void propListener(	void *                  inClientData,
     }
 }
 
-// return 0 if no error, otherwise return 1
 - (int) disableObstacleAvoidance {
     unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot &= ~(1 << 2);
@@ -1358,18 +834,21 @@ void propListener(	void *                  inClientData,
     startTimeMs = [self getTimeMs];
     while(flagPhoneToRobotSent == 0) {
         currTimeMs = [self getTimeMs];
-        if((currTimeMs - startTimeMs) > 500) {
+        if((currTimeMs - startTimeMs) > 3000) {
             return 1;
         }
     }
-    startTimeMs = [self getTimeMs];
+    //printf("DIS OA sent in %ld ms\n", currTimeMs - startTimeMs);
     flagRobotToPhoneReceived = 0;
-    while(flagRobotToPhoneReceived == 0) {
+    startTimeMs = [self getTimeMs];
+    while(flagRobotToPhoneReceived < WAIT_PACKETS_FOR_UPDATE) { // it takes some time to receive the updated packet back from the robot so wait to receive more packets before testing the result
         currTimeMs = [self getTimeMs];
-        if((currTimeMs - startTimeMs) > 500) {
+        if((currTimeMs - startTimeMs) > 3000) {
             return 1;
         }
     }
+    //printf("DIS OA received in %ld ms\n", currTimeMs - startTimeMs);
+    //printf("flagRobotToPhone = %d (2)\n", flagRobotToPhone);
     if((flagRobotToPhone&0x01)==0x01) {
         return 1;
     } else {
@@ -1377,13 +856,31 @@ void propListener(	void *                  inClientData,
     }
 }
 
-// return 0 if no error, otherwise return 1
 - (int) enableCliffAvoidance {
+    unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot |= (1 << 3);
     audioSeq[2] = flagPhoneToRobot;
     flagPhoneToRobotSent = 0;
-    while(flagPhoneToRobotSent == 0);
-    while(flagRobotToPhoneReceived == 0);
+    startTimeMs = [self getTimeMs];
+    while(flagPhoneToRobotSent == 0) {
+        currTimeMs = [self getTimeMs];
+        if((currTimeMs - startTimeMs) > 3000) {
+            //printf("timeout send\n");
+            return 1;
+        }
+    }
+    //printf("EN CA sent in %ld ms\n", currTimeMs - startTimeMs);
+    flagRobotToPhoneReceived = 0;
+    startTimeMs = [self getTimeMs];
+    while(flagRobotToPhoneReceived < WAIT_PACKETS_FOR_UPDATE) {
+        currTimeMs = [self getTimeMs];
+        if((currTimeMs - startTimeMs) > 3000) {
+            //printf("timeout recv\n");
+            return 1;
+        }
+    }
+    //printf("EN CA received in %ld ms\n", currTimeMs - startTimeMs);
+    //printf("flagRobotToPhone = %d (2)\n", flagRobotToPhone);
     if((flagRobotToPhone&0x02)==0x02) {
         return 0;
     } else {
@@ -1391,13 +888,31 @@ void propListener(	void *                  inClientData,
     }
 }
 
-// return 0 if no error, otherwise return 1
 - (int) disableCliffAvoidance {
+    unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot &= ~(1 << 3);
     audioSeq[2] = flagPhoneToRobot;
     flagPhoneToRobotSent = 0;
-    while(flagPhoneToRobotSent == 0);
-    while(flagRobotToPhoneReceived == 0);
+    startTimeMs = [self getTimeMs];
+    while(flagPhoneToRobotSent == 0) {
+        currTimeMs = [self getTimeMs];
+        if((currTimeMs - startTimeMs) > 3000) {
+            //printf("timeout send\n");
+            return 1;
+        }
+    }
+    //printf("DIS CA sent in %ld ms\n", currTimeMs - startTimeMs);
+    flagRobotToPhoneReceived = 0;
+    startTimeMs = [self getTimeMs];
+    while(flagRobotToPhoneReceived  < WAIT_PACKETS_FOR_UPDATE) {
+        currTimeMs = [self getTimeMs];
+        if((currTimeMs - startTimeMs) > 3000) {
+            //printf("timeout recv\n");
+            return 1;
+        }
+    }
+    //printf("DIS CA received in %ld ms\n", currTimeMs - startTimeMs);
+    //printf("flagRobotToPhone = %d (2)\n", flagRobotToPhone);
     if((flagRobotToPhone&0x02)==0x02) {
         return 1;
     } else {
@@ -1405,22 +920,35 @@ void propListener(	void *                  inClientData,
     }
 }
 
-- (void) calibrateSensors {
-    
-    printf("calibrate sensors\n");
-    
-    //[OpenALHelper playSoundNamed:@"sosumi"];
+- (int) calibrateSensors {
+    unsigned long startTimeMs=0, currTimeMs=0;
+    //printf("calibrate sensors\n");
     
     int i=0;
     for(i=0; i<4; i++) {
         proxValuesCalibration[i] = proxValues[i];
         groundValuesCalibration[i] = groundValues[i];
     }
+    
     flagPhoneToRobot |= (1 << 4);
     audioSeq[2] = flagPhoneToRobot;
+    flagPhoneToRobotSent = 0;
+    startTimeMs = [self getTimeMs];
+    while(flagPhoneToRobotSent == 0) {
+        currTimeMs = [self getTimeMs];
+        if((currTimeMs - startTimeMs) > 3000) {
+            //printf("timeout send\n");
+            return 1;
+        }
+    }
+    flagPhoneToRobot &= ~(1 << 4);      // stop sending calibration flag after it is sent once
+    audioSeq[2] = flagPhoneToRobot;
+    
     isCalibratingCounter = 2;	// the calibration lasts about 43 ms (105(adc int)*26(adc states)*16(samples for calibration)=43680 us)
     // thus wait at least two cylces (100 ms) to be sure the calibration is done
     isCalibrating = true;
+    
+    return 0;
 }
 
 - (int) getBatteryRaw {
@@ -1615,7 +1143,7 @@ void propListener(	void *                  inClientData,
 }
 
 - (void) setCommunicationTimeout: (int) ms {
-    commTimeoutLimit = ms/50;
+    commTimeoutLimit = ms/100;
 }
 
 - (void) setMicGain: (float) value {

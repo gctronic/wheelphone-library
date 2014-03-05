@@ -32,6 +32,7 @@ int const BIT_VALUE = INT16_MAX;
 int const DATA_SIZE = 10; // 10 bits = start + 8 bit data + stop
 int const SYNC_BITS = 12; //12;               // number of bits for the sync between each packet to send to the robot
 int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BIT_500_US;
+#define WAIT_PACKETS_FOR_UPDATE 5   // number of packet to wait to be sure the flag byte returned from the robot is updated
 
 @interface WheelphoneRobot : NSObject {
     
@@ -41,8 +42,14 @@ int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BI
     NSURL *audioFileURL[12];
     int commTimeout;
     int commTimeoutLimit;		// based on "handleCommandsToRobot" task (repeatedly scheduled at about 50 ms)
-    BOOL isConnected;					// flag indicating if the robot is connected (and exchanging packets) with the phone
+    int robotConnectedCount;    // before saying the robot is connected we need to receive many consecutive packets
+                                // without any communication timeout. This is to avoid thinking we are connected to the
+                                // robot when it is instead turned off but some messages are interpreted as data anyway
+                                // (like when the robot is turned off and the app is started, in this case the threshold
+                                // isn't still adapted to the real audio signal coming from the robot).
+    BOOL isConnected;			// flag indicating if the robot is connected (and exchanging packets) with the phone
     BOOL stopSent;
+    BOOL isSwitchingToSerialMode;   // flag indicating if the phone is trying to pass to serial mode
     
 	// ROBOT STATE (robot => phone)
 	int proxValues[4];                  // front proximity values (higher value means nearer object)
@@ -98,11 +105,13 @@ int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BI
 	double deltaDist;
     NSDate *startTime, *finalTime;
     NSTimeInterval totalTime;
-    //double totalTime;
 	BOOL logEnabled;
+    BOOL switchingToSerialMode;
     
     // TESTING
-    //SystemSoundID _calibrateSound;
+    //NSDate *startTime1, *finalTime1;
+    //NSTimeInterval totalTime1;
+    //BOOL calculateFirstSensorUpdateTime;
     
 }
 
@@ -196,33 +205,33 @@ int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BI
 
 /**
  * \brief Enable obstacle avoidance onboard.
- * \return none
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
 - (int) enableObstacleAvoidance;
 
 /**
  * \brief Disable obstacle avoidance onboard.
- * \return none
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
 - (int) disableObstacleAvoidance;
 
 /**
  * \brief Enable cliff avoidance onboard; when a cliff is detected the robot is stopped until this flag is reset.
- * \return none
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
 - (int) enableCliffAvoidance;
 
 /**
  * \brief Disable cliff avoidance onboard.
- * \return none
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
 - (int) disableCliffAvoidance;
 
 /**
  * \brief Start the calibration of all the sensors. Use "isCalibrating" to know when the calibration is done.
- * \return none
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
-- (void) calibrateSensors;
+- (int) calibrateSensors;
 
 /**
  * \brief Returns the sampled value of the battery.
