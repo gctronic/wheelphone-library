@@ -23,6 +23,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		7B2D4A4518BC822400AE3014 /* MHAudioBufferPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2D4A4318BC822400AE3014 /* MHAudioBufferPlayer.h */; };
+		7B2D4A4618BC822400AE3014 /* MHAudioBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2D4A4418BC822400AE3014 /* MHAudioBufferPlayer.m */; };
 		7B721190180FA53500430B1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B72118F180FA53500430B1C /* Foundation.framework */; };
 		7B721195180FA53500430B1C /* ios_wheelphone_library.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7B721194180FA53500430B1C /* ios_wheelphone_library.h */; };
 		7B72119E180FA5B300430B1C /* ios_wheelphone_library.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B721194180FA53500430B1C /* ios_wheelphone_library.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -90,6 +92,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B2D4A4318BC822400AE3014 /* MHAudioBufferPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAudioBufferPlayer.h; sourceTree = "<group>"; };
+		7B2D4A4418BC822400AE3014 /* MHAudioBufferPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAudioBufferPlayer.m; sourceTree = "<group>"; };
 		7B72118C180FA53500430B1C /* libios-wheelphone-library.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libios-wheelphone-library.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B72118F180FA53500430B1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7B721193180FA53500430B1C /* ios-wheelphone-library-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ios-wheelphone-library-Prefix.pch"; sourceTree = "<group>"; };
@@ -127,7 +131,6 @@
 		7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenALHelper.h; sourceTree = "<group>"; };
 		7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenALHelper.m; sourceTree = "<group>"; };
 		7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		7B7B3DDF1817F62E00D8D4FC /* Sosumi.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Sosumi.caf; sourceTree = "<group>"; };
 		7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -156,7 +159,6 @@
 		7B721183180FA53500430B1C = {
 			isa = PBXGroup;
 			children = (
-				7B7B3DDF1817F62E00D8D4FC /* Sosumi.caf */,
 				7B7211F9181107B100430B1C /* dtmf_hash.wav */,
 				7B7211FA181107B100430B1C /* dtmf_star.wav */,
 				7B7211FB181107B100430B1C /* dtmf0.wav */,
@@ -199,6 +201,8 @@
 		7B721191180FA53500430B1C /* ios-wheelphone-library */ = {
 			isa = PBXGroup;
 			children = (
+				7B2D4A4318BC822400AE3014 /* MHAudioBufferPlayer.h */,
+				7B2D4A4418BC822400AE3014 /* MHAudioBufferPlayer.m */,
 				7B7B3DD71817D06800D8D4FC /* OpenALHelper.h */,
 				7B7B3DD81817D06800D8D4FC /* OpenALHelper.m */,
 				7B7211E2180FD5D800430B1C /* PublicUtility */,
@@ -268,6 +272,7 @@
 				7B7211EC180FD5D800430B1C /* CAMath.h in Headers */,
 				7B7211EE180FD5D800430B1C /* CAStreamBasicDescription.h in Headers */,
 				7B7211F0180FD5D800430B1C /* CAXException.h in Headers */,
+				7B2D4A4518BC822400AE3014 /* MHAudioBufferPlayer.h in Headers */,
 				7B7211F4180FD76900430B1C /* CADebugPrintf.h in Headers */,
 				7B7B3DD91817D06800D8D4FC /* OpenALHelper.h in Headers */,
 			);
@@ -403,6 +408,7 @@
 				7B7211ED180FD5D800430B1C /* CAStreamBasicDescription.cpp in Sources */,
 				7B7211EF180FD5D800430B1C /* CAXException.cpp in Sources */,
 				7B7211F3180FD76900430B1C /* CADebugPrintf.cpp in Sources */,
+				7B2D4A4618BC822400AE3014 /* MHAudioBufferPlayer.m in Sources */,
 				7B7B3DDA1817D06800D8D4FC /* OpenALHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

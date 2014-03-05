@@ -11,6 +11,27 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <OpenAl/al.h>
 #import <OpenAl/alc.h>
+#include <sys/time.h>
+
+int const AUDIO_SEND_START = 0;
+int const AUDIO_SEND_DATA = 1;
+int const AUDIO_SEND_PARITY = 2;
+int const AUDIO_SEND_STOP = 3;
+int const AUDIO_SEND_SYNC_PAUSE = 4;
+int const SENDING_START = 5;
+int const SENDING_DATA = 6;
+int const SENDING_STOP = 7;
+int const SENDING_SYNC = 8;
+int const SENDING_PARITY = 9;
+int const AUDIO_SEND_CHECKSUM = 10;
+int const SENDING_CHECKSUM = 11;
+#define AUDIO_SEQ_NUM_BYTES 4   // number of bytes in the packet from phone to robot (left, right, flags, checksum)
+int const SAMPLES_PER_BIT_500_US = 4;   // given a desired bitrate of 2 KHz (500 us = bit length), then with a
+// sampling rate of 8000 we get 8000/2000 = 4 samples per bit
+int const BIT_VALUE = INT16_MAX;
+int const DATA_SIZE = 10; // 10 bits = start + 8 bit data + stop
+int const SYNC_BITS = 12; //12;               // number of bits for the sync between each packet to send to the robot
+int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BIT_500_US;
 
 @interface WheelphoneRobot : NSObject {
     
@@ -56,6 +77,12 @@
                                         // others bits not used
     char currFlagPhoneToRobot;
     int noStopCount;
+    int audioState;
+    int16_t audioSeq[AUDIO_SEQ_NUM_BYTES];  // data to be sent to the robot in "serial audio" mode
+    int audioSeqIndex;                      // index of the data to be sent to the robot in "serial audio" mode
+    int checkSum;
+    char flagPhoneToRobotSent;
+    char flagRobotToPhoneReceived;
     
 	// VARIOUS
 	BOOL debug;
@@ -71,6 +98,7 @@
 	double deltaDist;
     NSDate *startTime, *finalTime;
     NSTimeInterval totalTime;
+    //double totalTime;
 	BOOL logEnabled;
     
     // TESTING
@@ -170,25 +198,25 @@
  * \brief Enable obstacle avoidance onboard.
  * \return none
  */
-- (void) enableObstacleAvoidance;
+- (int) enableObstacleAvoidance;
 
 /**
  * \brief Disable obstacle avoidance onboard.
  * \return none
  */
-- (void) disableObstacleAvoidance;
+- (int) disableObstacleAvoidance;
 
 /**
  * \brief Enable cliff avoidance onboard; when a cliff is detected the robot is stopped until this flag is reset.
  * \return none
  */
-- (void) enableCliffAvoidance;
+- (int) enableCliffAvoidance;
 
 /**
  * \brief Disable cliff avoidance onboard.
  * \return none
  */
-- (void) disableCliffAvoidance;
+- (int) disableCliffAvoidance;
 
 /**
  * \brief Start the calibration of all the sensors. Use "isCalibrating" to know when the calibration is done.
@@ -405,8 +433,8 @@
  */
 - (void) setCommunicationTimeout: (int) ms;
 
-- (BOOL) isObstacleAvoidanceEnabled;
-- (BOOL) isCliffAvoidanceEnabled;
+- (void) setMicGain: (float) value;
 
+- (unsigned long) getTimeMs;
 
 @end
