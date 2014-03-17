@@ -205,27 +205,63 @@ int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BI
 
 /**
  * \brief Enable obstacle avoidance onboard.
- * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
-- (int) enableObstacleAvoidance;
+- (void) enableObstacleAvoidance;
 
 /**
  * \brief Disable obstacle avoidance onboard.
- * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
-- (int) disableObstacleAvoidance;
+- (void) disableObstacleAvoidance;
 
 /**
  * \brief Enable cliff avoidance onboard; when a cliff is detected the robot is stopped until this flag is reset.
- * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
-- (int) enableCliffAvoidance;
+- (void) enableCliffAvoidance;
 
 /**
  * \brief Disable cliff avoidance onboard.
+ */
+- (void) disableCliffAvoidance;
+
+/**
+ * \brief Enable obstacle avoidance onboard.
+ * It is a blocking function, this means that it waits for the robot to send back its flag settings and check if
+ * this value corresponds to the one sent to it.
+ * It is used at the initialization to pass from DTMF to "serial audio" mode; the user should use 
+ * "enableObstacleAvoidance" instead.
  * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
  */
-- (int) disableCliffAvoidance;
+- (int) enableObstacleAvoidanceBlocking;
+
+/**
+ * \brief Disable obstacle avoidance onboard.
+ * It is a blocking function, this means that it waits for the robot to send back its flag settings and check if
+ * this value corresponds to the one sent to it.
+ * It is used at the initialization to pass from DTMF to "serial audio" mode; the user should use 
+ * "disableObstacleAvoidance" instead.
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
+ */
+- (int) disableObstacleAvoidanceBlocking;
+
+/**
+ * \brief Enable cliff avoidance onboard; when a cliff is detected the robot is stopped until this flag is reset.
+ * It is a blocking function, this means that it waits for the robot to send back its flag settings and check if 
+ * this value corresponds to the one sent to it.
+ * It is used at the initialization to pass from DTMF to "serial audio" mode; the user should use 
+ * "enableCliffAvoidance" instead.
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
+ */
+- (int) enableCliffAvoidanceBlocking;
+
+/**
+ * \brief Disable cliff avoidance onboard.
+ * It is a blocking function, this means that it waits for the robot to send back its flag settings and check if
+ * this value corresponds to the one sent to it.
+ * It is used at the initialization to pass from DTMF to "serial audio" mode; the user should use 
+ * "disableCliffAvoidance" instead.
+ * \return 0 if no error, otherwise return 1 when the flag cannot be set on the robot
+ */
+- (int) disableCliffAvoidanceBlocking;
 
 /**
  * \brief Start the calibration of all the sensors. Use "isCalibrating" to know when the calibration is done.
