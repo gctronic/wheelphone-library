@@ -370,8 +370,8 @@ int const THETA_ODOM = 2;
         [self sendSerialAudioSequence];
         [NSThread sleepForTimeInterval:0.100];
         [player start];
-        if([self enableCliffAvoidance] == 0) {
-            if([self disableCliffAvoidance] == 0) {
+        if([self enableCliffAvoidanceBlocking] == 0) {
+            if([self disableCliffAvoidanceBlocking] == 0) {
                 //printf("switched to serial mode\n");
                 break;
             } else {
@@ -794,7 +794,28 @@ void propListener(	void *                  inClientData,
     audioSeq[2] = flagPhoneToRobot;
 }
 
-- (int) enableObstacleAvoidance {
+- (void) enableObstacleAvoidance {
+    flagPhoneToRobot |= (1 << 2);
+    audioSeq[2] = flagPhoneToRobot;
+}
+
+- (void) disableObstacleAvoidance {
+    flagPhoneToRobot &= ~(1 << 2);
+    audioSeq[2] = flagPhoneToRobot;
+}
+
+- (void) enableCliffAvoidance {
+    flagPhoneToRobot |= (1 << 3);
+    audioSeq[2] = flagPhoneToRobot;
+}
+
+- (void) disableCliffAvoidance {
+    flagPhoneToRobot &= ~(1 << 3);
+    audioSeq[2] = flagPhoneToRobot;
+}
+
+
+- (int) enableObstacleAvoidanceBlocking {
     unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot |= (1 << 2);
     audioSeq[2] = flagPhoneToRobot;
@@ -826,7 +847,7 @@ void propListener(	void *                  inClientData,
     }
 }
 
-- (int) disableObstacleAvoidance {
+- (int) disableObstacleAvoidanceBlocking {
     unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot &= ~(1 << 2);
     audioSeq[2] = flagPhoneToRobot;
@@ -856,7 +877,7 @@ void propListener(	void *                  inClientData,
     }
 }
 
-- (int) enableCliffAvoidance {
+- (int) enableCliffAvoidanceBlocking {
     unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot |= (1 << 3);
     audioSeq[2] = flagPhoneToRobot;
@@ -888,7 +909,7 @@ void propListener(	void *                  inClientData,
     }
 }
 
-- (int) disableCliffAvoidance {
+- (int) disableCliffAvoidanceBlocking {
     unsigned long startTimeMs=0, currTimeMs=0;
     flagPhoneToRobot &= ~(1 << 3);
     audioSeq[2] = flagPhoneToRobot;
