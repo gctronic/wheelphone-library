@@ -5,39 +5,39 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>F5BDF826-5F26-4B3C-AE52-29BB6C2901C8</string>
+	<string>1B518823-7232-47EE-9EA5-5C74B6EE1939</string>
 	<key>IDESourceControlProjectName</key>
 	<string>ios-wheelphone-library</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>E9EFE5FB-66B2-4DF0-BDFA-33D7D3A3DCD2</key>
-		<string>https://wheelphone-library.googlecode.com/svn/trunk/ios-wheelphone-library</string>
+		<key>e028181a-ed58-77f4-b233-b9f16659f26b++1272</key>
+		<string>https://stefano%40gctronic.com@wheelphone-library.googlecode.com/svn/trunk/ios-wheelphone-library</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ios-wheelphone-library.xcodeproj/project.xcworkspace</string>
+	<string>ios-wheelphone-library.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>E9EFE5FB-66B2-4DF0-BDFA-33D7D3A3DCD2</key>
+		<key>e028181a-ed58-77f4-b233-b9f16659f26b++1272</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
-		<key>E9EFE5FB-66B2-4DF0-BDFA-33D7D3A3DCD2</key>
-		<string>https://gctronic.com@wheelphone-library.googlecode.com/svn</string>
+		<key>e028181a-ed58-77f4-b233-b9f16659f26b++1272</key>
+		<string>https://stefano%40gctronic.com@wheelphone-library.googlecode.com/svn</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://gctronic.com@wheelphone-library.googlecode.com/svn/trunk/ios-wheelphone-library/ios-wheelphone-library.xcodeproj</string>
+	<string>https://stefano%40gctronic.com@wheelphone-library.googlecode.com/svn/trunk/ios-wheelphone-library/ios-wheelphone-library.xcodeproj</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>E9EFE5FB-66B2-4DF0-BDFA-33D7D3A3DCD2</string>
+	<string>e028181a-ed58-77f4-b233-b9f16659f26b++1272</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.subversion</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>E9EFE5FB-66B2-4DF0-BDFA-33D7D3A3DCD2</string>
+			<string>e028181a-ed58-77f4-b233-b9f16659f26b++1272</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ios-wheelphone-library</string>
 		</dict>

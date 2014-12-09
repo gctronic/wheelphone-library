@@ -77,6 +77,7 @@ class AQRecorder {
 		void StopRecord();		
 		Boolean IsRunning() const { return mIsRunning; }
         void getPacketData(UInt8* arr);
+        float getPacketVolume();
     
 		UInt64 startTime;
         SInt64 iChange;
@@ -101,6 +102,7 @@ class AQRecorder {
         int maxSigValue;
         int minSigValue;
         int peakThreshold;
+        float packetVolume;
     
 	private:
 		AudioQueueRef mQueue;
