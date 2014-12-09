@@ -525,6 +525,7 @@ void propListener(	void *                  inClientData,
     
     UInt8 currPacket[18]={0};
     recorder->getPacketData(currPacket);
+    soundVolume = recorder->getPacketVolume();
     
     if ([[notification name] isEqualToString:@"sensorsUpdate"]) {
         
@@ -1188,6 +1189,10 @@ void propListener(	void *                  inClientData,
     struct timeval time;
     gettimeofday(&time, NULL);
     return (time.tv_sec*1000) + (time.tv_usec/1000);
+}
+
+- (float) getVolume {
+    return soundVolume;
 }
 
 @end

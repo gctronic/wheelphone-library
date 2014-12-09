@@ -304,6 +304,11 @@ void AQRecorder::MyInputBufferHandler(	void *								inUserData,
         } // end for
         
         
+        aqr->packetVolume = ((float)aqr->maxSigValue)/32767.0;
+        //printf("max value = %d\n", aqr->maxSigValue);
+        //printf("min value = %d\n", aqr->minSigValue);
+        //printf("packet volume = %f\n", aqr->packetVolume);
+        
 //        printf("data size = %ld\n", inBuffer->mAudioDataByteSize/2);
 //        printf("iChange=%lld, iStart=%lld\n", aqr->iChange, aqr->iStart);        
         aqr->iChange -= inBuffer->mAudioDataByteSize/2;
@@ -454,6 +459,8 @@ void AQRecorder::getPacketData(UInt8* arr) {
     }
 }
 
-
+float AQRecorder::getPacketVolume() {
+    return packetVolume;
+}
 
 

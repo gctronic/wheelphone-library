@@ -13,25 +13,25 @@
 #import <OpenAl/alc.h>
 #include <sys/time.h>
 
-int const AUDIO_SEND_START = 0;
-int const AUDIO_SEND_DATA = 1;
-int const AUDIO_SEND_PARITY = 2;
-int const AUDIO_SEND_STOP = 3;
-int const AUDIO_SEND_SYNC_PAUSE = 4;
-int const SENDING_START = 5;
-int const SENDING_DATA = 6;
-int const SENDING_STOP = 7;
-int const SENDING_SYNC = 8;
-int const SENDING_PARITY = 9;
-int const AUDIO_SEND_CHECKSUM = 10;
-int const SENDING_CHECKSUM = 11;
+#define AUDIO_SEND_START 0
+#define AUDIO_SEND_DATA 1
+#define AUDIO_SEND_PARITY 2
+#define AUDIO_SEND_STOP 3
+#define AUDIO_SEND_SYNC_PAUSE 4
+#define SENDING_START 5
+#define SENDING_DATA 6
+#define SENDING_STOP 7
+#define SENDING_SYNC 8
+#define SENDING_PARITY 9
+#define AUDIO_SEND_CHECKSUM 10
+#define SENDING_CHECKSUM 11
 #define AUDIO_SEQ_NUM_BYTES 4   // number of bytes in the packet from phone to robot (left, right, flags, checksum)
-int const SAMPLES_PER_BIT_500_US = 4;   // given a desired bitrate of 2 KHz (500 us = bit length), then with a
+#define SAMPLES_PER_BIT_500_US 4   // given a desired bitrate of 2 KHz (500 us = bit length), then with a
 // sampling rate of 8000 we get 8000/2000 = 4 samples per bit
-int const BIT_VALUE = INT16_MAX;
-int const DATA_SIZE = 10; // 10 bits = start + 8 bit data + stop
-int const SYNC_BITS = 12; //12;               // number of bits for the sync between each packet to send to the robot
-int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BIT_500_US;
+#define BIT_VALUE (INT16_MAX)
+#define DATA_SIZE 10 // 10 bits = start + 8 bit data + stop
+#define SYNC_BITS 12 //12;               // number of bits for the sync between each packet to send to the robot
+#define NUM_PACKETS ((DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BIT_500_US)
 #define WAIT_PACKETS_FOR_UPDATE 5   // number of packet to wait to be sure the flag byte returned from the robot is updated
 
 @interface WheelphoneRobot : NSObject {
@@ -50,6 +50,7 @@ int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BI
     BOOL isConnected;			// flag indicating if the robot is connected (and exchanging packets) with the phone
     BOOL stopSent;
     BOOL isSwitchingToSerialMode;   // flag indicating if the phone is trying to pass to serial mode
+    float soundVolume;
     
 	// ROBOT STATE (robot => phone)
 	int proxValues[4];                  // front proximity values (higher value means nearer object)
@@ -479,6 +480,8 @@ int const NUM_PACKETS = (DATA_SIZE*AUDIO_SEQ_NUM_BYTES+SYNC_BITS)*SAMPLES_PER_BI
 - (void) setCommunicationTimeout: (int) ms;
 
 - (void) setMicGain: (float) value;
+
+- (float) getVolume;
 
 - (unsigned long) getTimeMs;
 
