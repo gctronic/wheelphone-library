@@ -54,9 +54,9 @@
 		7B72120D181107B200430B1C /* dtmf6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721201181107B100430B1C /* dtmf6.wav */; };
 		7B72120E181107B200430B1C /* dtmf7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721202181107B200430B1C /* dtmf7.wav */; };
 		7B72120F181107B200430B1C /* dtmf8.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721203181107B200430B1C /* dtmf8.wav */; };
-		7B721210181107B200430B1C /* dtmf9.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721204181107B200430B1C /* dtmf9.wav */; };
 		7B7B3DDC1817D23A00D8D4FC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DDB1817D23A00D8D4FC /* OpenAL.framework */; };
 		7B7B3DE21817FABD00D8D4FC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B7B3DE11817FABD00D8D4FC /* AudioToolbox.framework */; };
+		7BE9F77F1E9FA6FE001493E4 /* dtmf9.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7B721204181107B200430B1C /* dtmf9.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -355,7 +355,7 @@
 				7B72120D181107B200430B1C /* dtmf6.wav in Resources */,
 				7B72120E181107B200430B1C /* dtmf7.wav in Resources */,
 				7B72120F181107B200430B1C /* dtmf8.wav in Resources */,
-				7B721210181107B200430B1C /* dtmf9.wav in Resources */,
+				7BE9F77F1E9FA6FE001493E4 /* dtmf9.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,7 +464,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -488,7 +488,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -557,6 +557,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "ios-wheelphone-library";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -573,6 +574,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "ios-wheelphone-library";
+				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
